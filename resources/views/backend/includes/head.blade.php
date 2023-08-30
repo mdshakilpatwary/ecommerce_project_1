@@ -9,6 +9,10 @@
   <title>Admin Dashboard</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/app.min.css">
+  <!-- table CSS -->
+  
+  <link rel="stylesheet" href="{{asset('backend')}}/assets/bundles/datatables/datatables.min.css">
+  <link rel="stylesheet" href="{{asset('backend')}}/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/style.css">
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/components.css">

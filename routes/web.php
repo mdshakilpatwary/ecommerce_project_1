@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/create/catagory', 'index')->name('create.catagory');
         Route::post('/store/catagory', 'store')->name('store.catagory');
+        Route::get('/show/catagory', 'show')->name('show.catagory');
     });
 
 });

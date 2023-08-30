@@ -40,7 +40,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Category</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="{{route('create.catagory')}}">Add Category</a></li>
-                <li><a class="nav-link" href="badge.html">Manage Category</a></li>
+                <li><a class="nav-link" href="{{route('show.catagory')}}">Manage Category</a></li>
               </ul>
             </li>
             <li class="dropdown">

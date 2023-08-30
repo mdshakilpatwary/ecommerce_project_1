@@ -4,17 +4,26 @@
 <div class="row mt-2">
 @if(session('success'))
 
-<div class="container py-5">
-<div class="alert alert-warning alert-dismissible fade show alertsuccess" role="alert">
-  <strong>Success</strong> {{ session('success')}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container">
+<div class="alert alert-success alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        {{ session('success')}}
+                      </div>
+ </div>
 </div>
-
 @elseif(session('error'))
-<div class="container py-5">
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Success</strong> {{ session('error')}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container">
+<div class="alert alert-success alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        {{ session('error')}}
+                      </div>
+ </div>
 </div>
 
 @endif
@@ -26,6 +35,9 @@
             <div class="form-group ">
                 <label for="cat_name">Category Name</label>
                 <input type="text" name="cat_name" class="form-control" id="">
+                @error('cat_name')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="cat_name">Category Name</label>

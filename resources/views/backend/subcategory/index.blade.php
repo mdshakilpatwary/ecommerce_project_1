@@ -27,23 +27,34 @@
 </div>
 
 @endif
-    <h2>Add your category here </h2>
+    <h2>Add your sub category here </h2>
     <div class="col-md-6 offset-md-3 bg-info rounded py-3">
         
-        <form action="{{route('update.catagory',$cat_data->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('store.subcatagory')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group ">
-                <label for="cat_name">Category Name</label>
-                <input type="text" name="cat_name" class="form-control" id="" value="{{$cat_data->cat_name}}">
-                @error('cat_name')
+                <label for="select_category">Select Category Name</label>
+                <select name="select_category" id="" class="form-control select-form">
+                  <option value="" class="disable selected">---Select Category</option>
+                  @foreach($categories as $category)
+                  <option value="{{$category->id}}">{{$category->cat_name}}</option>
+
+                  @endforeach
+                </select>
+                @error('select_category')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group clearfix">
-                <label for="cat_name">Category Name</label>
-                <input type="file" name="cat_image" class="form-control mb-3 fileimage" id="">
-
-                <img src="{{empty($category->cat_image)? asset('uploads/category/empty.png') : asset('uploads/category/'.$category->cat_image) }}" width="200" class="rounded changeImage" alt="">
+            <div class="form-group ">
+                <label for="subcat_name">Sub Category Name</label>
+                <input type="text" name="subcat_name" class="form-control" id="">
+                @error('subcat_name')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="subcat_name">SUb Category Name</label>
+                <input type="file" name="subcat_image" class="form-control" id="">
             </div>
             <button class="btn btn-lg btn-success">Submit</button>
         </form>

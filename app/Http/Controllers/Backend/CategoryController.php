@@ -21,7 +21,7 @@ class CategoryController extends Controller
             
         ],
         [
-            'cat_name.required' => 'Category is required',
+            'cat_name.required' => 'Category name is required',
            
         ]);
     
@@ -31,8 +31,11 @@ class CategoryController extends Controller
         if($request->file('cat_image')){
             $image = $request->file('cat_image');
             $customname='cat_'.rand().'.'. $image->getClientOriginalExtension();
-            $image->move('uploads/category', $customname);
             $category->cat_image = $customname;
+            if($category->save()){
+                $image->move('uploads/category', $customname);
+
+            }
         }
 
         $insert = $category->save();
@@ -93,6 +96,17 @@ class CategoryController extends Controller
         else{
             return redirect()->back()->with('error', 'Opps! data not Update');
 
+        }
+    }
+    function changestatus($id){
+        $status =Category::find($id);
+        if($status->cat_status == 1){
+           $status->update(['cat_status' => 0]);
+           return redirect()->back()->with('success', 'Category status successfully change');
+        }
+        else{
+            $status->update(['cat_status' => 1]);
+            return redirect()->back()->with('success', 'Category status successfully change');
         }
     }
 

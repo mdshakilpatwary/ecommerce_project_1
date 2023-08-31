@@ -6,9 +6,34 @@
 
 
 <div class="row">
-    <h2>All Category Hare</h2>
+    <h2>All Category Here</h2>
     <div class="col-md-10 offset-md-1">
     <div class="card-body">
+@if(session('success'))
+
+<div class="container alertsuccess">
+<div class="alert alert-success alert-dismissible show fade '">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        {{ session('success')}}
+                      </div>
+ </div>
+</div>
+@elseif(session('error'))
+<div class="container alerterror'">
+<div class="alert alert-success alert-dismissible show fade ">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        {{ session('error')}}
+                      </div>
+ </div>
+</div>
+
+@endif
                     <div class="table-responsive">
                    
                         <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
@@ -27,16 +52,19 @@
                         <tbody>
                             
                           
-                        
                             @if(count($cat_data) > 0)
-                            
+                            @php
+                          $sl = 1;
+                          @endphp
                             @foreach($cat_data as $category)
                             <tr role="row" class="even">
                             <td class="">
-                              {{ $category->id }}
+                              {{$sl++}}
                             </td>
                             <td>{{$category->cat_name}}</td>
-                            <td><img src="{{asset('uploads/category/'.$category->cat_image)}}" alt="" width="50" height="50" ></td>
+                            <td>
+                              <img src="{{empty($category->cat_image)? asset('uploads/category/avater.png') : asset('uploads/category/'.$category->cat_image) }}" alt="" width="50" height="50" >
+                            </td>
                            
                             
                             
@@ -44,12 +72,14 @@
                               <div class="badge badge-success badge-shadow">{{($category->cat_status == '1')? 'active' : 'inactive';}}</div>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                <a href="#" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                <a href="{{route('destroy.catagory', $category->id)}}" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></a>
+                                <a href="{{route('edit.catagory', $category->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn btn-sm btn-success text-white"><i class="fa fa-eye"></i></a>
                             </td>
                             </tr>
+                            
                             @endforeach
+                            
                             @else
                             <tr>
                                 <td colspan="5"><p class="bg-danger text-center"> No Data </p></td>

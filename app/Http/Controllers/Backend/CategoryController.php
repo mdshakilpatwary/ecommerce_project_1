@@ -30,7 +30,7 @@ class CategoryController extends Controller
         $category->cat_name = $request->cat_name;
         if($request->file('cat_image')){
             $image = $request->file('cat_image');
-            $customname='cat'.rand().'.'. $image->getClientOriginalExtension();
+            $customname='cat_'.rand().'.'. $image->getClientOriginalExtension();
             $image->move('uploads/category', $customname);
             $category->cat_image = $customname;
         }
@@ -51,4 +51,49 @@ class CategoryController extends Controller
         $cat_data =Category::all();
         return view('backend.category.manage',compact('cat_data'));
     }
+    function destroy($id){
+        $cat_destroy =Category::find($id);
+        if(File::exists(public_path('uploads/category/' .$cat_destroy->cat_image))){
+            File::delete(public_path('uploads/category/' .$cat_destroy->cat_image));
+        }
+        $msg = $cat_destroy->delete();
+        if($msg){
+            return redirect()->back()->with('success', 'Data delete successfully');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'opps! Data not delete');
+
+        }   
+    }
+    function edit($id){
+        $cat_data =Category::find($id);
+        return view('backend.category.edit',compact('cat_data'));
+    }
+    function update(Request $request, $id){
+        $category =Category::find($id);
+
+        $category->cat_name = $request->cat_name;
+        if($request->file('cat_image')){
+
+            if(File::exists(public_path('uploads/category/' .$category->cat_image))){
+                File::delete(public_path('uploads/category/' .$category->cat_image));
+            }
+            $image = $request->file('cat_image');
+            $customname='cat_'.rand().'.'. $image->getClientOriginalExtension();
+            $image->move('uploads/category', $customname);
+            $category->cat_image = $customname;
+        }
+
+        $insert = $category->update();
+        if($insert){
+            return redirect('/show/catagory')->with('success', 'Successfully data Updated');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'Opps! data not Update');
+
+        }
+    }
+
 }

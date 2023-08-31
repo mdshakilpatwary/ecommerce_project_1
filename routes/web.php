@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/create/catagory', 'index')->name('create.catagory');
         Route::post('/store/catagory', 'store')->name('store.catagory');
         Route::get('/show/catagory', 'show')->name('show.catagory');
+        Route::get('/destroy/catagory/{id}', 'destroy')->name('destroy.catagory');
+        Route::get('/edit/catagory/{id}', 'edit')->name('edit.catagory');
+        Route::post('/update/catagory/{id}', 'update')->name('update.catagory');
     });
 
 });

@@ -1,3 +1,5 @@
+  <!-- jquery  Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <!-- General JS Scripts -->
   <script src="{{asset('backend')}}/assets/js/app.min.js"></script>
   <!-- JS data table -->

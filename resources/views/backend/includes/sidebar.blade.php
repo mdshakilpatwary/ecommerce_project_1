@@ -51,22 +51,28 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                  data-feather="shopping-bag"></i><span>Advanced</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Brand</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="avatar.html">Avatar</a></li>
-                <li><a class="nav-link" href="card.html">Card</a></li>
-                <li><a class="nav-link" href="modal.html">Modal</a></li>
-                <li><a class="nav-link" href="sweet-alert.html">Sweet Alert</a></li>
-                <li><a class="nav-link" href="toastr.html">Toastr</a></li>
-                <li><a class="nav-link" href="empty-state.html">Empty State</a></li>
-                <li><a class="nav-link" href="multiple-upload.html">Multiple Upload</a></li>
-                <li><a class="nav-link" href="pricing.html">Pricing</a></li>
-                <li><a class="nav-link" href="tabs.html">Tab</a></li>
+                <li><a class="nav-link" href="{{route('create.brand')}}">Add Brand</a></li>
+                <li><a class="nav-link" href="{{route('show.brand')}}">Manage Brand</a></li>
               </ul>
             </li>
-            <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Blank Page</span></a></li>
-            <li class="menu-header">Otika</li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Unit</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('create.unit')}}">Add Unit</a></li>
+                <li><a class="nav-link" href="{{route('show.unit')}}">Manage Unit</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Size</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('create.size')}}">Add Size</a></li>
+                <li><a class="nav-link" href="{{route('show.size')}}">Manage Size</a></li>
+              </ul>
+            </li>
+
+          <li class="menu-header">Otika</li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Forms</span></a>
               <ul class="dropdown-menu">

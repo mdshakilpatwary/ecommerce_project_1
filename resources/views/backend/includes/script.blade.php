@@ -14,6 +14,7 @@
   <!-- Template JS File -->
   <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
+
   <script src="{{asset('backend')}}/assets/js/custom.js"></script>
 
 </body>

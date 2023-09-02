@@ -13,7 +13,7 @@ class CategoryController extends Controller
     function index(){
         return view('backend.category.index');
     }
-
+// store category controller part 
     function store(Request $request){
 
         $request->validate([
@@ -50,10 +50,13 @@ class CategoryController extends Controller
 
     }
 
+// show category controller part 
     function show(){
         $cat_data =Category::orderBy('id', 'DESC')->get();
         return view('backend.category.manage',compact('cat_data'));
     }
+
+    // delete category controller 
     function destroy($id){
         $cat_destroy =Category::find($id);
         if(File::exists(public_path('uploads/category/' .$cat_destroy->cat_image))){
@@ -69,10 +72,14 @@ class CategoryController extends Controller
 
         }   
     }
+
+    // edit category controller part 
     function edit($id){
         $cat_data =Category::find($id);
         return view('backend.category.edit',compact('cat_data'));
     }
+
+    // update category controller part
     function update(Request $request, $id){
         $category =Category::find($id);
 
@@ -98,6 +105,8 @@ class CategoryController extends Controller
 
         }
     }
+
+    // status change controller part 
     function changestatus($id){
         $status =Category::find($id);
         if($status->cat_status == 1){

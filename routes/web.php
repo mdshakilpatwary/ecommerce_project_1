@@ -6,6 +6,9 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCatController;
+use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\Backend\SizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +68,37 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/subcatagory/{id}', 'edit')->name('edit.subcatagory');
         Route::post('/update/subcatagory/{id}', 'update')->name('update.subcatagory');
         Route::get('/status/subcatagory/{id}', 'changestatus')->name('status.subcatagory');
+    });
+
+    // Brand route part -------------
+    Route::controller(BrandController::class)->group(function () {
+        Route::get('/create/brand', 'index')->name('create.brand');
+        Route::post('/store/brand', 'store')->name('store.brand');
+        Route::get('/show/brand', 'show')->name('show.brand');
+        Route::get('/destroy/brand/{id}', 'destroy')->name('destroy.brand');
+        Route::get('/edit/brand/{id}', 'edit')->name('edit.brand');
+        Route::post('/update/brand/{id}', 'update')->name('update.brand');
+        Route::get('/status/brand/{id}', 'changestatus')->name('status.brand');
+    });
+    // Unit route part -------------
+    Route::controller(UnitController::class)->group(function () {
+        Route::get('/create/unit', 'index')->name('create.unit');
+        Route::post('/store/unit', 'store')->name('store.unit');
+        Route::get('/show/unit', 'show')->name('show.unit');
+        Route::get('/destroy/unit/{id}', 'destroy')->name('destroy.unit');
+        Route::get('/edit/unit/{id}', 'edit')->name('edit.unit');
+        Route::post('/update/unit/{id}', 'update')->name('update.unit');
+        Route::get('/status/unit/{id}', 'changestatus')->name('status.unit');
+    });
+    // Size route part -------------
+    Route::controller(SizeController::class)->group(function () {
+        Route::get('/create/size', 'index')->name('create.size');
+        Route::post('/store/size', 'store')->name('store.size');
+        Route::get('/show/size', 'show')->name('show.size');
+        Route::get('/destroy/size/{id}', 'destroy')->name('destroy.size');
+        Route::get('/edit/size/{id}', 'edit')->name('edit.size');
+        Route::post('/update/size/{id}', 'update')->name('update.size');
+        Route::get('/status/size/{id}', 'changestatus')->name('status.size');
     });
 
 });

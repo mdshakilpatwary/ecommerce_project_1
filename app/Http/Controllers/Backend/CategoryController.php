@@ -51,7 +51,7 @@ class CategoryController extends Controller
     }
 
     function show(){
-        $cat_data =Category::all();
+        $cat_data =Category::orderBy('id', 'DESC')->get();
         return view('backend.category.manage',compact('cat_data'));
     }
     function destroy($id){
@@ -102,11 +102,11 @@ class CategoryController extends Controller
         $status =Category::find($id);
         if($status->cat_status == 1){
            $status->update(['cat_status' => 0]);
-           return redirect()->back()->with('success', 'Category status successfully change');
+           return redirect()->back()->with('success', 'Category Inactive successfully Done');
         }
         else{
             $status->update(['cat_status' => 1]);
-            return redirect()->back()->with('success', 'Category status successfully change');
+            return redirect()->back()->with('success', 'Category Active successfully done');
         }
     }
 

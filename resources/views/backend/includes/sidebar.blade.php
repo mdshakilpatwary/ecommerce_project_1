@@ -47,7 +47,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Sub Category</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="{{route('create.subcatagory')}}">Add Sub Category</a></li>
-                <li><a class="nav-link" href="{{route('show.catagory')}}">Manage Sub Category</a></li>
+                <li><a class="nav-link" href="{{route('show.subcatagory')}}">Manage Sub Category</a></li>
               </ul>
             </li>
             <li class="dropdown">

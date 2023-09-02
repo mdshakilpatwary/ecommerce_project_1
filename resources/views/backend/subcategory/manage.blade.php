@@ -6,7 +6,7 @@
 
 
 <div class="row">
-    <h2>All Category Here</h2>
+    <h2>All Sub Category Here</h2>
     <div class="col-md-10 offset-md-1">
     <div class="card-body">
 @if(session('success'))
@@ -44,6 +44,7 @@
                             : activate to sort column ascending">
                               #SL
                             </th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Sub Category Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Category Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Image</th>
                            
@@ -52,33 +53,34 @@
                         <tbody>
                             
                           
-                            @if(count($cat_data) > 0)
+                            @if(count($subcat_data) > 0)
                             @php
                           $sl = 1;
                           @endphp
-                            @foreach($cat_data as $category)
+                            @foreach($subcat_data as $subcategory)
                             <tr role="row" class="even">
                             <td class="">
                               {{$sl++}}
                             </td>
-                            <td>{{$category->cat_name}}</td>
+                            <td>{{$subcategory->subcat_name}}</td>
+                            <td>{{$subcategory->category->cat_name}}</td>
                             <td>
-                              <img src="{{empty($category->cat_image)? asset('uploads/category/empty.png') : asset('uploads/category/'.$category->cat_image) }}" alt="" width="50" height="50" >
+                              <img src="{{empty($subcategory->subcat_image)? asset('uploads/subcategory/empty.png') : asset('uploads/subcategory/'.$subcategory->subcat_image) }}" alt="" width="50" height="50" >
                             </td>
                            
                             
                             
                             <td class="sorting_1">
-                              @if($category->cat_status == 1)
-                              <a href="{{route('status.catagory', $category->id)}}" class="badge badge-success badge-shadow">Active</a>
+                              @if($subcategory->status == 1)
+                              <a href="{{route('status.subcatagory', $subcategory->id)}}" class="badge badge-success badge-shadow">Active</a>
                               @else
-                              <a href="{{route('status.catagory', $category->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                              <a href="{{route('status.subcatagory', $subcategory->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
 
                               @endif
                             </td>
                             <td>
-                                <a href="{{route('destroy.catagory', $category->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
-                                <a href="{{route('edit.catagory', $category->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('destroy.subcatagory', $subcategory->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                                <a href="{{route('edit.subcatagory', $subcategory->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn btn-sm btn-success text-white"><i class="fa fa-eye"></i></a>
                             </td>
                             </tr>

@@ -30,3 +30,20 @@ $('.fileimage').change('.changeImage',function(){
     reader.readAsDataURL(file);
 });
 
+
+
+// jquery tagsinput plugin part 
+$(document).ready(function(){
+
+// jQuery
+$('#tagsinput').tagify();
+
+// Vanilla JavaScript
+var input = document.querySelector('#tagsinput'),
+tagify = new Tagify( input );
+
+
+
+
+});
+

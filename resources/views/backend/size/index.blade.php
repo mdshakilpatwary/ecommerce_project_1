@@ -28,14 +28,13 @@
 
 @endif
     <h2>Add your Size here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
-        
+    <div class="col-md-6 offset-md-3 bg-info rounded py-3">        
         <form action="{{route('store.size')}}" method="POST" >
             @csrf
             <div class="form-group ">
                 <label for="size">Size</label>
-                <input type="text" name="size" class="form-control" id="input" data-role="tagsinput">
-                @error('size')
+                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="{{$size_data->size}}" >
+              @error('size')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>

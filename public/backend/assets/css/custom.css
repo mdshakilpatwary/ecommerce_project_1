@@ -5,3 +5,11 @@
 a:hover{
     color: rgb(233, 183, 183) !important;
 }
+ 
+/* tagsinput   */
+.tagify__input {
+	top: -7px;
+}
+.tagify__tag {
+	top: -7px;
+}

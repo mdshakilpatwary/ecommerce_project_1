@@ -45,7 +45,7 @@ class UnitController extends Controller
         return view('backend.unit.manage',compact('unit_data'));
     }
 
-    // brand delete controller part 
+    // Unit delete controller part 
     function destroy($id){
         $unit =Unit::find($id);
 
@@ -60,7 +60,7 @@ class UnitController extends Controller
         }   
     }
 
-    // brand edit controller part 
+    // unit edit controller part 
     function edit($id){
         $unit_data =Unit::find($id);
         return view('backend.unit.edit',compact('unit_data'));
@@ -83,7 +83,7 @@ function update(Request $request, $id){
 
     }
 }
-
+// unit status part 
 function changestatus($id){
     $status =Unit::find($id);
     if($status->status == 1){
@@ -95,4 +95,5 @@ function changestatus($id){
         return redirect()->back()->with('success', 'Brand Active successfully done');
     }
 }
+
 }

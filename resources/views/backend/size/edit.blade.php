@@ -30,18 +30,14 @@
     <h2>Add your category here </h2>
     <div class="col-md-6 offset-md-3 bg-info rounded py-3">
         
-        <form action="{{route('update.unit',$unit_data->id)}}" method="POST" >
+        <form action="{{route('update.size',$size_data->id)}}" method="POST" >
             @csrf
             <div class="form-group ">
-                <label for="unit_name">Unit Name</label>
-                <input type="text" name="unit_name" class="form-control" id="" value="{{$unit_data->unit_name}}">
-                @error('unit_name')
+                <label for="unit_name">Size</label>
+                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="">
+                @error('size')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
-            </div>
-            <div class="form-group clearfix">
-                <label for="unit_name">Unit Description</label>
-                <textarea class=" form-control" name="unit_desc" id="" cols="30" rows="10">{{$unit_data->unit_description}}</textarea>
             </div>
             <button class="btn btn-lg btn-success">Submit</button>
         </form>

@@ -9,6 +9,7 @@
 		<!-- /NAVIGATION -->
 
 <main>
+	
 
 @yield('mainbody')
 

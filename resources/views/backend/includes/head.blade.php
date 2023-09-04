@@ -16,7 +16,13 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/style.css">
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/components.css">
+  <!-- jquery plugin  CSS -->
+  <link rel="stylesheet" href="{{asset('backend')}}/assets/css/tagify.css">
+
+
+
   <!-- Custom style CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/json-formatter-js@2.3.4/dist/json-formatter.min.css">
 
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />

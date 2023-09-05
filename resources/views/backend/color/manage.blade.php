@@ -6,7 +6,7 @@
 
 
 <div class="row">
-    <h2>All Size Here</h2>
+    <h2>All Color Here</h2>
     <div class="col-md-10 offset-md-1">
     <div class="card-body">
 @if(session('success'))
@@ -51,19 +51,19 @@
                         <tbody>
                             
                           
-                            @if(count($size_data) > 0)
+                            @if(count($color_data) > 0)
                             @php
                           $sl = 1;
                           @endphp
-                          @foreach($size_data as $size)
+                          @foreach($color_data as $color)
                             <tr role="row" class="even">
                             <td class="">
                               {{$sl++}}
                             </td>
                             <td>
 
-                            @foreach(json_decode($size->size) as $sizes)
-                            <span class=" btn btn-sm btn-success">{{$sizes->value}}</span>
+                            @foreach(json_decode($color->color) as $colors)
+                            <span class=" btn btn-sm btn-info">{{$colors->value}}</span>
                             @endforeach
 
 
@@ -75,16 +75,16 @@
                             
                             
                             <td class="sorting_1">
-                              @if($size->status == 1)
-                              <a href="{{route('status.size', $size->id)}}" class="badge badge-success badge-shadow">Active</a>
+                              @if($color->status == 1)
+                              <a href="{{route('status.color', $color->id)}}" class="badge badge-success badge-shadow">Active</a>
                               @else
-                              <a href="{{route('status.size', $size->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                              <a href="{{route('status.color', $color->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
 
                               @endif
                             </td>
                             <td>
-                                <a href="{{route('destroy.size', $size->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
-                                <a href="{{route('edit.size', $size->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('destroy.color', $color->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                                <a href="{{route('edit.color', $color->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn btn-sm btn-success text-white"><i class="fa fa-eye"></i></a>
                             </td>
                             </tr>

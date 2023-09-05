@@ -27,20 +27,23 @@
 </div>
 
 @endif
-    <h2>Edit your Size here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
-        
-        <form action="{{route('update.size',$size_data->id)}}" method="POST" >
+    <h2>Add your Color here </h2>
+    <div class="col-md-6 offset-md-3 bg-info rounded py-3">        
+        <form action="{{route('store.color')}}" method="POST" >
             @csrf
-            <div class="form-group ">
-                <label for="unit_name">Size</label>
-                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="{{$size_data->size}}">
-                @error('size')
+            <div class="form-group">
+                <label for="color">Color</label>
+                <input name="color" class="form-control" id="tagsinput" placeholder="write some tags color" value="" >
+
+              @error('color') 
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
+            
             <button class="btn btn-lg btn-success">Submit</button>
         </form>
     </div>
+    
 </div>
+
 @endsection

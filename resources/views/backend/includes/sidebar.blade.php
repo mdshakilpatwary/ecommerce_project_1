@@ -71,6 +71,13 @@
                 <li><a class="nav-link" href="{{route('show.size')}}">Manage Size</a></li>
               </ul>
             </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Color</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('create.color')}}">Add Color</a></li>
+                <li><a class="nav-link" href="{{route('show.color')}}">Manage Color</a></li>
+              </ul>
+            </li>
 
           <li class="menu-header">Otika</li>
             <li class="dropdown">

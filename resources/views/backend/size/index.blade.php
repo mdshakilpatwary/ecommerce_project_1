@@ -33,8 +33,9 @@
             @csrf
             <div class="form-group ">
                 <label for="size">Size</label>
-                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="{{$size_data->size}}" >
-              @error('size')
+                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="" >
+
+              @error('size') 
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>

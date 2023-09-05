@@ -39,8 +39,8 @@ $(document).ready(function(){
 $('#tagsinput').tagify();
 
 // Vanilla JavaScript
-var input = document.querySelector('#tagsinput'),
-tagify = new Tagify( input );
+// var input = document.querySelector('#tagsinput'),
+// tagify = new Tagify( input );
 
 
 

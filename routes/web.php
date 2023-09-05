@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\SubCatController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\SizeController;
+use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +101,28 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/size/{id}', 'edit')->name('edit.size');
         Route::post('/update/size/{id}', 'update')->name('update.size');
         Route::get('/status/size/{id}', 'changestatus')->name('status.size');
+    });
+    // Color route part -------------
+    Route::controller(ColorController::class)->group(function () {
+        Route::get('/create/color', 'index')->name('create.color');
+        Route::post('/store/color', 'store')->name('store.color');
+        Route::get('/show/color', 'show')->name('show.color');
+        Route::get('/destroy/color/{id}', 'destroy')->name('destroy.color');
+        Route::get('/edit/color/{id}', 'edit')->name('edit.color');
+        Route::post('/update/color/{id}', 'update')->name('update.color');
+        Route::get('/status/color/{id}', 'changestatus')->name('status.color');
+    });
+
+
+    // Product route part -------------
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/create/product', 'index')->name('create.product');
+        Route::post('/store/product', 'store')->name('store.product');
+        Route::get('/show/product', 'show')->name('show.product');
+        Route::get('/destroy/product/{id}', 'destroy')->name('destroy.product');
+        Route::get('/edit/product/{id}', 'edit')->name('edit.product');
+        Route::post('/update/product/{id}', 'update')->name('update.product');
+        Route::get('/status/product/{id}', 'changestatus')->name('status.product');
     });
 
 });

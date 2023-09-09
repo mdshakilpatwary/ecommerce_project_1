@@ -2,7 +2,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="{{route('admin.dashboard')}}"> <img alt="image" src="{{asset('backend')}}/assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">Otika</span>
+                class="logo-name">Dream Project</span>
             </a>
           </div>
           <ul class="sidebar-menu">
@@ -36,6 +36,13 @@
               </ul>
             </li>
             <li class="menu-header">Project Elements</li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Product</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('create.product')}}">Add Product</a></li>
+                <li><a class="nav-link" href="{{route('show.product')}}">Manage Product</a></li>
+              </ul>
+            </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Category</span></a>
               <ul class="dropdown-menu">

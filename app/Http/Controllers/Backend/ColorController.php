@@ -85,11 +85,11 @@ function changestatus($id){
     $status =Color::find($id);
     if($status->status == 1){
        $status->update(['status' => 0]);
-       return redirect()->back()->with('success', 'Brand Inactive successfully Done');
+       return redirect()->back()->with('success', 'Color Inactive successfully Done');
     }
     else{
         $status->update(['status' => 1]);
-        return redirect()->back()->with('success', 'Brand Active successfully done');
+        return redirect()->back()->with('success', 'Color Active successfully done');
     }
 }
 

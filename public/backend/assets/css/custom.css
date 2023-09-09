@@ -13,3 +13,8 @@ a:hover{
 .tagify__tag {
 	top: -7px;
 }
+.menu-toggle.nav-link.has-dropdown i {
+	margin: 0 !important;
+	padding: 0 !important;
+	color: rgb(111, 112, 114);
+}

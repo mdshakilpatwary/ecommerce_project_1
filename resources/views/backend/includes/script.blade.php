@@ -17,6 +17,12 @@
   <!-- Template JS File -->
   <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
   <!-- jquery plugin JS File -->
+  <script src="{{asset('backend')}}/assets/bundles/ckeditor/ckeditor.js"></script>
+  <script src="{{asset('backend')}}/assets/bundles/summernote/summernote-bs4.js"></script>
+
+
+
+
   <script src="{{asset('backend')}}/assets/js/jQuery.tagify.min.js"></script>
   <script src="{{asset('backend')}}/assets/js/tagify.js"></script>
 

@@ -63,7 +63,7 @@
                <select name="select_subcat" id="" class="form-control select-form">
                 <option value="" disabled selected>----Select SubCategory-----</option>
                 @foreach($subcategories as $subcategory)
-                <option value="{{$subcategory->id}}">{{$category->subcat_name}}</option>
+                <option value="{{$subcategory->id}}">{{$subcategory->subcat_name}}</option>
                 @endforeach
                </select>
                 @error('select_subcat')
@@ -98,7 +98,9 @@
                <select name="select_color" id="" class="form-control select-form">
                 <option value="" disabled selected>----Select Color-----</option>
                 @foreach($colors as $color)
-                <option value="{{$color->id}}">{{$color->color}}</option>
+                @foreach(json_decode($color->color) as $color_value)
+                <option value="{{$color->id}}">{{$color_value->value}}</option>
+                 @endforeach
                 @endforeach
                </select>
                 @error('select_color')
@@ -110,19 +112,53 @@
                <select name="select_size" id="" class="form-control select-form">
                 <option value="" disabled selected>----Select Size-----</option>
                 @foreach($sizes as $size)
-                <option value="{{$size->id}}">{{$size->size}}</option>
+                @foreach(json_decode($size->size) as $size_value)
+                <option value="{{$size->id}}">{{$size_value->value}}</option>
+                 @endforeach
                 @endforeach
                </select>
                 @error('select_size')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group">
-                <label for="cat_name">Category Name</label>
-                <input type="file" name="cat_image" class="form-control" id="">
+            <div class="form-group ">
+                <label for="p_price">Product Price</label>
+                <input type="floatval" name="p_price" id="" class="form-control">
+
+                @error('p_price')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
             </div>
-            <button class="btn btn-lg btn-success">Submit</button>
+            <div class="form-group ">
+                <label for="p_desc">Description</label>
+               </select>
+               <textarea name="p_desc" class="summernote form-control"></textarea>
+
+                @error('p_desc')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="p_image">Product Image</label>
+                <input type="file" name="p_image" class="form-control" id="" >
+                @error('p_image')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+             
+            </div>
+            <div class="form-group">
+                <label for="group_p_image">Product Image</label>
+                <input type="file" name="group_p_image[]" class="form-control" id="" multiple>
+                @error('group_p_image')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+
+            <button class="btn btn-lg btn-success">Add Product</button>
         </form>
     </div>
 </div>
+
+
 @endsection

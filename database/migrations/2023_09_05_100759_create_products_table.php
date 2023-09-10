@@ -24,6 +24,8 @@ return new class extends Migration
             $table->text('p_description');
             $table->float('p_price');
             $table->string('p_image');
+            $table->string('group_p_image');
+            $table->string('p_slug');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

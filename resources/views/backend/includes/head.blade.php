@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/style.css">
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/components.css">
   <!-- jquery plugin  CSS -->
+  <link rel="stylesheet" href="{{asset('backend')}}/assets/bundles/summernote/summernote-bs4.css">
+
+
+
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/tagify.css">
 
 

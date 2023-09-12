@@ -128,6 +128,45 @@ function show(){
     return view('backend.product.manage',compact('p_data'));
 }
 
+  // delete Product controller 
+
+  function destroy($id){
+    $product_destroy =Product::find($id);
+    if(File::exists(public_path('uploads/product/' .$product_destroy->p_image))){
+        File::delete(public_path('uploads/product/' .$product_destroy->p_image));
+    }
+//  group image delete part
+    foreach(explode("|",$product_destroy->group_p_image) as $g_image){
+
+    if(File::exists(public_path('uploads/product/product_group/' . $g_image))){
+        File::delete(public_path('uploads/product/product_group/' . $g_image));
+    }
+    }
+    
+    $msg = $product_destroy->delete();
+    if($msg){
+        return redirect()->back()->with('success', 'Product deleted successfully');
+
+    }
+    else{
+        return redirect()->back()->with('error', 'opps! Product not delete');
+
+    }   
+}
+
+
+// edit category controller part 
+    function edit($id){
+        $p_data =Product::find($id);
+        $categories =Category::all();
+        $subcategories =SubCategory::all();
+        $brands =Brand::all();
+        $units =Unit::all();
+        $sizes =Size::all();
+        $colors =Color::all();
+        return view('backend.product.edit', compact('p_data','categories','subcategories','brands','colors','sizes','units'));
+   
+    }
 
 
 

@@ -46,6 +46,7 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Code</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Description</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Cat_Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">SubCat_Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">brand</th>
@@ -71,17 +72,18 @@
                             </td>
                             <td>{{$product->p_name}}</td>
                             <td>{{$product->p_code}}</td>
+                            <td>{!! Str::limit($product->p_description,20) !!}</td>
                             <td>{{$product->category->cat_name}}</td>
                             <td>{{$product->subcategory->subcat_name}}</td>
                             <td>{{$product->brand->brand_name}}</td>
                             <td>{{$product->unit->unit_name}}</td>
-                            <td>{{$product->color->color}}</td>
-                            <td>{{$product->size->size}}</td>
+                            <td>{{$product->color_id}}</td>
+                            <td>{{$product->size_id}}</td>
                             <td>
                               <img src="{{empty($product->p_image)? asset('uploads/product/empty.png') : asset('uploads/product/'.$product->p_image) }}" alt="" width="50" height="50" >
                             </td>
                             <td>
-                            @foreach($product->group_p_image as $gimage)
+                            @foreach(explode('|',$product->group_p_image) as $gimage)
                             <img src="{{empty($gimage)? asset('uploads/product/product_group/empty.png') : asset('uploads/product/product_group/'.$gimage) }}" alt="" width="50" height="50" >
                             @endforeach
                             </td>
@@ -107,7 +109,7 @@
                             
                             @else
                             <tr>
-                                <td colspan="5"><p class="bg-danger text-center"> No Data </p></td>
+                                <td colspan="14"><p class="bg-danger text-center"> No Data </p></td>
                             </tr>
                             @endif
                          

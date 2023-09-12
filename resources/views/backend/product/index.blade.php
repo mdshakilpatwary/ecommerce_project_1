@@ -99,7 +99,7 @@
                 <option value="" disabled selected>----Select Color-----</option>
                 @foreach($colors as $color)
                 @foreach(json_decode($color->color) as $color_value)
-                <option value="{{$color->id}}">{{$color_value->value}}</option>
+                <option value="{{$color_value->value}}">{{$color_value->value}}</option>
                  @endforeach
                 @endforeach
                </select>
@@ -113,7 +113,7 @@
                 <option value="" disabled selected>----Select Size-----</option>
                 @foreach($sizes as $size)
                 @foreach(json_decode($size->size) as $size_value)
-                <option value="{{$size->id}}">{{$size_value->value}}</option>
+                <option value="{{$size_value->value}}">{{$size_value->value}}</option>
                  @endforeach
                 @endforeach
                </select>

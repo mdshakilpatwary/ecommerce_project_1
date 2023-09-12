@@ -29,6 +29,15 @@ $('.fileimage').change('.changeImage',function(){
     }
     reader.readAsDataURL(file);
 });
+//  onchange group image file part
+$('.g_fileimage').change('.g_changeImage',function(){
+    let reader =new FileReader();
+    let file =document.querySelector('.g_fileimage').files[0];
+    reader.onload =function(e){
+        $(".g_changeImage").attr('src',e.target.result);
+    }
+    reader.readAsDataURL(file);
+});
 
 
 

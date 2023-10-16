@@ -34,7 +34,7 @@
             @csrf
             <div class="form-group ">
                 <label for="p_code">Product code</label>
-                <input type="text" name="p_code" class="form-control" id="">
+                <input type="text" name="p_code" class="form-control" id="" value="{{old('p_code')}}">
                 @error('p_code')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror

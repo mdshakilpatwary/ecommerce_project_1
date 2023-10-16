@@ -136,8 +136,8 @@ class SubCatController extends Controller
     {
         
         $subcat_destroy =SubCategory::find($id);
-        if(File::exists(public_path('uploads/category/' .$subcat_destroy->subcat_image))){
-            File::delete(public_path('uploads/category/' .$subcat_destroy->subcat_image));
+        if(File::exists(public_path('uploads/subcategory/' .$subcat_destroy->subcat_image))){
+            File::delete(public_path('uploads/subcategory/' .$subcat_destroy->subcat_image));
         }
         $msg = $subcat_destroy->delete();
         if($msg){

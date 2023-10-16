@@ -27,7 +27,10 @@
 </div>
 
 @endif
-    <h2>Add your Color here </h2>
+<div class="col-md-12">
+  <h2>Add your Color here </h2>
+
+</div>
     <div class="col-md-6 offset-md-3 bg-info rounded py-3">        
         <form action="{{route('store.color')}}" method="POST" >
             @csrf

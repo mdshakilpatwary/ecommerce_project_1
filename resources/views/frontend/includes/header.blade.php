@@ -8,8 +8,14 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+						<li><a href="#">&#2547;</i>BDT</a></li>
+						@if(Auth::user())
+						
 						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						@else
+						<li><a href="#"><i class="fa fa-user-o"></i> Login</a></li>
+						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -24,7 +30,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="/" class="logo">
 									<img src="{{asset('frontend/assets')}}/img/logo.png" alt="">
 								</a>
 							</div>
@@ -37,8 +43,9 @@
 								<form>
 									<select class="input-select">
 										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										@foreach ($categories as $category)
+										<option value="{{ $category->id }}">{{ $category->cat_name }}</option>	
+										@endforeach
 									</select>
 									<input class="input" placeholder="Search here">
 									<button class="search-btn">Search</button>

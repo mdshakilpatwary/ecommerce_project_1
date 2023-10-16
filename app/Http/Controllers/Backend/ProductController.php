@@ -80,34 +80,26 @@ function store(Request $request){
         $image = $request->file('p_image');
         $customname='P_'.rand().'.'. $image->getClientOriginalExtension();
         $product->p_image = $customname;
-        if($product->save()){
-            $image->move('uploads/product', $customname);
 
-        }
+         $image->move('uploads/product', $customname);
+
+        
     }
 
 //   multiple image store   
     if($request->file('group_p_image')){
         $images=array();
         $files = $request->file('group_p_image');
-        if($product->save()){
+        
             foreach($files as $file){
                 $customnamefile='gp_'.rand().'.'. $file->getClientOriginalExtension();
                 $images[]= $customnamefile;
                
                 $file->move('uploads/product/product_group', $customnamefile);
         
-               
-    
             }
-        }
         
-
-        
-        $product->group_p_image =implode("|",$images);
-        
-       
-           
+        $product->group_p_image =implode("|",$images);       
     }
 
     $insert = $product->save();
@@ -168,7 +160,82 @@ function show(){
    
     }
 
+    function update(Request $request, $id){
+        $product = Product::find($id);
+        $product->p_code = $request->p_code;
+        $product->p_name = $request->p_name;
+        $product->p_slug =Str::slug($request->p_name);
+        $product->cat_id = $request->select_cat;
+        $product->subcat_id = $request->select_subcat;
+        $product->brand_id = $request->select_brand;
+        $product->color_id = $request->select_color;
+        $product->size_id = $request->select_size;
+        $product->unit_id = $request->select_unit;
+        $product->p_description = $request->p_desc;
+        $product->p_price = $request->p_price;
+    // single image update 
+        if($request->file('p_image')){
+            if(File::exists(public_path('uploads/product/' .$product->p_image))){
+                File::delete(public_path('uploads/product/' .$product->p_image));
+            }
+            $image = $request->file('p_image');
+            $customname='P_'.rand().'.'. $image->getClientOriginalExtension();
+            $product->p_image = $customname;
+
+            $image->move('uploads/product', $customname);
+
+            
+        }
+
+    //   multiple image update   
+        if($request->file('group_p_image')){
+            foreach(explode("|",$product->group_p_image) as $g_image){
+
+                if(File::exists(public_path('uploads/product/product_group/' . $g_image))){
+                    File::delete(public_path('uploads/product/product_group/' . $g_image));
+                }
+            }
+
+            $images=array();
+            $files = $request->file('group_p_image');
+            
+                foreach($files as $file){
+                    $customnamefile='gp_'.rand().'.'. $file->getClientOriginalExtension();
+                    $images[]= $customnamefile;
+                
+                    $file->move('uploads/product/product_group', $customnamefile);
+            
+                }
+            
+            $product->group_p_image =implode("|",$images);       
+        }
+
+        $update = $product->update();
+        if($update){
+            return redirect('/show/product')->with('success', 'Successfully Your Product Updated');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'Opps! Your Product is Not Update');
+
+        }
 
 
+        }
+
+
+// product status part 
+
+function changestatus($id){
+    $status =Product::find($id);
+    if($status->status == 1){
+       $status->update(['status' => 0]);
+       return redirect()->back()->with('success', 'Product Inactive successfully Done');
+    }
+    else{
+        $status->update(['status' => 1]);
+        return redirect()->back()->with('success', 'Product Active successfully done');
+    }
+}
 
 }

@@ -27,7 +27,8 @@
 </div>
 
 @endif
-    <h2>Add your Brand here </h2>
+<div class="col-md-12">    <h2>Add your Unit here </h2>
+</div>
     <div class="col-md-6 offset-md-3 bg-info rounded py-3">
         
         <form action="{{route('store.unit')}}" method="POST" >

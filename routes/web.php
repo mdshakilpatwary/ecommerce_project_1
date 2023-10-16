@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,7 +40,8 @@ Route::middleware('auth')->group(function () {
 
 
 // frontend controller start 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('frontend_site');
+Route::get('/single/product', [HomeController::class, 'singleProduct'])->name('single.product');
 
 
 
@@ -48,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/admin/dashboard', 'index')->name('admin.dashboard');
+        Route::get('/admin/logout', 'logout')->name('admin.logout');
     });
 
     // category route part -------------

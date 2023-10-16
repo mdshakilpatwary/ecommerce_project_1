@@ -53,6 +53,7 @@
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">unit</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Color</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Size</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Price</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Image</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Group Image</th>
                            
@@ -72,13 +73,14 @@
                             </td>
                             <td>{{$product->p_name}}</td>
                             <td>{{$product->p_code}}</td>
-                            <td>{!! Str::limit($product->p_description,20) !!}</td>
+                            <td>{!! Str::words($product->p_description, 10) !!}</td>
                             <td>{{$product->category->cat_name}}</td>
                             <td>{{$product->subcategory->subcat_name}}</td>
                             <td>{{$product->brand->brand_name}}</td>
                             <td>{{$product->unit->unit_name}}</td>
                             <td>{{$product->color_id}}</td>
                             <td>{{$product->size_id}}</td>
+                            <td>&#2547;{{$product->p_price}}</td>
                             <td>
                               <img src="{{empty($product->p_image)? asset('uploads/product/empty.png') : asset('uploads/product/'.$product->p_image) }}" alt="" width="50" height="50" >
                             </td>

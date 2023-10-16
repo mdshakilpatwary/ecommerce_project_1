@@ -123,7 +123,7 @@
             </div>
             <div class="form-group ">
                 <label for="p_price">Product Price</label>
-                <input type="floatval" name="p_price" id="" class="form-control">
+                <input type="floatval" name="p_price" id="" value="{{$p_data->p_price}}" class="form-control">
 
                 @error('p_price')
                     <p class="text-danger ">{{$message}}</p>

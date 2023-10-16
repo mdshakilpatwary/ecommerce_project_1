@@ -89,7 +89,7 @@
                             
                             @else
                             <tr>
-                                <td colspan="5"><p class="bg-danger text-center"> No Data </p></td>
+                                <td colspan="6"><p class="bg-danger text-center"> No Data </p></td>
                             </tr>
                             @endif
                          

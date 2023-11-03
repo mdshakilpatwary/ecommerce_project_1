@@ -112,7 +112,7 @@
                <select name="select_size" id="" class="form-control select-form">
                 @foreach($sizes as $size)
                 @foreach(json_decode($size->size) as $size_value)
-                <option value="{{ $size_value->value }} " {{ $p_data->size_id == $size_value->value ? 'selected' : '' }}>{{ $size_value->value }}</option>
+                <option value="{{ $size->id }} " {{ $p_data->size_id == $size_value->value ? 'selected' : '' }}>{{ $size_value->value }}</option>
 
                  @endforeach
                 @endforeach

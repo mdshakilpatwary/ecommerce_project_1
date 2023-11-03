@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
+
 
 class Product extends Model
 {
@@ -44,5 +46,18 @@ class Product extends Model
      }
     function size(){
         return $this->belongsTo(Size::class, 'size_id', 'id');
+     }
+
+     public static function catProductCount($cat_id){
+        $cat_p_count = Product::where('cat_id', $cat_id)->where('status',1)->count();
+        return $cat_p_count;
+     }
+     public static function subcatProductCount($subcat_id){
+        $subcat_p_count = Product::where('subcat_id', $subcat_id)->where('status',1)->count();
+        return $subcat_p_count;
+     }
+     public static function brandProductCount($brand_id){
+        $brand_p_count = Product::where('brand_id', $brand_id)->where('status',1)->count();
+        return $brand_p_count;
      }
 }

@@ -47,10 +47,9 @@
 							<h3 class="title">New Products</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+									@foreach($categories as $category)
+									<li class="active"><a  href="{{route('show.category.product',$category->id)}}">{{$category->cat_name}}</a></li>
+									@endforeach
 								</ul>
 							</div>
 						</div>
@@ -96,9 +95,14 @@
 												
 											</div>
 										</a>
+											<form action="{{route('product.add_to_cart')}}" method="POST">
+												@csrf
 											<div class="add-to-cart">
+												<input type="hidden" name="quantity" value="1">
+												<input type="hidden" name="product_id" value="{{$product->id}}">
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
+											</form>
 										</div>
 										<!-- /product -->
 										@endforeach
@@ -176,10 +180,9 @@
 							<h3 class="title">Top selling</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+									@foreach($categories as $category)
+									<li class="active"><a  href="{{route('show.category.product',$category->id)}}">{{$category->cat_name}}</a></li>
+									@endforeach
 								</ul>
 							</div>
 						</div>
@@ -222,9 +225,14 @@
 												</div>
 											</div>
 										</a>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+										<form action="{{route('product.add_to_cart')}}" method="POST">
+											@csrf
+										<div class="add-to-cart">
+											<input type="hidden" name="quantity" value="1">
+											<input type="hidden" name="product_id" value="{{$product->id}}">
+											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										</div>
+										</form>
 										</div>
 										<!-- /product -->
 										@endforeach

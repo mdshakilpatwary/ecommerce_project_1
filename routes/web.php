@@ -11,6 +11,11 @@ use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Frontend\ShoppingCart;
+use App\Http\Controllers\Frontend\ShoppingWishlist;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CustomerDashboardController;
 
 
 /*
@@ -28,7 +33,7 @@ use App\Http\Controllers\Backend\ProductController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth','role:User', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,16 +46,45 @@ Route::middleware('auth')->group(function () {
 
 // frontend controller start 
 Route::get('/', [HomeController::class, 'index'])->name('frontend_site');
-Route::get('/single/product', [HomeController::class, 'singleProduct'])->name('single.product');
+Route::get('/single/product/{id}', [HomeController::class, 'singleProduct'])->name('single.product');
+Route::get('/show/category/product/{id}', [HomeController::class, 'categoryProduct'])->name('show.category.product');
+Route::get('/show/subcategory/product/{id}', [HomeController::class, 'subcategoryProduct'])->name('show.subcategory.product');
+
+// shoping cart part
+Route::post('/product/add-to-cart', [ShoppingCart::class, 'addToCart'])->name('product.add_to_cart');
+Route::get('/product/add-to-cart-delete/{id}', [ShoppingCart::class, 'addToCartDelete'])->name('product.add_to_cart-delete');
+// // shoping Wishlist part
+// Route::post('/product/add-to-wishlist', [ShoppingWishlist::class, 'addToWishlist'])->name('product.add_to_wishlist');
+// Route::get('/product/add-to-wishlist-delete/{id}', [ShoppingWishlist::class, 'addToWishlistDelete'])->name('product.add_to_wishlist-delete');
+
+// product checkout part
+Route::middleware('auth')->group(function () {
+Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+Route::post('/product/shipping/details', [CheckoutController::class, 'shippingDetails'])->name('product.shipping.details');
+Route::get('/product/payment', [CheckoutController::class, 'payment'])->name('product.payment');
+Route::post('/product/place_order', [CheckoutController::class, 'placeOrder'])->name('product.placeOrder');
+Route::get('/user/logout', [CustomerDashboardController::class, 'logout'])->name('user.logout');
+});
 
 
+// user profile setting 
+Route::middleware('auth')->group(function () {
+Route::post('/admin/profile/update/{id}', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
+Route::get('/admin/password/change', [DashboardController::class, 'changePassword'])->name('admin.password.change');
+Route::post('/admin/password/update/{id}', [DashboardController::class, 'updatePassword'])->name('admin.password.update');
+});
+
+
+// ***************end frontend route **************
+// Route::post('/admin/profile/update/{id}', 'profileUpdate')->name('admin.profile.update');
 
 // backend controller start 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','role:Admin')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/admin/dashboard', 'index')->name('admin.dashboard');
         Route::get('/admin/logout', 'logout')->name('admin.logout');
+        Route::get('/admin/profile', 'profile')->name('admin.profile');
     });
 
     // category route part -------------
@@ -126,6 +160,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/product/{id}', 'edit')->name('edit.product');
         Route::post('/update/product/{id}', 'update')->name('update.product');
         Route::get('/status/product/{id}', 'changestatus')->name('status.product');
+    });
+    // Product order route part -------------
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/order/product', 'index')->name('order.product');
+        Route::get('/order/product/details/{id}', 'orderFullDetails')->name('order.product.details');
+        Route::get('/order/product/details/delete/{id}', 'orderFullDetailsDelete')->name('order.product.details.delete');
+        Route::get('/order/order/invoice/{id}', 'orderInvoice')->name('order.order.invoice');
     });
 
 });

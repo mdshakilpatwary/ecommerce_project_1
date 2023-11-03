@@ -17,7 +17,7 @@ setTimeout(function() {
 
 setTimeout(function() {
     $('.alerterror').slideUp(1000);
- },10000);
+ },5000);
 
 
 //  onchange image file part

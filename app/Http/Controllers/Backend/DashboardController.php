@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use File;
+use Image;
+use Illuminate\Support\Str;
 
 
 
@@ -15,7 +20,9 @@ class DashboardController extends Controller
         return view('backend.dashboard');
 
     }
-
+function profile(){
+    return view('backend.info.profile');
+}
     public function logout(Request $request){
         Auth::guard('web')->logout();
 
@@ -25,4 +32,85 @@ class DashboardController extends Controller
 
         return redirect('/login');
     }
+
+
+    // profile update controller
+    function profileUpdate(Request $rqst, $id){
+        $user = User::find($id);
+        
+        $user->name = $rqst->name;
+        $user->username =Str::slug($rqst->name);
+        $user->email = $rqst->email;
+        $user->phone = $rqst->phone;
+        $user->birth = $rqst->birth;
+        $user->address = $rqst->address;
+        $user->country = $rqst->country;
+        $user->description = $rqst->description;
+        $user->facebook = $rqst->facebook;
+        if($rqst->file('image')){
+            
+            if(File::exists(public_path('uploads/user/' .$user->image))){
+                File::delete(public_path('uploads/user/' .$user->image));
+            }
+            $image = $rqst->file('image');
+            $customName = rand().'.'.$image->getClientOriginalExtension();
+            $path = public_path('uploads/user/'. $customName);
+            Image::make($image)->resize(300,300)->save($path);
+            $user->image = $customName ;
+            
+        }
+        
+        $msg =$user->save();
+        if($msg){
+            return back()->with('success','Profile Updated successfully');
+    
+        }
+        else{
+            return back()->with('error','Opps! Profile not Updated ');
+        }
+    
+       
+    
+    }
+
+    // change password 
+
+    function changePassword(){
+        return view('backend.info.changePassword');
+    }
+    function updatePassword(Request $rqst, $id){
+        $userpass = User::find($id);
+        $rqst->validate([
+            'oldPass' => 'required',
+            'newPass' => 'required',
+            'conPass' => 'required|same:newPass',
+        ],
+        [
+            'oldPass.require' => 'Your old password is required',
+            'newPass.require' => 'Your new password is required',
+            'conPass.require' => 'Your confirm password is required',
+        ]);
+
+        $oldPass = $rqst->oldPass;
+        $userOldpass = $userpass->password;
+        if(Hash::check($oldPass, $userOldpass)){
+            $userpass->password = bcrypt($rqst->newPass);
+            $userpass->update();
+           
+            return back()->with('success','Password successfully changed');
+
+
+        }
+        else{
+          
+            return back()->with('error','old password not match');
+
+
+        }
+       
+    }
+
+
+
 }
+

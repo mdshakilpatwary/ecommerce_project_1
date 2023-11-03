@@ -5,7 +5,7 @@
                 class="logo-name">Dream Project</span>
             </a>
           </div>
-          <ul class="sidebar-menu">
+          <ul class="sidebar-menu pb-5">
             <li class="menu-header">Main</li>
             <li class="dropdown {{ Route::is('create.product*') || Route::is('admin.dashboard*') ? 'active' : '' }}">
               <a href="{{route('admin.dashboard')}}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
@@ -72,8 +72,16 @@
                 <li><a class="nav-link" href="{{route('show.color')}}">Manage Color</a></li>
               </ul>
             </li>
+            <li class="menu-header">Product Elements</li>
+            <li class="dropdown {{ Route::is('order.product*') || Route::is('order.product.details*') || Route::is('order.order.invoice*') ? 'active' : '' }}">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Customer Order</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{route('order.product')}}">Customer Order</a></li>
+                
+              </ul>
+            </li>
+            
 
-            <li class="menu-header"><a href="{{route('admin.logout')}}" class="text-danger bold h3">Logout</a></li>
 
 
           

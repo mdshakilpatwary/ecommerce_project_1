@@ -5,9 +5,10 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="{{url('/')}}">Home</a></li>
+						<li class="{{ Route::is('frontend_site*') ? 'active' : '' }}"><a href="{{url('/')}}">Home</a></li>
+						<li class="{{ Route::is('show.all.product*') ? 'active' : '' }}"><a href="{{route('show.all.product')}}">All Product</a></li>
 						@foreach($categories as $category)
-						<li ><a href="{{route('show.category.product',$category->id)}}">{{$category->cat_name}}</a></li>
+						<li class="{{ Route::is('show.category.product*') ? 'active' : '' }}"><a href="{{route('show.category.product',$category->id)}}">{{$category->cat_name}}</a></li>
 						@endforeach
 
 					</ul>

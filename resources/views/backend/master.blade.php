@@ -1,4 +1,9 @@
 @include('backend.includes.head')
+<?php
+$id = 1;
+ $siteInfo= App\Models\SiteInfo::find($id);
+ 
+ ?>
 @include('backend.includes.head')
   <div class="loader"></div>
   <div id="app">

@@ -1,14 +1,15 @@
 @php
 $cartArray =cartArray();
+$wishlistArray = wishlistArray();
 @endphp	
 	<header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+						<li><a href="#"><i class="fa fa-phone"></i> +088{{$siteInfo->phone}}</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> {{$siteInfo->email}}</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> {{$siteInfo->address}}</a></li>
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#">&#2547;</i>BDT</a></li>
@@ -38,9 +39,16 @@ $cartArray =cartArray();
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="/" class="logo">
-									<img src="{{asset('frontend/assets')}}/img/logo.png" alt="">
+								@if($siteInfo->main_logo == '')
+								<a href="/" class="logo" >
+									<h3 style="color: white; font-size: 40px">{{$siteInfo->name}}</h3>
 								</a>
+
+								@else
+								<a href="/" class="logo" style="">
+									<img src="{{asset('uploads/info/'.$siteInfo->main_logo)}}" style="width: 120px; height: 70px" alt="">
+								</a>
+								@endif
 							</div>
 						</div>
 						<!-- /LOGO -->
@@ -48,14 +56,15 @@ $cartArray =cartArray();
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">All Categories</option>
+								<form action="{{route('product.search')}}" method="GET">
+									@csrf
+									<select class="input-select" name="category">
+										<option value="All" {{request('category')== "All" ? 'selected' : ''}}>All Categories</option>
 										@foreach ($categories as $category)
-										<option value="{{ $category->id }}">{{ $category->cat_name }}</option>	
+										<option value="{{ $category->id }} " {{request('category')== $category->id ? 'selected' : ''}}>{{ $category->cat_name }}</option>	
 										@endforeach
 									</select>
-									<input class="input" placeholder="Search here">
+									<input class="input" placeholder="Search here" name="quearyProduct">
 									<button class="search-btn">Search</button>
 								</form>
 							</div>
@@ -66,12 +75,34 @@ $cartArray =cartArray();
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 								<!-- Wishlist -->
-								<div>
-									<a href="#">
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
-										<div class="qty">2</div>
+										<div class="qty">{{count($wishlistArray)}}</div>
 									</a>
+									<div class="cart-dropdown">
+										<div class="cart-list">
+											@foreach($wishlistArray as $cartdata)
+											<div class="product-widget">
+												<div class="product-img">
+													@if(array_key_exists('p_image', $cartdata['options']))
+													<img src="{{asset('uploads/product/'.$cartdata['options']['p_image'])}}"  alt="">   
+													@endif
+												</div>
+												<div class="product-body">
+													<h3 class="product-name"><a href="{{route('single.product',$cartdata['id'])}}">{{$cartdata['name']}}</a></h3>
+													<h4 class="product-price"><span class="qty">{{$cartdata['qty']}}x</span>&#2547;{{$cartdata['price']}}</h4>
+												</div>
+												<a href="{{route('product.add_to_wishlist-delete',$cartdata['rowId'])}}" class="delete"><i class="fa fa-close"></i></a>
+											</div>
+											@endforeach
+	
+										</div>
+										<div class="cart-btns">
+											<h4 class="text-center">All Wishlist here</h4>
+										</div>
+									</div>
 								</div>
 								<!-- /Wishlist -->
 
@@ -130,4 +161,5 @@ $cartArray =cartArray();
 				<!-- container -->
 			</div>
 			<!-- /MAIN HEADER -->
+
 		</header>

@@ -40,4 +40,21 @@ class OrderController extends Controller
         return view('backend.order.orderInvoice', compact('order','orderId'));
 
     }
+    // order status
+    function orderStatusUpdate( Request $request,$id){
+        $order = Order::where('id',$id)->first();
+        $order->status = $request->status;
+        $msg = $order->update();
+     
+        if($msg){
+            return redirect()->back()->with('success', 'Order status Update successfully');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'opps! Order Status not Updated');
+
+        }
+    }
+
+    
 }

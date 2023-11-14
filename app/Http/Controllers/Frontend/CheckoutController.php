@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ShippingDetails;
 use App\Models\PaymentMethod;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderDatails;
 use Session;
 use Cart;
@@ -92,8 +93,14 @@ class CheckoutController extends Controller
                 'product_id' => $cartItem->id,
                 'product_name' =>$cartItem->name,
                 'product_price' => $cartItem->price,
+                'product_color' => $cartItem->options['color'],
+                'product_size' => $cartItem->options['size'],
                 'product_sale_qty' => $cartItem->qty,
             ]);
+        $up = Product::find($cartItem->id);
+        $up->p_qty = ($up->p_qty - $cartItem->qty);
+        $up->update();
+
 
         }
 

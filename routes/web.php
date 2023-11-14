@@ -31,9 +31,9 @@ use App\Http\Controllers\Frontend\CustomerDashboardController;
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth','role:User', 'verified'])->name('dashboard');
+// user dashboard route
+Route::get('/dashboard', [HomeController::class, 'userDashborad'])->middleware(['auth','role:User', 'verified'])->name('dashboard');
+Route::get('/customer/order/invoice/{id}', [HomeController::class, 'orderinvoice'])->middleware('auth')->name('order.invoice');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,9 +46,13 @@ Route::middleware('auth')->group(function () {
 
 // frontend controller start 
 Route::get('/', [HomeController::class, 'index'])->name('frontend_site');
+// search route start 
+Route::get('/product/search', [HomeController::class, 'productSearch'])->name('product.search');
+// search route end 
 Route::get('/single/product/{id}', [HomeController::class, 'singleProduct'])->name('single.product');
 Route::get('/show/category/product/{id}', [HomeController::class, 'categoryProduct'])->name('show.category.product');
 Route::get('/show/subcategory/product/{id}', [HomeController::class, 'subcategoryProduct'])->name('show.subcategory.product');
+Route::get('/show/all/product', [HomeController::class, 'allProduct'])->name('show.all.product');
 
 // shoping cart part
 Route::post('/product/add-to-cart', [ShoppingCart::class, 'addToCart'])->name('product.add_to_cart');
@@ -64,12 +68,18 @@ Route::post('/product/shipping/details', [CheckoutController::class, 'shippingDe
 Route::get('/product/payment', [CheckoutController::class, 'payment'])->name('product.payment');
 Route::post('/product/place_order', [CheckoutController::class, 'placeOrder'])->name('product.placeOrder');
 Route::get('/user/logout', [CustomerDashboardController::class, 'logout'])->name('user.logout');
+
+// cart wishlist route
+Route::post('/product/add-to-wishlist', [ShoppingWishlist::class, 'addToWishlist'])->name('product.add_to_wishlist');
+Route::get('/product/add-to-wishlist-delete/{id}', [ShoppingWishlist::class, 'addToWishlistDelete'])->name('product.add_to_wishlist-delete');
+
 });
 
 
 // user profile setting 
 Route::middleware('auth')->group(function () {
 Route::post('/admin/profile/update/{id}', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
+Route::post('/admin/siteInfo/update/{id}', [DashboardController::class, 'siteInfoUpdate'])->name('admin.siteInfo.update');
 Route::get('/admin/password/change', [DashboardController::class, 'changePassword'])->name('admin.password.change');
 Route::post('/admin/password/update/{id}', [DashboardController::class, 'updatePassword'])->name('admin.password.update');
 });
@@ -167,6 +177,7 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/order/product/details/{id}', 'orderFullDetails')->name('order.product.details');
         Route::get('/order/product/details/delete/{id}', 'orderFullDetailsDelete')->name('order.product.details.delete');
         Route::get('/order/order/invoice/{id}', 'orderInvoice')->name('order.order.invoice');
+        Route::post('/order/order/status/update/{id}', 'orderStatusUpdate')->name('order.status.update');
     });
 
 });

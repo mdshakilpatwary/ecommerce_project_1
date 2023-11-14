@@ -10,7 +10,17 @@ use Cart;
 class ShoppingCart extends Controller
 {
     public function addToCart(Request $request){
+        $request->validate([
+            'quantity' => 'required',
+            
+        ],
+        [
+            'name.required' => 'Quantity select is required',
+            
+        ]);
         $quantity = $request->quantity;
+        $color = $request->color;
+        $size = $request->size;
         $id = $request->product_id;
         $product = Product::where('id', $id)->first();
     
@@ -21,6 +31,8 @@ class ShoppingCart extends Controller
             'qty' => $quantity,
             'options' => [
                 'p_image' => $product->p_image,
+                'color' => $request->has('color') ? $color : null,
+                'size' => $request->has('size') ? $size : null,
             ],
             
         ];

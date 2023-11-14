@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\SiteInfo;
 use File;
 use Image;
 use Illuminate\Support\Str;
@@ -21,7 +22,9 @@ class DashboardController extends Controller
 
     }
 function profile(){
-    return view('backend.info.profile');
+    $id = 1;
+    $siteInfo = SiteInfo::find($id);
+    return view('backend.info.profile', compact('siteInfo'));
 }
     public function logout(Request $request){
         Auth::guard('web')->logout();
@@ -109,6 +112,54 @@ function profile(){
         }
        
     }
+
+        // Site Info update controller
+        function siteInfoUpdate(Request $rqst, $id){
+            $info = SiteInfo::find($id);
+            
+            $info->name = $rqst->name;
+            $info->email = $rqst->email;
+            $info->phone = $rqst->phone;
+            $info->address = $rqst->address;
+            $info->description = $rqst->description;
+            if($rqst->file('main_logo')){
+                
+                if(File::exists(public_path('uploads/info/' .$info->main_logo))){
+                    File::delete(public_path('uploads/info/' .$info->main_logo));
+                }
+                $image = $rqst->file('main_logo');
+                $customName = rand().'.'.$image->getClientOriginalExtension();
+                $path = public_path('uploads/info/'. $customName);
+                Image::make($image)->resize(300,300)->save($path);
+                $info->main_logo = $customName ;
+                
+            }
+            if($rqst->file('footer_logo')){
+                
+                if(File::exists(public_path('uploads/info/' .$info->footer_logo))){
+                    File::delete(public_path('uploads/info/' .$info->footer_logo));
+                }
+                $fimage = $rqst->file('footer_logo');
+                $customName = rand().'.'.$fimage->getClientOriginalExtension();
+                $path = public_path('uploads/info/'. $customName);
+                Image::make($fimage)->resize(300,300)->save($path);
+                $info->footer_logo = $customName ;
+                
+            }
+            
+            $msg =$info->save();
+            if($msg){
+                return back()->with('success','Site Info Updated successfully');
+        
+            }
+            else{
+                return back()->with('error','Opps! Site Info not Updated ');
+            }
+        
+           
+        
+        }
+
 
 
 

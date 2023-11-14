@@ -81,17 +81,6 @@
                 @error('select_brand')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
-            <div class="form-group ">
-                <label for="select_unit">Select Unit</label>
-               <select name="select_unit" id="" class="form-control select-form">
-                @foreach($units as $unit)
-                <option value="{{ $unit->id }}" {{ $p_data->unit->id == $unit->id ? 'selected' : '' }}>{{ $unit->unit_name }}</option>
-
-                @endforeach
-               </select>
-                @error('select_unit')
-                    <p class="text-danger ">{{$message}}</p>
-                @enderror
             </div>
             <div class="form-group ">
                 <label for="select_color">Select Color</label>
@@ -126,6 +115,14 @@
                 <input type="floatval" name="p_price" id="" value="{{$p_data->p_price}}" class="form-control">
 
                 @error('p_price')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group ">
+                <label for="p_qty">Product quantity</label>
+                <input type="floatval" name="p_qty" id="" value="{{$p_data->p_qty}}" class="form-control">
+
+                @error('p_qty')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>

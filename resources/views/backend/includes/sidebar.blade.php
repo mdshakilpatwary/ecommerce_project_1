@@ -1,9 +1,15 @@
 <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
+            @if($siteInfo->main_logo == '')
             <a href="{{route('admin.dashboard')}}"> <img alt="image" src="{{asset('backend')}}/assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">Dream Project</span>
+                class="logo-name">{{$siteInfo->name}}</span>
             </a>
+            @else
+            <a href="{{route('admin.dashboard')}}"> <img alt="image" src="{{asset('uploads/info/'.$siteInfo->main_logo)}}" class="header-logo" /> <span
+                class="logo-name">{{$siteInfo->name}}</span>
+            </a>
+            @endif
           </div>
           <ul class="sidebar-menu pb-5">
             <li class="menu-header">Main</li>
@@ -14,14 +20,6 @@
               <a href="{{route('frontend_site')}}" target="blank" class="nav-link"><i data-feather="monitor"></i><span>View site</span></a>
             </li>
 
-            <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Email</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="email-inbox.html">Inbox</a></li>
-                <li><a class="nav-link" href="email-compose.html">Compose</a></li>
-                <li><a class="nav-link" href="email-read.html">read</a></li>
-              </ul>
-            </li>
             <li class="menu-header">Project Elements</li>
             <li class="dropdown {{ Route::is('create.product*') || Route::is('show.product*') || Route::is('edit.product*') ? 'active' : '' }}">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Product</span></a>
@@ -51,13 +49,7 @@
                 <li><a class="nav-link" href="{{route('show.brand')}}">Manage Brand</a></li>
               </ul>
             </li>
-            <li class="dropdown {{ Route::is('create.unit*') || Route::is('show.unit*') || Route::is('edit.unit*') ? 'active' : '' }}">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Unit</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{route('create.unit')}}">Add Unit</a></li>
-                <li><a class="nav-link" href="{{route('show.unit')}}">Manage Unit</a></li>
-              </ul>
-            </li>
+
             <li class="dropdown {{ Route::is('create.size*') || Route::is('show.size*') || Route::is('edit.size*') ? 'active' : '' }}">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layers"></i><span>Size</span></a>
               <ul class="dropdown-menu">

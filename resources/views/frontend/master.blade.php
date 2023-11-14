@@ -1,4 +1,10 @@
 @include('frontend.includes.head')
+<?php
+$id = 1;
+ $siteInfo= App\Models\SiteInfo::find($id);
+ 
+?>
+ 
 		<!-- HEADER -->
 @include('frontend.includes.header')
 

@@ -13,8 +13,6 @@
 						<ul class="breadcrumb-tree">
 							<li><a href="#">Home</a></li>
 							<li><a href="#"> {{$category->cat_name}}</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li class="active">Headphones (227,490 Results)</li>
 						</ul>
 					</div>
 				</div>
@@ -56,8 +54,8 @@
 						</div>
 						<!-- /aside Widget -->
 
-						<!-- aside Widget -->
-						<div class="aside">
+						<!-- aside Widget price range -->
+						<!-- <div class="aside">
 							<h3 class="aside-title">Price</h3>
 							<div class="price-filter">
 								<div id="price-slider"></div>
@@ -73,7 +71,7 @@
 									<span class="qty-down">-</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- /aside Widget -->
 
 						<!-- aside Widget -->
@@ -102,38 +100,20 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
+							@foreach($topProducts as $product)
+							@if ($loop->iteration <= 3)
 							<div class="product-widget">
 								<div class="product-img">
-									<img src="./img/product01.png" alt="">
+									<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<p class="product-category">{{$product->category->cat_name}}</p>
+									<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
+									<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 								</div>
 							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
+							@endif
+							@endforeach
 						</div>
 						<!-- /aside Widget -->
 					</div>
@@ -142,7 +122,7 @@
 					<!-- STORE -->
 					<div id="store" class="col-md-9">
 						<!-- store top filter -->
-						<div class="store-filter clearfix">
+						<!-- <div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
 									Sort By:
@@ -164,7 +144,7 @@
 								<li class="active"><i class="fa fa-th"></i></li>
 								<li><a href="#"><i class="fa fa-th-list"></i></a></li>
 							</ul>
-						</div>
+						</div> -->
 						<!-- /store top filter -->
 
 						<!-- store products -->
@@ -193,33 +173,68 @@
 											<i class="fa fa-star"></i>
 										</div>
 										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<form style="display: inline"  action="{{route('product.add_to_wishlist')}}" method="POST">
+												@csrf
+													<input type="hidden" name="product_id" value="{{$product->id}}">
+													<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											</form>											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
 											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 										</div>
 									</div>
 									</a>
+									<form action="{{route('product.add_to_cart')}}" method="POST">
+										@csrf
 									<div class="add-to-cart">
+										<input type="hidden" name="quantity" value="1">
+										<input type="hidden" name="product_id" value="{{$product->id}}">
+										@if($product->p_qty != 0)
 										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
+										@else
+										<span class="product-available " style="color:white;">Stock Out</span>
+										@endif									</div>
+									</form>
 								</div>
 							</div>
 							<!-- /product -->
 							@endforeach
 
 						</div>
+
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
+							<span class="store-qty">Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} products</span>
+							
+							<div class="store-pagination">
+								<div class="custom-pagination">
+									<div class="pagination">
+										{{-- Previous Page Link --}}
+										@if ($products->onFirstPage())
+											<span class="disabled">Previous</span>
+										@else
+											<a href="{{ $products->previousPageUrl() }}" rel="prev">Previous</a>
+										@endif
+								
+										{{-- Pagination Elements --}}
+										@for ($i = 1; $i <= $products->lastPage(); $i++)
+											@if ($i == $products->currentPage())
+												<span class="current">{{ $i }}</span>
+											@else
+												<a href="{{ $products->url($i) }}">{{ $i }}</a>
+											@endif
+										@endfor
+								
+										{{-- Next Page Link --}}
+										@if ($products->hasMorePages())
+											<a href="{{ $products->nextPageUrl() }}" rel="next">Next</a>
+										@else
+											<span class="disabled">Next</span>
+										@endif
+									</div>
+								</div>
+				
+							</div>
 						</div>
 						<!-- /store bottom filter -->
 					</div>
@@ -230,5 +245,7 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+		
 
 @endsection
+

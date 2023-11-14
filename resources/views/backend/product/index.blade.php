@@ -81,21 +81,10 @@
                 @error('select_brand')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
-            <div class="form-group ">
-                <label for="select_unit">Select Unit</label>
-               <select name="select_unit" id="" class="form-control select-form">
-                <option value="" disabled selected>----Select Unit-----</option>
-                @foreach($units as $unit)
-                <option value="{{$unit->id}}">{{$unit->unit_name}}</option>
-                @endforeach
-               </select>
-                @error('select_unit')
-                    <p class="text-danger ">{{$message}}</p>
-                @enderror
             </div>
             <div class="form-group ">
                 <label for="select_color">Select Color</label>
-               <select name="select_color" id="" class="form-control select-form">
+               <select name="select_color" id="" class="form-control select-form"  >
                 <option value="" disabled selected>----Select Color-----</option>
                 @foreach($colors as $color)
                 @foreach(json_decode($color->color) as $color_value)
@@ -109,7 +98,7 @@
             </div>
             <div class="form-group ">
                 <label for="select_size">Select Size</label>
-               <select name="select_size" id="" class="form-control select-form">
+               <select name="select_size" id="" class="form-control select-form" >
                 <option value="" disabled selected>----Select Size-----</option>
                 @foreach($sizes as $size)
                 @foreach(json_decode($size->size) as $size_value)
@@ -126,6 +115,14 @@
                 <input type="floatval" name="p_price" id="" class="form-control">
 
                 @error('p_price')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group ">
+                <label for="p_price">Product quantity</label>
+                <input type="floatval" name="p_qty" id="" value="" class="form-control">
+
+                @error('p_qty')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>

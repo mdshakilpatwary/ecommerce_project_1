@@ -19,7 +19,8 @@
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+          <!-- message part  -->
+          <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
               class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
               <span class="badge headerBadge1">
                 6 </span> </a>
@@ -79,7 +80,7 @@
                 <a href="#">View All <i class="fas fa-chevron-right"></i></a>
               </div>
             </div>
-          </li>
+          </li> -->
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
               class="nav-link notification-toggle nav-link-lg"><i data-feather="bell" class="bell"></i>
             </a>
@@ -130,10 +131,10 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('backend')}}/assets/img/user.png"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/user/'.Auth::user()->image) }}"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-              <div class="dropdown-title">Hello Sarah Smith</div>
+              <div class="dropdown-title">Hello {{Auth::user()->name}}</div>
               <a href="{{route('admin.profile')}}" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
               </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>

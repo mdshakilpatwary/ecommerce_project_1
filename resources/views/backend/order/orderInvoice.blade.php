@@ -2,9 +2,9 @@
 
 @section('maincontent')
 
-<div class="container">
-    <div class="invoice">
-        <div class="invoice-print">
+<div class="container" >
+    <div class="invoice" >
+        <div class="invoice-print" id="content_invoice" >
           <div class="row">
             <div class="col-lg-12">
               <div class="invoice-title">
@@ -59,7 +59,9 @@
                 <table class="table table-striped table-hover table-md">
                   <tbody><tr>
                     <th data-width="40" style="width: 40px;">#</th>
-                    <th>Item</th>
+                    <th>Product Name</th>
+                    <th class="text-center">Color</th>
+                    <th class="text-center">Size</th>
                     <th class="text-center">Price</th>
                     <th class="text-center">Quantity</th>
                     <th class="text-right">Totals</th>
@@ -71,6 +73,8 @@
                   <tr>
                     <td>{{$sl++}}</td>
                     <td>{{$data->product_name}}</td>
+                    <td class="text-center">{{($data->product_color != null) ?$data->product_color : 'None'}}</td>
+                    <td class="text-center">{{($data->product_size != null) ?$data->product_size : 'None'}}</td>
                     <td class="text-center">&#2547; {{$data->product_price}}</td>
                     <td class="text-center">{{$data->product_sale_qty}}</td>
                     <td class="text-right"> &#2547; {{$data->product_price * $data->product_sale_qty}}</td>
@@ -118,9 +122,28 @@
           <div class="float-lg-left mb-lg-0 mb-3">
             
           </div>
-          <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+          <button onclick="printContent()" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
         </div>
       </div>
 </div>
 
 @endsection
+
+<script>
+  function printContent() {
+      // Open a new window with only the content to be printed
+      var printWindow = window.open('', '_blank');
+      
+      // Get the HTML content to be printed
+      var contentToPrint = document.getElementById('content_invoice').outerHTML;
+
+      // Write the content to the new window
+      printWindow.document.write('<html><head><title>Print Content</title><link rel="stylesheet" type="text/css" href="print.css" media="print"></head><body>' + contentToPrint + '</body></html>');
+
+      // Close the document stream
+      printWindow.document.close();
+
+      // Trigger the print dialog
+      printWindow.print();
+  }
+</script>

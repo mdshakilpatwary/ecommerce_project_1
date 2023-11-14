@@ -91,21 +91,14 @@
                   Facebook
                 </span>
                 <span class="float-right text-muted">
-                  <a href="#">John Deo</a>
+                  <a href="#">{{Auth::user()->username}}</a>
                 </span>
               </p>
-              <p class="clearfix">
-                <span class="float-left">
-                  Twitter
-                </span>
-                <span class="float-right text-muted">
-                  <a href="#">@johndeo</a>
-                </span>
-              </p>
+             
             </div>
           </div>
         </div>
-        <div class="card">
+        <!-- <div class="card">
           <div class="card-header">
             <h4>Skills</h4>
           </div>
@@ -143,7 +136,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-12 col-md-12 col-lg-8">
         <div class="card">
@@ -167,12 +160,12 @@
                   <div class="col-md-3 col-6 b-r">
                     <strong>Mobile</strong>
                     <br>
-                    <p class="text-muted">{{Auth::user()->name}}</p>
+                    <p class="text-muted">{{Auth::user()->phone}}</p>
                   </div>
                   <div class="col-md-3 col-6 b-r">
                     <strong>Email</strong>
                     <br>
-                    <p class="text-muted">{{Auth::user()->name}}</p>
+                    <p class="text-muted">{{Auth::user()->email}}</p>
                   </div>
                   <div class="col-md-3 col-6">
                     <strong>Location</strong>
@@ -256,6 +249,69 @@
                 </form>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="padding-20">
+            <form method="POST" action="{{route('admin.siteInfo.update', $siteInfo->id)}}" class="needs-validation" enctype="multipart/form-data">
+              @csrf
+              <div class="card-header">
+                <h4>Update Site Info</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  
+                  <div class="form-group col-md-12 col-12">
+                    <label>Site Name</label>
+                    <input type="text" class="form-control" name="name" value="{{$siteInfo->name}}">
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12 col-12">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{$siteInfo->email}}">
+                    <div class="invalid-feedback">
+                      Please fill in the email
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12 col-12">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" class="form-control" value="{{$siteInfo->phone}}">
+                    <div class="invalid-feedback">
+                      Please fill in the phone
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12 col-12">
+                    <label>Address</label>
+                    <input type="text" name="address" class="form-control" value="{{$siteInfo->address}}">
+                    <div class="invalid-feedback">
+                      Please fill in the phone
+                    </div>
+                  </div>
+           
+                  <div class="form-group col-md-6 col-12">
+                    <label>Main logo Image</label>
+                    <input type="file" name="main_logo" class="form-control" >
+                  </div>
+                  <div class="form-group col-md-6 col-12">
+                    <label>Footer logo Image</label>
+                    <input type="file" name="footer_logo" class="form-control" >
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12 col-12">
+                    <label>Short Description</label>
+                    <textarea name="description" class="form-control" id="" cols="20" rows="10">{{$siteInfo->description}}</textarea>
+                  </div>
+                  
+                </div>
+
+              </div>
+              <div class="card-footer text-right">
+                <button class="btn btn-primary">Update Info</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

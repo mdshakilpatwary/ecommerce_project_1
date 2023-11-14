@@ -22,5 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::share('categories', $categories = Category::where('cat_status',1)->get());
+       
     }
 }

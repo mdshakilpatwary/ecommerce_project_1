@@ -12,9 +12,7 @@
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
 							<li><a href="#">Home</a></li>
-							<li><a href="#"> {{$subcategory->cat_name}}</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li class="active">Headphones (227,490 Results)</li>
+							<li><a href="#">Searching Page</a></li>
 						</ul>
 					</div>
 				</div>
@@ -56,9 +54,7 @@
 						</div>
 						<!-- /aside Widget -->
 
-						<!-- aside Widget -->
 
-						<!-- /aside Widget -->
 
 						<!-- aside Widget -->
 						<div class="aside">
@@ -87,19 +83,22 @@
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
 							@foreach($topProducts as $product)
-								@if ($loop->iteration <= 3)
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">{{$product->category->cat_name}}</p>
-										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-									</div>
+							@if ($loop->iteration <= 3)
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
 								</div>
-								@endif
-								@endforeach
+								<div class="product-body">
+									<p class="product-category">{{$product->category->cat_name}}</p>
+									<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
+									<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+								</div>
+							</div>
+							@endif
+							@endforeach
+	
+
+						
 						</div>
 						<!-- /aside Widget -->
 					</div>
@@ -163,7 +162,7 @@
 												@csrf
 													<input type="hidden" name="product_id" value="{{$product->id}}">
 													<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-												</form>											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											</form>											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
 											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 										</div>
 									</div>
@@ -173,11 +172,11 @@
 									<div class="add-to-cart">
 										<input type="hidden" name="quantity" value="1">
 										<input type="hidden" name="product_id" value="{{$product->id}}">
-											@if($product->p_qty != 0)
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-												@else
-												<span class="product-available " style="color:white;">Stock Out</span>
-												@endif									</div>
+                                        @if($product->p_qty != 0)
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        @else
+                                        <span class="product-available " style="color:white;">Stock Out</span>
+                                        @endif									</div>
 									</form>
 								</div>
 							</div>
@@ -185,7 +184,8 @@
 							@endforeach
 
 						</div>
-						<!-- /store products -->
+
+                        <!-- /store products -->
 
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">

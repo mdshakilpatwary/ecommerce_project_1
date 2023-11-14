@@ -100,6 +100,9 @@
                 <tr>
                     <th>Order ID</th>
                     <th>Product Name</th>
+                    <th>Product Code</th>
+                    <th>Color</th>
+                    <th>Size</th>
                     <th>Product price</th>
                     <th>Quantity</th>
                     <th>Sub Total</th>
@@ -110,6 +113,9 @@
                     <tr class="table-primary">
                         <td>{{$orderdata->order_id}}</td>
                         <td class="center">{{$orderdata->product_name}}</td>
+                        <td class="center">{{$orderdata->product->p_code}}</td>
+                        <td class="center">{{($orderdata->product_color != null) ?$orderdata->product_color : 'None'}}</td>
+                        <td class="center">{{($orderdata->product_size != null) ?$orderdata->product_size : 'None'}}</td>
                         <td class="center">&#2547; {{$orderdata->product_price}}</td>
                         <td class="center">{{$orderdata->product_sale_qty}}</td>
                         <td class="center"> &#2547; {{$orderdata->product_price * $orderdata->product_sale_qty}}</td>
@@ -120,7 +126,11 @@
     
                 <tfoot>
                 <tr class="table-dark">
-                    <td colspan="4" style="font-size: 20px;font-weight: 521;text-align: right; color: red"> Total Amount to pay</td>
+                    <td colspan="7" style="font-size: 20px;font-weight: 521;text-align: right; color: rgb(53, 52, 52)">Shipping charge</td>
+                    <td><strong style="font-size: 20px; color: #007cff;">&#2547;100 </strong></td>
+                </tr>
+                <tr class="table-dark">
+                    <td colspan="7" style="font-size: 18px;font-weight: 521;text-align: right; color: red"> Total Amount to pay</td>
                     <td><strong style="font-size: 20px; color: #007cff;">&#2547; {{$order->total}} </strong></td>
                 </tr>
                 </tfoot>

@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Brand;
-use App\Models\Unit;
 use App\Models\Size;
 use App\Models\Color;
 use File;
@@ -22,10 +21,9 @@ class ProductController extends Controller
         $categories =Category::all();
         $subcategories =SubCategory::all();
         $brands =Brand::all();
-        $units =Unit::all();
         $sizes =Size::all();
         $colors =Color::all();
-        return view('backend.product.index', compact('categories','subcategories','brands','colors','sizes','units'));
+        return view('backend.product.index', compact('categories','subcategories','brands','colors','sizes'));
     }
 
 // store Product controller part 
@@ -37,12 +35,12 @@ function store(Request $request){
         'select_cat' => 'required',
         'select_subcat' => 'required',
         'select_brand' => 'required',
-        'select_unit' => 'required',
         'select_color' => 'required',
         'select_size' => 'required',
         'p_desc' => 'required',
         'p_image' => 'required',
         'p_price' => 'required',
+        'p_qty' => 'required',
         'group_p_image' => 'required',
         
     ],
@@ -52,12 +50,12 @@ function store(Request $request){
         'select_cat.required' => 'Product category is required',
         'select_subcat.required' => 'Product sub category is required',
         'select_brand.required' => 'Product brand is required',
-        'select_unit.required' => 'Product unit is required',
         'select_color.required' => 'Product color is required',
         'select_size.required' => 'Product size is required',
         'p_desc.required' => 'Product Description is required',
         'p_image.required' => 'Product Description is required',
         'p_price.required' => 'Product price is required',
+        'p_qty.required' => 'Product Quantity is required',
         'group_p_image.required' => 'Product group image is required',
        
     ]);
@@ -72,9 +70,9 @@ function store(Request $request){
     $product->brand_id = $request->select_brand;
     $product->color_id = $request->select_color;
     $product->size_id = $request->select_size;
-    $product->unit_id = $request->select_unit;
     $product->p_description = $request->p_desc;
     $product->p_price = $request->p_price;
+    $product->p_qty = $request->p_qty;
 // single image store 
     if($request->file('p_image')){
         $image = $request->file('p_image');
@@ -153,10 +151,9 @@ function show(){
         $categories =Category::all();
         $subcategories =SubCategory::all();
         $brands =Brand::all();
-        $units =Unit::all();
         $sizes =Size::all();
         $colors =Color::all();
-        return view('backend.product.edit', compact('p_data','categories','subcategories','brands','colors','sizes','units'));
+        return view('backend.product.edit', compact('p_data','categories','subcategories','brands','colors','sizes'));
    
     }
 
@@ -170,9 +167,9 @@ function show(){
         $product->brand_id = $request->select_brand;
         $product->color_id = $request->select_color;
         $product->size_id = $request->select_size;
-        $product->unit_id = $request->select_unit;
         $product->p_description = $request->p_desc;
         $product->p_price = $request->p_price;
+        $product->p_qty = $request->p_qty;
     // single image update 
         if($request->file('p_image')){
             if(File::exists(public_path('uploads/product/' .$product->p_image))){

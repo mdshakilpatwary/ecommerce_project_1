@@ -77,18 +77,22 @@
 							</div>
 							<div>
 								<h3 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h3>
+								@if($product->p_qty != 0)
 								<span class="product-available">In Stock</span>
+								@endif
 							</div>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<form action="{{route('product.add_to_cart')}}" method="POST">
+								@csrf
 
 							<div class="product-options">
 								<label>
 									Size
-									<select class="input-select">
+									<select class="input-select" name="size">
 										
 										@foreach(json_decode($product->size->size) as $size)
 										
-										<option value="0">{{$size->value}}</option>
+										<option value="{{$size->value}}">{{$size->value}}</option>
 										
 										@endforeach
 										
@@ -96,26 +100,56 @@
 								</label>
 								<label>
 									Color
-									<select class="input-select">
-										<option value="0">{{$product->color_id}}</option>
+									<select class="input-select" name="color">
+										<option value="{{$product->color_id}}">{{$product->color_id}}</option>
 									</select>
 								</label>
 							</div>
-
+							@if($product->p_qty != 0)
 							<div class="add-to-cart">
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number">
+										<input type="number" name="quantity" value="1">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
+									@error('quantity')
+									<p class="text-danger pt-1">{{$message}}</p>
+									@enderror
 								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<input type="hidden" name="product_id" value="{{$product->id}}">
+
+								<button  class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+								
 							</div>
+							@else
+							<div class="add-to-cart">
+								<div class="qty-label">
+									Qty
+									<div class="input-number">
+										<input type="number" name="quantity">
+										<span class="qty-up">+</span>
+										<span class="qty-down">-</span>
+									</div>
+									@error('quantity')
+									<p class="text-danger pt-1">{{$message}}</p>
+									@enderror
+								</div>
+								<input type="hidden" name="product_id" value="{{$product->id}}">
+
+								<button disabled class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Stock Out</button>
+								
+							</div>
+							@endif
+							</form>
 
 							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+								<form style="display: inline"  action="{{route('product.add_to_wishlist')}}" method="POST">
+									@csrf
+										<input type="hidden" name="product_id" value="{{$product->id}}">
+										<li><a ><button style="background: none; border:none;"><i class="fa fa-heart-o"></i> ADD TO WISHLIST</button></a></li>
+									</form>
 								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
 							</ul>
 

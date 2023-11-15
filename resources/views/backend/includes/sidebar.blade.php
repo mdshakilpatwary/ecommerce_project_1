@@ -20,7 +20,7 @@
               <a href="{{route('frontend_site')}}" target="blank" class="nav-link"><i data-feather="monitor"></i><span>View site</span></a>
             </li>
 
-            <li class="menu-header">Project Elements</li>
+            <li class="menu-header">Product Elements</li>
             <li class="dropdown {{ Route::is('create.product*') || Route::is('show.product*') || Route::is('edit.product*') ? 'active' : '' }}">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Product</span></a>
               <ul class="dropdown-menu">
@@ -64,7 +64,7 @@
                 <li><a class="nav-link" href="{{route('show.color')}}">Manage Color</a></li>
               </ul>
             </li>
-            <li class="menu-header">Product Elements</li>
+            <li class="menu-header">Customer Order Elements</li>
             <li class="dropdown {{ Route::is('order.product*') || Route::is('order.product.details*') || Route::is('order.order.invoice*') ? 'active' : '' }}">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Customer Order</span></a>
               <ul class="dropdown-menu">

@@ -71,21 +71,21 @@
                     </button>
                   </div>
                 </form>
-                {{-- <div class="text-center mt-4 mb-3">
+                <div class="text-center mt-4 mb-3">
                   <div class="text-job text-muted">Login With Social</div>
                 </div>
                 <div class="row sm-gutters">
-                  <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                      <span class="fab fa-facebook"></span> Facebook
+                  <div class="offset-3 col-6">
+                    <a href="{{route('socialite.create')}}" class="btn btn-block btn-social btn-facebook">
+                      <span class="fab fa-google"></span> Google
                     </a>
                   </div>
-                  <div class="col-6">
+                  {{-- <div class="col-6">
                     <a class="btn btn-block btn-social btn-twitter">
                       <span class="fab fa-twitter"></span> Twitter
                     </a>
-                  </div>
-                </div> --}}
+                  </div> --}}
+                </div>
               </div>
             </div>
             <div class="mt-5 text-muted text-center">

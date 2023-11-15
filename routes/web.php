@@ -16,6 +16,7 @@ use App\Http\Controllers\Frontend\ShoppingCart;
 use App\Http\Controllers\Frontend\ShoppingWishlist;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerDashboardController;
+use App\Http\Controllers\Frontend\SocialController;
 
 
 /*
@@ -34,6 +35,9 @@ use App\Http\Controllers\Frontend\CustomerDashboardController;
 // user dashboard route
 Route::get('/dashboard', [HomeController::class, 'userDashborad'])->middleware(['auth','role:User', 'verified'])->name('dashboard');
 Route::get('/customer/order/invoice/{id}', [HomeController::class, 'orderinvoice'])->middleware('auth')->name('order.invoice');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -57,10 +61,11 @@ Route::get('/show/all/product', [HomeController::class, 'allProduct'])->name('sh
 // shoping cart part
 Route::post('/product/add-to-cart', [ShoppingCart::class, 'addToCart'])->name('product.add_to_cart');
 Route::get('/product/add-to-cart-delete/{id}', [ShoppingCart::class, 'addToCartDelete'])->name('product.add_to_cart-delete');
-// // shoping Wishlist part
-// Route::post('/product/add-to-wishlist', [ShoppingWishlist::class, 'addToWishlist'])->name('product.add_to_wishlist');
-// Route::get('/product/add-to-wishlist-delete/{id}', [ShoppingWishlist::class, 'addToWishlistDelete'])->name('product.add_to_wishlist-delete');
+// social login route 
 
+Route::get('/socialite/create', [SocialController::class, 'create'])->name('socialite.create');
+Route::get('/sociallogin/store', [SocialController::class, 'login'])->name('socialite.login');
+Route::post('/sociallogin/setpass/{sid}', [SocialController::class, 'setpass'])->name('socialite.setpass');
 // product checkout part
 Route::middleware('auth')->group(function () {
 Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');

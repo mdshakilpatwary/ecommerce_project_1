@@ -79,24 +79,30 @@ $wishlistArray = wishlistArray();
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
+										@if(Auth::user())
 										<div class="qty">{{count($wishlistArray)}}</div>
+										@else
+										<div class="qty">0</div>
+										@endif
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											@foreach($wishlistArray as $cartdata)
-											<div class="product-widget">
-												<div class="product-img">
-													@if(array_key_exists('p_image', $cartdata['options']))
-													<img src="{{asset('uploads/product/'.$cartdata['options']['p_image'])}}"  alt="">   
-													@endif
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="{{route('single.product',$cartdata['id'])}}">{{$cartdata['name']}}</a></h3>
-													<h4 class="product-price"><span class="qty">{{$cartdata['qty']}}x</span>&#2547;{{$cartdata['price']}}</h4>
-												</div>
-												<a href="{{route('product.add_to_wishlist-delete',$cartdata['rowId'])}}" class="delete"><i class="fa fa-close"></i></a>
+										@if(Auth::user())
+										@foreach($wishlistArray as $cartdata)
+										<div class="product-widget">
+											<div class="product-img">
+												
+												<img src="{{asset('uploads/product/'.$cartdata->p_image)}}"  alt="">   
+												
 											</div>
-											@endforeach
+											<div class="product-body">
+												<h3 class="product-name"><a href="{{route('single.product',$cartdata->p_id)}}">{{$cartdata->p_name}}</a></h3>
+												<h4 class="product-price">&#2547;{{$cartdata->p_price}}</h4>
+											</div>
+											<a href="{{route('product.add_to_wishlist-delete',$cartdata->id)}}" class="delete"><i class="fa fa-close"></i></a>
+										</div>
+										@endforeach
+										@endif
 	
 										</div>
 										<div class="cart-btns">

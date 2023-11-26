@@ -71,9 +71,8 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star"></i>
 								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
 							</div>
 							<div>
 								<h3 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h3>
@@ -89,10 +88,8 @@
 								<label>
 									Size
 									<select class="input-select" name="size">
-										
-										@foreach(json_decode($product->size->size) as $size)
-										
-										<option value="{{$size->value}}">{{$size->value}}</option>
+										@foreach(explode("|",$product->size_id) as $size)										
+										<option value="{{$size}}">{{$size}}</option>
 										
 										@endforeach
 										
@@ -101,7 +98,9 @@
 								<label>
 									Color
 									<select class="input-select" name="color">
-										<option value="{{$product->color_id}}">{{$product->color_id}}</option>
+										@foreach(explode("|",$product->color_id) as $color)
+										<option value="{{$color}}">{{$color}}</option>
+										@endforeach
 									</select>
 								</label>
 							</div>
@@ -148,7 +147,18 @@
 								<form style="display: inline"  action="{{route('product.add_to_wishlist')}}" method="POST">
 									@csrf
 										<input type="hidden" name="product_id" value="{{$product->id}}">
+									@if(Auth::user())
+									{{-- wishlist --}}
+										@if(App\Models\CartWishlist::where('p_id',$product->id)->where('user_id', Auth::user()->id)->first())
+										<li><a ><button  disabled style="background: none; border:none;"><i class="fa fa-heart"></i> ADD TO WISHLIST</button></a></li>
+
+										@else
 										<li><a ><button style="background: none; border:none;"><i class="fa fa-heart-o"></i> ADD TO WISHLIST</button></a></li>
+										@endif
+									@else
+									<li><a ><button style="background: none; border:none;"><i class="fa fa-heart-o"></i> ADD TO WISHLIST</button></a></li>
+
+									@endif
 									</form>
 								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
 							</ul>

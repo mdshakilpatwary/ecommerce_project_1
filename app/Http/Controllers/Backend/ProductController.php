@@ -68,11 +68,27 @@ function store(Request $request){
     $product->cat_id = $request->select_cat;
     $product->subcat_id = $request->select_subcat;
     $product->brand_id = $request->select_brand;
-    $product->color_id = $request->select_color;
-    $product->size_id = $request->select_size;
     $product->p_description = $request->p_desc;
     $product->p_price = $request->p_price;
     $product->p_qty = $request->p_qty;
+
+// color and size 
+$colors = array();
+$select_color = $request->select_color;
+foreach($select_color as $color){
+    $colors[] = $color;
+}
+$product->color_id =implode("|",$colors);
+
+// size 
+$sizes = array();
+$select_size = $request->select_size;
+foreach($select_size as $size){
+    $sizes[] = $size;
+}
+$product->size_id =implode("|",$sizes);
+
+
 // single image store 
     if($request->file('p_image')){
         $image = $request->file('p_image');
@@ -165,11 +181,28 @@ function show(){
         $product->cat_id = $request->select_cat;
         $product->subcat_id = $request->select_subcat;
         $product->brand_id = $request->select_brand;
-        $product->color_id = $request->select_color;
-        $product->size_id = $request->select_size;
         $product->p_description = $request->p_desc;
         $product->p_price = $request->p_price;
         $product->p_qty = $request->p_qty;
+
+
+
+    // color and size 
+        $colors = array();
+        $select_color = $request->select_color;
+        foreach($select_color as $color){
+            $colors[] = $color;
+        }
+        $product->color_id =implode("|",$colors);
+
+    // size 
+        $sizes = array();
+        $select_size = $request->select_size;
+        foreach($select_size as $size){
+            $sizes[] = $size;
+        }
+        $product->size_id =implode("|",$sizes);
+
     // single image update 
         if($request->file('p_image')){
             if(File::exists(public_path('uploads/product/' .$product->p_image))){

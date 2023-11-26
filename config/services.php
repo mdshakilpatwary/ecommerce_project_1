@@ -34,7 +34,7 @@ return [
     'google' => [
         'client_id' => ('106098189778-hp03d6cvg7t5ska13ml0agaoo3une2nb.apps.googleusercontent.com'),
         'client_secret' => ('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'),
-        'redirect' => '/sociallogin/store',
+        'redirect' => 'http://127.0.0.1:8000/sociallogin/store/',
     ],
 
 ];

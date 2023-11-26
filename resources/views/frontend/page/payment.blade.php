@@ -62,7 +62,7 @@
                 <div class="selection_title ">
                     <h4 class="text-center title" style="color: #d10024; padding: 10px 0; ">Please select your payment method</h4>
                 </div>
-                <form action="{{route('product.placeOrder')}}" method="POST">
+            <form action="{{route('product.placeOrder')}}" method="POST">
                     @csrf
                 <div class="payment-method">
                     <div class="input-radio">

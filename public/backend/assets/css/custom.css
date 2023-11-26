@@ -18,3 +18,8 @@ a:hover{
 	padding: 0 !important;
 	color: rgb(111, 112, 114);
 }
+
+
+.filter-multi-select > .viewbar > .selected-items > .item {
+	background: indigo !important;
+}

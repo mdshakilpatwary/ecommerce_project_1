@@ -61,7 +61,7 @@
                                     <td>{{$data->customer->name}}</td>
                                     <td>{{$data->total}}</td>
                                     <td>{{$data->payment->paymentMethod}}</td>
-                                    <td>{{\Carbon\Carbon::parse($data->create_at)->format('M d,y-  h:iA')}}</td>
+                                    <td>{{$data->created_at->format('M d,y-  h:iA')}}</td>
                                     <td>
                                       <button data-toggle="modal" data-target="#orderStatusmodel_{{$data->id}}"  class="btn btn-sm ">{{$data->status}}</button>
                                     </td>

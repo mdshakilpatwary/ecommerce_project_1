@@ -84,28 +84,29 @@
             </div>
             <div class="form-group ">
                 <label for="select_color">Select Color</label>
-               <select name="select_color" id="" class="form-control select-form">
-                @foreach($colors as $color)
-                @foreach(json_decode($color->color) as $color_value)
-                <option value="{{ $color_value->value }}" {{ $p_data->color_id == $color_value->value ? 'selected' : '' }}>{{ $color_value->value }}</option>
+                <select  name="select_color[]" id="product-colors" multiple >
+                    @foreach($colors as $color)
+                     @foreach(json_decode($color->color) as $color_value)
+                        <option  value="{{$color_value->value}}" {{ in_array($color_value->value, explode('|', $p_data->color_id)) ? 'selected' : '' }} >{{$color_value->value}}</option>
+                     @endforeach
+                    @endforeach
+                    ... more options here ...
+                </select>
 
-                 @endforeach
-                @endforeach
-               </select>
                 @error('select_color')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
             <div class="form-group ">
                 <label for="select_size">Select Size</label>
-               <select name="select_size" id="" class="form-control select-form">
-                @foreach($sizes as $size)
-                @foreach(json_decode($size->size) as $size_value)
-                <option value="{{ $size->id }} " {{ $p_data->size_id == $size_value->value ? 'selected' : '' }}>{{ $size_value->value }}</option>
-
-                 @endforeach
-                @endforeach
-               </select>
+                <select  name="select_size[]" id="product-sizes" multiple >
+                    @foreach($sizes as $size)
+                     @foreach(json_decode($size->size) as $size_value)
+                        <option  value="{{$size_value->value}}" {{ in_array($size_value->value, explode('|', $p_data->size_id)) ? 'selected' : '' }} >{{$size_value->value}}</option>
+                     @endforeach
+                    @endforeach
+                    ... more options here ...
+                </select>
                 @error('select_size')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror

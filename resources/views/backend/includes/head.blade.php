@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{asset('backend')}}/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/style.css">
+  <link rel="stylesheet" href="{{asset('backend')}}/assets/css/filter_multi_select.css">
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/components.css">
   <!-- jquery plugin  CSS -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/bundles/summernote/summernote-bs4.css">

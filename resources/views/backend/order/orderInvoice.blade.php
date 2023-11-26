@@ -45,7 +45,7 @@
                 <div class="col-md-6 text-md-right">
                   <address>
                     <strong>Order Date:</strong><br>
-                    {{\Carbon\Carbon::parse($order->create_at)->format('M d,Y-  h:iA')}}<br><br>
+                    {{$order->created_at->format('M d,y-  h:iA')}}<br><br>
                   </address>
                 </div>
               </div>

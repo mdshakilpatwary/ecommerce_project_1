@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Cart;
+use App\Models\CartWishlist;
+use Auth;
 
 class ShoppingWishlist extends Controller
 {
@@ -13,27 +14,26 @@ class ShoppingWishlist extends Controller
       
         $id = $request->product_id;
         $product = Product::where('id', $id)->first();
-    
-        $data = [
-            'id' => $product->id,
-            'name' => $product->p_name,
-            'price' => $product->p_price,
-            'qty' => 1,
-            'options' => [
-                'p_image' => $product->p_image,
-            ],
-            
-        ];
-        Cart::instance('wishlist')->add($data);
-        
+
+        $wishlist =new CartWishlist;
+        $wishlist->user_id = Auth::user()->id;
+        $wishlist->p_id = $product->id;
+        $wishlist->p_name = $product->p_name;
+        $wishlist->p_price = $product->p_price;
+        $wishlist->p_image = $product->p_image;
+        $wishlist->save();
+        $userID =Auth::user()->id;
         wishlistArray();
         return redirect()->back();
+        
     }
 
     public function addToWishlistDelete($id){
-        
-        Cart::instance('wishlist')->remove($id);
+        $wishlistD =CartWishlist::findOrFail($id); 
+        $wishlistD->delete(); 
         return redirect()->back();
+        
+        
   
 }
 }

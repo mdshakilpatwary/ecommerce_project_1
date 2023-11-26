@@ -77,8 +77,16 @@
                             <td>{{$product->category->cat_name}}</td>
                             <td>{{$product->subcategory->subcat_name}}</td>
                             <td>{{$product->brand->brand_name}}</td>
-                            <td>{{$product->color_id}}</td>
-                            <td>{{$product->size_id}}</td>
+                            <td>
+                              @foreach(explode("|",$product->color_id) as $color)
+                              <span class="" style="background: grey; color: white; padding: 0 2px; display: inline; border-radius: 5px;">{{$color}}</span>
+                              @endforeach
+                            </td>
+                            <td>
+                              @foreach(explode("|",$product->size_id) as $size)
+                              <span style="background: rgb(47, 47, 47); color: white; padding: 0 2px; display: inline; border-radius: 5px;">{{$size}}</span>
+                              @endforeach
+                            </td>
                             <td>&#2547;{{$product->p_price}}</td>
                             <td>{{$product->p_qty}}</td>
                             <td>

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('p_name');
             $table->text('p_description');
             $table->float('p_price');
+            $table->float('p_qty');
             $table->string('p_image');
             $table->string('group_p_image');
             $table->string('p_slug');

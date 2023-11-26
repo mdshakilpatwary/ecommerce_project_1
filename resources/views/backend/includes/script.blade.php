@@ -29,8 +29,14 @@
   <!-- Custom JS File -->
 
   <script src="{{asset('backend')}}/assets/js/custom.js"></script>
+  <script src="{{asset('backend')}}/assets/js/filter-multi-select-bundle.min.js"></script>
   
-
+  <script>
+    const product_colors = $('#product-colors').filterMultiSelect();
+  </script>
+  <script>
+    const product_sizes = $('#product-sizes').filterMultiSelect();
+  </script>
 </body>
 
 

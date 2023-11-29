@@ -40,6 +40,11 @@ function store(Request $request){
         'p_desc' => 'required',
         'p_image' => 'required',
         'p_price' => 'required',
+        'discount_percentage' => [
+            'integer',
+            'max:100',
+            'min:0',
+        ],
         'p_qty' => 'required',
         'group_p_image' => 'required',
         
@@ -70,6 +75,7 @@ function store(Request $request){
     $product->brand_id = $request->select_brand;
     $product->p_description = $request->p_desc;
     $product->p_price = $request->p_price;
+    $product->discount_percentage = $request->discount_percentage;
     $product->p_qty = $request->p_qty;
 
 // color and size 
@@ -174,6 +180,13 @@ function show(){
     }
 
     function update(Request $request, $id){
+        $request->validate([
+            'discount_percentage' => [
+                'integer',
+                'max:100',
+                'min:0',
+            ],
+        ]);
         $product = Product::find($id);
         $product->p_code = $request->p_code;
         $product->p_name = $request->p_name;
@@ -183,6 +196,7 @@ function show(){
         $product->brand_id = $request->select_brand;
         $product->p_description = $request->p_desc;
         $product->p_price = $request->p_price;
+        $product->discount_percentage = $request->discount_percentage;
         $product->p_qty = $request->p_qty;
 
 

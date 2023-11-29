@@ -19,7 +19,7 @@ class ShoppingWishlist extends Controller
         $wishlist->user_id = Auth::user()->id;
         $wishlist->p_id = $product->id;
         $wishlist->p_name = $product->p_name;
-        $wishlist->p_price = $product->p_price;
+        $wishlist->p_price = $product->p_price-($product->p_price*($product->discount_percentage/100));
         $wishlist->p_image = $product->p_image;
         $wishlist->save();
         $userID =Auth::user()->id;

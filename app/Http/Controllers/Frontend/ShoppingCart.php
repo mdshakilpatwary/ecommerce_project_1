@@ -27,7 +27,7 @@ class ShoppingCart extends Controller
         $data = [
             'id' => $product->id,
             'name' => $product->p_name,
-            'price' => $product->p_price,
+            'price' => $product->p_price-($product->p_price*($product->discount_percentage/100)),
             'qty' => $quantity,
             'options' => [
                 'p_image' => $product->p_image,

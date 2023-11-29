@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cart_wishlists', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('p_id')->uniqid();
+            $table->integer('p_id');
             $table->string('p_name');
             $table->string('p_image');
             $table->float('p_price');

@@ -120,6 +120,14 @@
                 @enderror
             </div>
             <div class="form-group ">
+                <label for="discount_percentage">Discount Percentage</label>
+                <input type="floatval" name="discount_percentage" id="" value="{{$p_data->discount_percentage}}" class="form-control">
+
+                @error('discount_percentage')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group ">
                 <label for="p_qty">Product quantity</label>
                 <input type="floatval" name="p_qty" id="" value="{{$p_data->p_qty}}" class="form-control">
 

@@ -72,8 +72,10 @@
 											<div class="product-img">
 												<img src="{{asset('uploads/product/'.$product->p_image)}}"  height="250" alt="">
 												<div class="product-label">
-													<!-- <span class="sale">-30%</span>
-													<span class="new">NEW</span> -->
+													@if($product->discount_percentage > 0)
+													<span class="sale">{{$product->discount_percentage}}%</span>
+													@endif
+													<!-- <span class="new">NEW</span> -->
 												</div>
 											</div>
 											
@@ -81,7 +83,7 @@
 												
 												<p class="product-category">{{$product->category->cat_name}}</p>
 												<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-												<h4 class="product-price">	&#2547;{{$product->p_price}} <del class="product-old-price">	&#2547;{{$product->p_price}}</del></h4>
+												<h4 class="product-price">	&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))  }}<del class="product-old-price">	&#2547;{{$product->p_price}}</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -225,14 +227,16 @@
 											<div class="product-img">
 												<img src="{{asset('uploads/product/'.$product->p_image)}}" height="250" alt="">
 												<div class="product-label">
-													<!-- <span class="sale">-30%</span>
-													<span class="new">NEW</span> -->
+													@if($product->discount_percentage > 0)
+													<span class="sale">{{$product->discount_percentage}}%</span>
+													@endif
+													<!-- <span class="new">NEW</span> -->
 												</div>
 											</div>
 											<div class="product-body">
 												<p class="product-category">{{$product->category->cat_name}}</p>
 												<h3 class="product-name" style="height: 35px"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-												<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+												<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -314,7 +318,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif
@@ -335,7 +339,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif
@@ -368,7 +372,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif
@@ -389,7 +393,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif
@@ -424,7 +428,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif
@@ -445,7 +449,7 @@
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
 								@endif

@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\RolePermissionController;
 use App\Http\Controllers\Frontend\ShoppingCart;
 use App\Http\Controllers\Frontend\ShoppingWishlist;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -184,6 +186,29 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/order/order/invoice/{id}', 'orderInvoice')->name('order.order.invoice');
         Route::post('/order/order/status/update/{id}', 'orderStatusUpdate')->name('order.status.update');
     });
+
+    // Role and Permission route part -------------
+    Route::controller(RolePermissionController::class)->group(function () {
+        Route::get('/role/permission/create', 'index')->name('role.permission.create');
+        Route::post('/role/permission/store', 'store')->name('role.permission.store');
+        Route::get('/role/permission/manage', 'rolePermissionManage')->name('role.permission.manage');
+        Route::get('/role/permission/edit/{id}', 'rolePermissionEdit')->name('role.permission.edit');
+        Route::post('/role/permission/update/{id}', 'rolePermissionUpdate')->name('role.permission.update');
+        Route::get('/role/permission/delete/{id}', 'rolePermissionDelete')->name('role.permission.delete');
+
+    });
+
+    // user route part -------------
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/user/create', 'index')->name('user.create');
+        Route::post('/user/store', 'store')->name('user.store');
+        Route::get('/user/manage', 'userManage')->name('user.manage');
+        Route::get('/user/edit/{id}', 'userEdit')->name('user.edit');
+        Route::post('/user/update/{id}', 'userUpdate')->name('user.update');
+        Route::get('/user/delete/{id}', 'userDelete')->name('user.delete');
+
+    });
+
 
 });
 

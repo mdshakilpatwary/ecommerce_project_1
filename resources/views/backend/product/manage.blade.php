@@ -6,7 +6,7 @@
 
 
 <div class="row">
-    <h2>All Category Here</h2>
+    <h2>All Product Here</h2>
     <div class="col-md-12 ">
     <div class="card-body">
 @if(session('success'))
@@ -34,7 +34,7 @@
 </div>
 
 @endif
-                    <div class="table-responsive">
+                    <div class="table-responsive p-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
                    
                         <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
                         <thead>
@@ -58,7 +58,8 @@
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Image</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Group Image</th>
                            
-                           <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Status</th><th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
+                           <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Status</th><th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th>
+                          </tr>
                         </thead>
                         <tbody>
                             
@@ -103,17 +104,33 @@
                             
                             
                             <td class="sorting_1">
-                              @if($product->status == 1)
-                              <a href="{{route('status.product', $product->id)}}" class="badge badge-success badge-shadow">Active</a>
+                              @if(Auth::user()->can('product.edit') )
+
+                                @if($product->status == 1)
+                                <a href="{{route('status.product', $product->id)}}" class="badge badge-success badge-shadow">Active</a>
+                                @else
+                                <a href="{{route('status.product', $product->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                                @endif
                               @else
-                              <a href="{{route('status.product', $product->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                                @if($product->status == 1)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge badge-warning ">Inactive</span>
+                                @endif
 
                               @endif
                             </td>
                             <td>
+                              @if(Auth::user()->can('product.edit') || Auth::user()->can('product.delete'))
+                                @if(Auth::user()->can('product.delete'))
                                 <a href="{{route('destroy.product', $product->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                                @endif
+                                @if(Auth::user()->can('product.edit'))
                                 <a href="{{route('edit.product', $product->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-success text-white"><i class="fa fa-eye"></i></a>
+                                @endif
+                                @else
+                              <span class="badge badge-light">No Action</span>
+                              @endif
                             </td>
                             </tr>
                             
@@ -126,6 +143,30 @@
                             @endif
                          
                         </tbody>
+                        <tfoot>
+                          <tr role="row">
+                            <th class="text-center sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 24.45px;" aria-label="
+                              
+                            : activate to sort column ascending">
+                              #SL
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Code</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Description</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Cat_Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">SubCat_Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">brand</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Color</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Size</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Price</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Discount%</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Qty</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Image</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Group Image</th>
+                           
+                           <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Status</th><th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th>
+                          </tr>
+                        </tfoot>
                       </table>
                     </div>
                   </div>

@@ -6,7 +6,7 @@
 
 
 <div class="row">
-    <h2>All Category Here</h2>
+    <h2 class="">All Role and Permission Here</h2>
     <div class="col-md-10 offset-md-1">
     <div class="card-body">
 @if(session('success'))
@@ -34,6 +34,11 @@
 </div>
 
 @endif
+                    <p class="float-left mb-4">
+                        <a class="btn btn-primary text-white" href="{{ route('role.permission.create') }}">Create New Role</a>
+                        
+                    </p>
+                    <div class="clearfix"></div>
                     <div class="table-responsive p-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
                    
                         <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
@@ -44,58 +49,46 @@
                             : activate to sort column ascending">
                               #SL
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Brand Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Description</th>
-                           
-                           <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Status</th><th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Role Name</th>
+                          
+                           <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Permission</th>
+                    
+                           <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
                         </thead>
                         <tbody>
                             
                           
-                            @if(count($brand_data) > 0)
+                            @if(count($roles) > 0)
                             @php
                           $sl = 1;
                           @endphp
-                            @foreach($brand_data as $brand)
+                          @foreach($roles as $role)
                             <tr role="row" class="even">
                             <td class="">
                               {{$sl++}}
                             </td>
-                            <td>{{$brand->brand_name}}</td>
+
                             <td>
-                              {{$brand->brand_description}}
+                            <span style="text-transform: capitalize; font-size: 20px; font-weight: 600">{{$role->name}}</span>
+                            </td>
+                            <td style="width: 300px">
+                                @foreach($role->permissions as $rolepermission)
+                                <span class="badge badge-dark mb-1"> {{$rolepermission->name}} </span>
+                                @endforeach
                             </td>
                            
-                            
-                            
-                            <td class="sorting_1">
-                              
-                              @if(Auth::user()->can('product.edit'))
-                                @if($brand->status == 1)
-                                <a href="{{route('status.brand', $brand->id)}}" class="badge badge-success badge-shadow">Active</a>
-                                @else
-                                <a href="{{route('status.brand', $brand->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
-                                @endif
-                              @else
-                                @if($brand->status == 1)
-                                <span class="badge badge-success">Active</span>
-                                @else
-                                <span class="badge badge-warning ">Inactive</span>
-                                @endif
-
-                              @endif
-                            </td>
                             <td>
-                              @if(Auth::user()->can('product.edit') || Auth::user()->can('product.delete'))
-                                @if(Auth::user()->can('product.delete'))
-                                <a href="{{route('destroy.brand', $brand->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                              @if(Auth::user()->can('role.delete') || Auth::user()->can('role.edit'))
+                                @if(Auth::user()->can('role.delete'))
+                                  <a href="{{route('role.permission.delete', $role->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
                                 @endif
-                                @if(Auth::user()->can('product.edit'))
-                                <a href="{{route('edit.brand', $brand->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
+                                @if(Auth::user()->can('role.edit'))
+                                  <a href="{{route('role.permission.edit', $role->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
                                 @endif
                               @else
-                              <span class="badge badge-light">No Action</span>
+                               <span class="badge badge-light">No Action</span>
                               @endif
+
                             </td>
                             </tr>
                             

@@ -17,11 +17,25 @@ use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
+    public $p_user;
+
+    // for dashboard permission auth
+         public function __construct() {
+            $this->middleware(function($request, $next){
+                $this->p_user =Auth::user();
+                return $next($request);
+    
+            }) ;
+        }
     function index(){
+
         return view('backend.dashboard');
 
     }
 function profile(){
+    if (is_null($this->p_user) || !$this->p_user->can('profile.view')) {
+        abort(403, 'Sorry !! You are Unauthorized to create any role !');
+    }
     $id = 1;
     $siteInfo = SiteInfo::find($id);
     return view('backend.info.profile', compact('siteInfo'));
@@ -39,6 +53,10 @@ function profile(){
 
     // profile update controller
     function profileUpdate(Request $rqst, $id){
+        if (is_null($this->p_user) || !$this->p_user->can('profile.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any role !');
+        }
+
         $user = User::find($id);
         
         $user->name = $rqst->name;
@@ -79,9 +97,15 @@ function profile(){
     // change password 
 
     function changePassword(){
+        if (is_null($this->p_user) || !$this->p_user->can('profile.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any role !');
+        }
         return view('backend.info.changePassword');
     }
     function updatePassword(Request $rqst, $id){
+        if (is_null($this->p_user) || !$this->p_user->can('profile.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any role !');
+        }
         $userpass = User::find($id);
         $rqst->validate([
             'oldPass' => 'required',
@@ -115,6 +139,9 @@ function profile(){
 
         // Site Info update controller
         function siteInfoUpdate(Request $rqst, $id){
+            if (is_null($this->p_user) || !$this->p_user->can('siteinfo.edit')) {
+                abort(403, 'Sorry !! You are Unauthorized to create any role !');
+            }
             $info = SiteInfo::find($id);
             
             $info->name = $rqst->name;

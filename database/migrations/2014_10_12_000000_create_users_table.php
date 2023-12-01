@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('birth')->nullable();
             $table->string('country')->nullable();
             $table->enum('role',['Admin','User'])->default('User');
-            $table->text('social_id')->nullable;
+            $table->text('social_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -34,7 +34,7 @@
 </div>
 
 @endif
-                    <div class="table-responsive">
+                    <div class="table-responsive p-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
                    
                         <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
                         <thead>
@@ -75,17 +75,34 @@
                             
                             
                             <td class="sorting_1">
-                              @if($size->status == 1)
-                              <a href="{{route('status.size', $size->id)}}" class="badge badge-success badge-shadow">Active</a>
+
+                              @if(Auth::user()->can('product.edit'))
+                                @if($size->status == 1)
+                                <a href="{{route('status.size', $size->id)}}" class="badge badge-success badge-shadow">Active</a>
+                                @else
+                                <a href="{{route('status.size', $size->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                                @endif
                               @else
-                              <a href="{{route('status.size', $size->id)}}" class="badge badge-danger badge-shadow">Inactive</a>
+                                @if($size->status == 1)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge badge-warning ">Inactive</span>
+                                @endif
 
                               @endif
                             </td>
                             <td>
+                              @if(Auth::user()->can('product.edit') || Auth::user()->can('product.delete'))
+                                @if(Auth::user()->can('product.delete'))
                                 <a href="{{route('destroy.size', $size->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                                @endif
+                                @if(Auth::user()->can('product.edit'))
                                 <a href="{{route('edit.size', $size->id)}}" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-success text-white"><i class="fa fa-eye"></i></a>
+                                @endif
+                              @else
+                              <span class="badge badge-light">No Action</span>
+
+                              @endif
                             </td>
                             </tr>
                             

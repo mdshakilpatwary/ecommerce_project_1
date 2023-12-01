@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class Usertbl extends Seeder
 {
@@ -16,15 +18,19 @@ class Usertbl extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
+        $user = User::insert([
             // admin login data
         [
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
             'password' => Hash::make('111'),
             'role' => 'Admin',
         ]
         ]);
+
+
+
+        
     }
 }
 

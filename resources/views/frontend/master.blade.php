@@ -1,3 +1,4 @@
+
 @include('frontend.includes.head')
 <?php
 $id = 1;
@@ -29,3 +30,4 @@ $id = 1;
 		<!-- /FOOTER -->
 
 @include('frontend.includes.script')
+

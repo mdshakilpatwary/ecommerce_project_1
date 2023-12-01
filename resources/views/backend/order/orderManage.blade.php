@@ -34,7 +34,7 @@
 </div>
 
 @endif
-                    <div class="table-responsive">
+                    <div class="table-responsive p-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
                    
                         <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
                         <thead>
@@ -51,7 +51,7 @@
                            
                            <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 108.283px;" aria-label="Status: activate to sort column ascending" aria-sort="descending">Status</th><th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 73.1167px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
                         </thead>
-                        <tbody>
+                        <tbody style="text-transform: capitalize">
                             @php
                             $sl = 1;
                             @endphp
@@ -59,15 +59,25 @@
                                 <tr role="row">
                                     <td>{{$sl++}}</td>
                                     <td>{{$data->customer->name}}</td>
-                                    <td>{{$data->total}}</td>
+                                    <td>&#2547;{{$data->total}}</td>
                                     <td>{{$data->payment->paymentMethod}}</td>
                                     <td>{{$data->created_at->format('M d,y-  h:iA')}}</td>
                                     <td>
-                                      <button data-toggle="modal" data-target="#orderStatusmodel_{{$data->id}}"  class="btn btn-sm ">{{$data->status}}</button>
+                                      @if(Auth::user()->can('order.edit'))
+                                      <button data-toggle="modal" data-target="#orderStatusmodel_{{$data->id}}"  class="btn btn-sm btn-dark " style="text-transform: capitalize">{{$data->status}}</button>
+                                      @else
+                                      <span class="badge badge-light">{{$data->status}}</span>
+                                      @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('order.product.details',$data->id)}}" class="btn btn-sm btn-info">Details</a>
-                                        <a href="{{route('order.product.details.delete',$data->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                      @if(Auth::user()->can('order.view') || Auth::user()->can('order.delete'))
+                                          @if(Auth::user()->can('order.view'))
+                                          <a href="{{route('order.product.details',$data->id)}}" class="btn btn-sm btn-info">Details</a>
+                                          @endif
+                                          @if(Auth::user()->can('order.delete'))
+                                          <a href="{{route('order.product.details.delete',$data->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                          @endif
+                                      @endif
                                     </td>
                                 </tr>
 
@@ -86,7 +96,7 @@
 
       <div class="modal-body ">
           <select name="status" id="" class="form-control">
-            <option disabled value="">Select Here</option>
+            <option disabled >Select Here</option>
             <option value="Processing">Processing</option>
             <option value="Shipping">Shipping</option>
             <option value="Deliverd">Deliverd</option>
@@ -119,29 +129,5 @@
                   </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection

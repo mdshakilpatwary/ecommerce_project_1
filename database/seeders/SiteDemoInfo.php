@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\SiteInfo;
 
-class SiteInfo extends Seeder
+class SiteDemoInfo extends Seeder
 {
     /**
      * Run the database seeds.

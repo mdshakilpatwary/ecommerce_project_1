@@ -131,7 +131,7 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/user/'.Auth::user()->image) }}"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{(Auth::user()->image == '') ? asset('uploads/user/avater.jpg') : asset('uploads/user/'.Auth::user()->image) }}"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">Hello {{Auth::user()->name}}</div>

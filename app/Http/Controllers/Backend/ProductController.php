@@ -11,13 +11,27 @@ use App\Models\SubCategory;
 use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Color;
+use Auth;
 use File;
 use Image;
 
 class ProductController extends Controller
 {
+    public $p_user;
+
+    // for dashboard permission auth
+         public function __construct() {
+            $this->middleware(function($request, $next){
+                $this->p_user =Auth::user();
+                return $next($request);
+    
+            }) ;
+        }
     // product add page part controller
     function index(){
+        if (is_null($this->p_user) || !$this->p_user->can('product.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any product !');
+        }
         $categories =Category::all();
         $subcategories =SubCategory::all();
         $brands =Brand::all();
@@ -28,6 +42,9 @@ class ProductController extends Controller
 
 // store Product controller part 
 function store(Request $request){
+    if (is_null($this->p_user) || !$this->p_user->can('product.create')) {
+        abort(403, 'Sorry !! You are Unauthorized to create any product !');
+    }
 
     $request->validate([
         'p_code' => 'required',
@@ -136,6 +153,9 @@ $product->size_id =implode("|",$sizes);
 
 // show product controller part 
 function show(){
+    if (is_null($this->p_user) || !$this->p_user->can('product.view')) {
+        abort(403, 'Sorry !! You are Unauthorized to view any product !');
+    }
     $p_data =Product::orderBy('id', 'DESC')->get();
     return view('backend.product.manage',compact('p_data'));
 }
@@ -143,6 +163,9 @@ function show(){
   // delete Product controller 
 
   function destroy($id){
+    if (is_null($this->p_user) || !$this->p_user->can('product.delete')) {
+        abort(403, 'Sorry !! You are Unauthorized to delete any product !');
+    }
     $product_destroy =Product::find($id);
     if(File::exists(public_path('uploads/product/' .$product_destroy->p_image))){
         File::delete(public_path('uploads/product/' .$product_destroy->p_image));
@@ -169,6 +192,9 @@ function show(){
 
 // edit category controller part 
     function edit($id){
+        if (is_null($this->p_user) || !$this->p_user->can('product.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any product !');
+        }
         $p_data =Product::find($id);
         $categories =Category::all();
         $subcategories =SubCategory::all();
@@ -180,6 +206,9 @@ function show(){
     }
 
     function update(Request $request, $id){
+        if (is_null($this->p_user) || !$this->p_user->can('product.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any product !');
+        }
         $request->validate([
             'discount_percentage' => [
                 'integer',
@@ -271,6 +300,9 @@ function show(){
 // product status part 
 
 function changestatus($id){
+    if (is_null($this->p_user) || !$this->p_user->can('product.edit')) {
+        abort(403, 'Sorry !! You are Unauthorized to edit any product !');
+    }
     $status =Product::find($id);
     if($status->status == 1){
        $status->update(['status' => 0]);

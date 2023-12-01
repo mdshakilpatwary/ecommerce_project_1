@@ -251,6 +251,9 @@
             </div>
           </div>
         </div>
+        {{-- site info  --}}
+      @if(Auth::user()->can('siteinfo.edit'))
+
         <div class="card">
           <div class="padding-20">
             <form method="POST" action="{{route('admin.siteInfo.update', $siteInfo->id)}}" class="needs-validation" enctype="multipart/form-data">
@@ -314,6 +317,8 @@
             </form>
           </div>
         </div>
+      @endif
+
       </div>
     </div>
   </div>

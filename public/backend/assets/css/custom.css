@@ -23,3 +23,7 @@ a:hover{
 .filter-multi-select > .viewbar > .selected-items > .item {
 	background: indigo !important;
 }
+.form-check-label{
+	margin-bottom: 0;
+	text-transform: capitalize;
+}

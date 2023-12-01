@@ -1,4 +1,5 @@
 @php
+use Spatie\Permission\Models\Role;
 $cartArray =cartArray();
 $wishlistArray = wishlistArray();
 @endphp	
@@ -15,11 +16,13 @@ $wishlistArray = wishlistArray();
 						<li><a href="#">&#2547;</i>BDT</a></li>
 
 						@if(Auth::user())
-							@if(Auth::user()->role=='Admin')
+						
+							@if(Auth::user()->role=='Admin' )
 							<li><a href="{{route('admin.dashboard')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+
 							@else
 							<li><a href="{{route('dashboard')}}"><i class="fa fa-user-o"></i> My Account</a></li>
-						@endif
+							@endif
 
 						<li><a href="{{route('user.logout')}}"><i class="fa fa-user-o"></i> Logout</a></li>
 						@else

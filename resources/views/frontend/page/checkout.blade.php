@@ -1,5 +1,7 @@
 @php
+use App\Models\IncludeAnother;
 $cartArray =cartArray();
+$shipping_charge =IncludeAnother::findOrFail(1);
 @endphp	
 
 @extends('frontend.master')
@@ -116,7 +118,7 @@ $cartArray =cartArray();
 							</div>
 							<div class="order-col">
 								@php 
-								$shippingcost = 100;
+								$shippingcost = $shipping_charge ->shipping_charge_insite;
 								@endphp
 								<div>Shiping Charge</div>
 								<div><strong>&#2547;{{$shippingcost}}</strong></div>

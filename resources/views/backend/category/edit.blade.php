@@ -28,7 +28,7 @@
 
 @endif
     <h2>Add your category here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
+    <div class="col-md-6 offset-md-3 rounded py-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
         
         <form action="{{route('update.catagory',$cat_data->id)}}" method="POST" enctype="multipart/form-data">
             @csrf

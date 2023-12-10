@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Size;
+use App\Models\KgLitter;
 
 
 class SizeController extends Controller
@@ -38,7 +39,8 @@ class SizeController extends Controller
     // Data show controller 
     function show(){
         $size_data =Size::orderBy('id', 'DESC')->get();
-        return view('backend.size.manage',compact('size_data'));
+        $kg_data =KgLitter::orderBy('id', 'DESC')->get();
+        return view('backend.size.manage',compact('size_data','kg_data'));
     }
 
     
@@ -82,6 +84,79 @@ class SizeController extends Controller
 
 function changestatus($id){
     $status =Size::find($id);
+    if($status->status == 1){
+       $status->update(['status' => 0]);
+       return redirect()->back()->with('success', 'Size Inactive successfully Done');
+    }
+    else{
+        $status->update(['status' => 1]);
+        return redirect()->back()->with('success', 'Size Active successfully done');
+    }
+}
+
+// kg ba litter part 
+    // kg store controller
+    function kgstore(Request $request){
+
+        $request->validate([
+            'kg_litter' => 'required',
+            
+        ]);
+
+        $kg = New KgLitter;
+        $kg->kg_litter =$request->kg_litter;
+        $msg = $kg->save();
+        if($msg){
+            return redirect()->back()->with('success', 'Successfully data Submitted');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'Opps! data not Submitted');
+
+        }
+
+    }
+    
+    // size delete controller part 
+    function kgdestroy($id){
+        $kg =KgLitter::find($id);
+
+        $msg = $kg->delete();
+        if($msg){
+            return redirect()->back()->with('success', 'Data delete successfully');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'opps! Data not delete');
+
+        }   
+    }
+
+        // kg edit controller part 
+        function kgedit($id){
+            $kg_data =KgLitter::find($id);
+            return view('backend.size.kgEdit',compact('kg_data'));
+        }
+
+        // kg update controller part
+            function kgupdate(Request $request, $id){
+                $kg =KgLitter::find($id);
+                $kg->kg_litter =$request->kg_litter;
+                $msg = $kg->update();
+                if($msg){
+                    return redirect('/show/size')->with('success', 'Successfully data Updated');
+
+                }
+                else{
+                    return redirect()->back()->with('error', 'Opps! data not Update');
+
+                }
+}
+
+// kg status part 
+
+function kgchangestatus($id){
+    $status =KgLitter::find($id);
     if($status->status == 1){
        $status->update(['status' => 0]);
        return redirect()->back()->with('success', 'Size Inactive successfully Done');

@@ -37,12 +37,16 @@ use App\Models\User;
 
   <script src="{{asset('backend')}}/assets/js/custom.js"></script>
   <script src="{{asset('backend')}}/assets/js/filter-multi-select-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   
   <script>
     const product_colors = $('#product-colors').filterMultiSelect();
   </script>
   <script>
-    const product_sizes = $('#product-sizes').filterMultiSelect();
+    const product_sizes_1 = $('#product-sizes-1').filterMultiSelect();
+  </script>
+  <script>
+    const product_sizes_2 = $('#product-sizes-2').filterMultiSelect();
   </script>
   <script>
     const role_permission = $('#permission').filterMultiSelect();

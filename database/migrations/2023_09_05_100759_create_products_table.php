@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('unit_id')->nullable();
             $table->string('size_id')->nullable();
+            $table->string('kg_liter')->nullable();
             $table->string('color_id')->nullable();
             $table->string('p_code')->uniqid();
             $table->string('p_name');

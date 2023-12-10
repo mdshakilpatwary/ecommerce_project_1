@@ -10,7 +10,9 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Brand;
 use App\Models\Size;
+use App\Models\KgLitter;
 use App\Models\Color;
+use Illuminate\Contracts\Validation\Rule;
 use Auth;
 use File;
 use Image;
@@ -33,11 +35,12 @@ class ProductController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create any product !');
         }
         $categories =Category::all();
-        $subcategories =SubCategory::all();
-        $brands =Brand::all();
-        $sizes =Size::all();
-        $colors =Color::all();
-        return view('backend.product.index', compact('categories','subcategories','brands','colors','sizes'));
+        $subcategories =SubCategory::where('status',1)->get();
+        $brands =Brand::where('status',1)->get();
+        $sizes =Size::where('status',1)->get();
+        $kg_data =KgLitter::where('status',1)->get();
+        $colors =Color::where('status',1)->get();
+        return view('backend.product.index', compact('categories','subcategories','brands','colors','sizes','kg_data'));
     }
 
 // store Product controller part 
@@ -53,7 +56,7 @@ function store(Request $request){
         'select_subcat' => 'required',
         'select_brand' => 'required',
         'select_color' => 'required',
-        'select_size' => 'required',
+        
         'p_desc' => 'required',
         'p_image' => 'required',
         'p_price' => 'required',
@@ -64,6 +67,8 @@ function store(Request $request){
         ],
         'p_qty' => 'required',
         'group_p_image' => 'required',
+        'select_size' => 'required_without:select_size_kg',
+        'select_size_kg' => 'required_without:select_size',
         
     ],
     [
@@ -73,7 +78,7 @@ function store(Request $request){
         'select_subcat.required' => 'Product sub category is required',
         'select_brand.required' => 'Product brand is required',
         'select_color.required' => 'Product color is required',
-        'select_size.required' => 'Product size is required',
+        // 'select_size.required' => 'Product size is required',
         'p_desc.required' => 'Product Description is required',
         'p_image.required' => 'Product Description is required',
         'p_price.required' => 'Product price is required',
@@ -103,13 +108,28 @@ foreach($select_color as $color){
 }
 $product->color_id =implode("|",$colors);
 
-// size 
-$sizes = array();
-$select_size = $request->select_size;
-foreach($select_size as $size){
-    $sizes[] = $size;
-}
-$product->size_id =implode("|",$sizes);
+// size without kg
+        if($request->filled('select_size')){
+
+        $sizes = array();
+        $select_size = $request->select_size;
+        foreach($select_size as $size){
+            $sizes[] = $size;
+        }
+        $product->size_id =implode("|",$sizes);
+        $product->kg_liter = null;
+        }
+// size with kg
+        elseif ($request->filled('select_size_kg')){
+
+        $size_kg = array();
+        $select_size_kg = $request->select_size_kg;
+        foreach($select_size_kg as $kg){
+            $size_kg[] = $kg;
+        }
+        $product->kg_liter =implode("|",$size_kg);
+        $product->size_id = null;
+        }
 
 
 // single image store 
@@ -197,11 +217,12 @@ function show(){
         }
         $p_data =Product::find($id);
         $categories =Category::all();
-        $subcategories =SubCategory::all();
+        $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::all();
-        $sizes =Size::all();
-        $colors =Color::all();
-        return view('backend.product.edit', compact('p_data','categories','subcategories','brands','colors','sizes'));
+        $sizes =Size::where('status',1)->get();
+        $kg_size =KgLitter::where('status',1)->get();
+        $colors =Color::where('status',1)->get();
+        return view('backend.product.edit', compact('p_data','categories','subcategories','brands','colors','sizes','kg_size'));
    
     }
 
@@ -230,21 +251,38 @@ function show(){
 
 
 
-    // color and size 
-        $colors = array();
-        $select_color = $request->select_color;
-        foreach($select_color as $color){
-            $colors[] = $color;
-        }
-        $product->color_id =implode("|",$colors);
+// size without kg
+if($request->filled('select_size')){
 
-    // size 
-        $sizes = array();
-        $select_size = $request->select_size;
-        foreach($select_size as $size){
-            $sizes[] = $size;
+    $sizes = array();
+    $select_size = $request->select_size;
+    foreach($select_size as $size){
+        $sizes[] = $size;
+    }
+    $product->size_id =implode("|",$sizes);
+    $product->kg_liter = null;
+    }
+// size with kg
+    if($request->filled('select_size_kg')){
+
+    $size_kg = array();
+    $select_size_kg = $request->select_size_kg;
+    foreach($select_size_kg as $kg){
+        $size_kg[] = $kg;
+    }
+    $product->kg_liter =implode("|",$size_kg);
+    $product->size_id = null;
+    }
+
+    // size with kg
+       if($request->select_size_kg){
+        $size_kg = array();
+        $select_size_kg = $request->select_size_kg;
+        foreach($select_size_kg as $kg){
+            $size_kg[] = $kg;
         }
-        $product->size_id =implode("|",$sizes);
+        $product->kg_liter =implode("|",$size_kg);
+       }
 
     // single image update 
         if($request->file('p_image')){

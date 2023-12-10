@@ -1,3 +1,8 @@
+<?php
+use App\Models\IncludeAnother;
+
+$shipping_charge =IncludeAnother::findOrFail(1);
+?>
 @extends('backend.master')
 
 @section('maincontent')
@@ -127,7 +132,7 @@
                 <tfoot>
                 <tr class="table-dark">
                     <td colspan="7" style="font-size: 20px;font-weight: 521;text-align: right; color: rgb(53, 52, 52)">Shipping charge</td>
-                    <td><strong style="font-size: 20px; color: #007cff;">&#2547;100 </strong></td>
+                    <td><strong style="font-size: 20px; color: #007cff;">&#2547;{{$shipping_charge->shipping_charge_insite}} </strong></td>
                 </tr>
                 <tr class="table-dark">
                     <td colspan="7" style="font-size: 18px;font-weight: 521;text-align: right; color: red"> Total Amount to pay</td>

@@ -8,7 +8,11 @@ use App\Models\ShippingDetails;
 use App\Models\PaymentMethod;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\IncludeAnother;
+use App\Models\User;
 use App\Models\OrderDatails;
+use App\Notifications\OrderComplete;
+use Illuminate\Support\Facades\Notification;
 use Session;
 use Cart;
 use Auth;
@@ -61,7 +65,10 @@ class CheckoutController extends Controller
         return view('frontend.page.payment', compact('cartArray'));
 
     }
+
+    // place order and payment system 
     function placeOrder(Request $request){
+        $user =User::where('role', 'Admin')->get();
         $request->validate([
             'payment' => 'required',
             'tarms_checbox' => 'required',
@@ -77,12 +84,12 @@ class CheckoutController extends Controller
             'paymentMethod' => $paymentMethod,
             'status'    => 'pending',
         ]);
-
+        $shipping_charge =IncludeAnother::findOrFail(1);
         $orderId = Order::insertGetId([
             'customer_id' => Auth::user()->id,
             'shipping_id' =>Session::get('sid'),
             'payment_id' =>$paymentId,
-            'total'   =>Cart::subtotal()+100,
+            'total'   =>Cart::subtotal()+ $shipping_charge->shipping_charge_insite,
             'status'  => 'pending',
         ]);
 
@@ -108,6 +115,7 @@ class CheckoutController extends Controller
 
         if($paymentMethod =='cash'){
             Cart::destroy();
+            Notification::send($user, new OrderComplete($orderId));
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='bkash'){

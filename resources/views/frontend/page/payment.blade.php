@@ -1,4 +1,8 @@
+<?php
+use App\Models\IncludeAnother;
 
+$shipping_charge =IncludeAnother::findOrFail(1);
+?>
 @extends('frontend.master')
 
 @section('mainbody')
@@ -50,7 +54,7 @@
                     <div class="order-col">
                         <div>Shiping</div>
                         @php 
-							$shippingcost = 100;
+							$shippingcost = $shipping_charge ->shipping_charge_insite;
 						@endphp
                         <div><strong>{{$shippingcost}}</strong></div>
                     </div>

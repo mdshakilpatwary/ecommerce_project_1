@@ -46,11 +46,52 @@ $(document).ready(function(){
 
 // jQuery
 $('#tagsinput').tagify();
+$('#tagsinput_kg').tagify();
 
 // Vanilla JavaScript
 // var input = document.querySelector('#tagsinput'),
 // tagify = new Tagify( input );
 
+
+
+});
+
+
+// size disable part 
+
+$(document).ready(function(){
+
+$("#size_d_1").hide();
+$("#size_d_2").hide();
+$("#product-sizes-disable").prop( "disabled", true );
+$("#size_d_2_btn").prop( "checked", false ) ;
+$("#size_d_1_btn").prop( "checked", false ) ;
+
+$("#size_d_1_btn").on("click", function () {
+  $("#size_d_2").hide();
+  $("#size_d_2 > input").prop( "disabled", true ).prop( "checked", false );
+  $("#size_d_1").show();
+  $("#size_d_2_btn").prop( "checked", false ) ;
+  $("#size_d_1_btn").prop( "checked", true ) ;
+  $("#product-sizes-disable").hide();
+  $("#size_d_2").prop( "disabled", true );
+  $("#size_d_1").prop( "disabled", false );
+
+
+
+});
+
+$("#size_d_2_btn").on("click", function () {
+  $("#size_d_2").show();
+  $("#size_d_1").hide();
+  $("#size_d_1 > input").prop( "disabled", true ).prop( "checked", false );
+  $("#size_d_1_btn").prop( "checked", false ) ;
+  $("#size_d_2_btn").prop( "checked", true ) ;
+  $("#product-sizes-disable").hide();
+  $("#size_d_1").prop( "disabled", true );
+  $("#size_d_2").prop( "disabled", false );
+
+});
 
 
 

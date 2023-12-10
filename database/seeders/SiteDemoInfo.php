@@ -26,6 +26,16 @@ class SiteDemoInfo extends Seeder
             
         ]
         ]);
+        DB::table('include_anothers')->insert([
+            // admin login data
+        [
+            'shipping_charge_outsite' => null,
+            'shipping_charge_insite' => null,
+            'tax_vat' => null,
+
+            
+        ]
+        ]);
 
 
         

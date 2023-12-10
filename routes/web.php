@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\RolePermissionController;
+use App\Http\Controllers\Backend\IncludeAnotherController;
 use App\Http\Controllers\Frontend\ShoppingCart;
 use App\Http\Controllers\Frontend\ShoppingWishlist;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -155,6 +156,13 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/edit/size/{id}', 'edit')->name('edit.size');
         Route::post('/update/size/{id}', 'update')->name('update.size');
         Route::get('/status/size/{id}', 'changestatus')->name('status.size');
+    
+    // kg  route part -------------
+        Route::post('/store/size/kg', 'kgstore')->name('store.size.kg');
+        Route::get('/destroy/size/kg/{id}', 'kgdestroy')->name('destroy.size.kg');
+        Route::get('/edit/size/kg/{id}', 'kgedit')->name('edit.size.kg');
+        Route::post('/update/size/kg/{id}', 'kgupdate')->name('update.size.kg');
+        Route::get('/status/size/kg/{id}', 'kgchangestatus')->name('status.size.kg');
     });
     // Color route part -------------
     Route::controller(ColorController::class)->group(function () {
@@ -206,6 +214,12 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/user/edit/{id}', 'userEdit')->name('user.edit');
         Route::post('/user/update/{id}', 'userUpdate')->name('user.update');
         Route::get('/user/delete/{id}', 'userDelete')->name('user.delete');
+
+    });
+    // AnotherInclude route part -------------
+    Route::controller(IncludeAnotherController::class)->group(function () {
+        Route::get('/include/another/create', 'index')->name('include.another.create');
+        Route::post('/include/another/{id}', 'update')->name('include.another.update');
 
     });
 

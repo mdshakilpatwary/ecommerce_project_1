@@ -28,25 +28,26 @@
 
 @endif
     <h2>Add your category here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
+    <div class="col-md-6 offset-md-3 rounded py-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
         
         <form action="{{route('update.product',$p_data->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="form-group ">
+        <div class="row">  
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="p_code">Product code</label>
                 <input type="text" name="p_code" class="form-control" id="" value="{{$p_data->p_code}}">
                 @error('p_code')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="p_name">Product Name</label>
                 <input type="text" name="p_name" class="form-control" id="" value="{{$p_data->p_name}}">
                 @error('p_name')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="select_cat">Select Category</label>
                <select name="select_cat" id="" class="form-control select-form">
                 @foreach($categories as $category)
@@ -57,11 +58,11 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
+                <label for="select_subcat">Select Sub Category</label>
                <select name="select_subcat" id="" class="form-control select-form">
                 <option value="" disabled selected>----Select SubCategory-----</option>
                 @foreach($subcategories as $subcategory)
-                <option value="{{$subcategory->id}}">{{$subcategory->subcat_name}}</option>
                 <option value="{{ $subcategory->id }}" {{ $p_data->subcategory->id == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->subcat_name }}</option>
                 @endforeach
                </select>
@@ -69,7 +70,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="select_brand">Select Brand</label>
                <select name="select_brand" id="" class="form-control select-form">
                 @foreach($brands as $brand)
@@ -82,7 +83,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="select_color">Select Color</label>
                 <select  name="select_color[]" id="product-colors" multiple >
                     @foreach($colors as $color)
@@ -97,21 +98,51 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
-                <label for="select_size">Select Size</label>
-                <select  name="select_size[]" id="product-sizes" multiple >
-                    @foreach($sizes as $size)
-                     @foreach(json_decode($size->size) as $size_value)
-                        <option  value="{{$size_value->value}}" {{ in_array($size_value->value, explode('|', $p_data->size_id)) ? 'selected' : '' }} >{{$size_value->value}}</option>
-                     @endforeach
-                    @endforeach
-                    ... more options here ...
-                </select>
+            <div class="form-group col-md-6 col-xl-6 col-12">
+                <!-- size  -->
+                <div class="d-flex justify-content-between"> <label for="select_size">Select Size/kg</label>  <span class="badge badge-light mb-2"><input id="size_d_1_btn" type="checkbox"><label class="mb-0" for="size_d_1_btn">Add size</label></span> <span class="badge badge-light mb-2"><input id="size_d_2_btn" type="checkbox"><label class="mb-0" for="size_d_2_btn">Add kg</label></span> </div>
+
+                <div id="size_d_1">
+                    <select  name="select_size[]" id="product-sizes-1" multiple >
+                        @foreach($sizes as $size)
+                         @foreach(json_decode($size->size) as $size_value)
+                            <option  value="{{$size_value->value}}" {{ in_array($size_value->value, explode('|', $p_data->size_id)) ? 'selected' : '' }} >{{$size_value->value}}</option>
+                         @endforeach
+                        @endforeach
+                        ... more options here ...
+                    </select>
+                </div>
+                <div id="size_d_2">
+                    <select  name="select_size_kg[]" id="product-sizes-2" multiple >
+                        @foreach($kg_size as $kg)
+                         @foreach(json_decode($kg->kg_litter) as $kg_value)
+                            <option  value="{{$kg_value->value}}" {{ in_array($kg_value->value, explode('|', $p_data->kg_liter)) ? 'selected' : '' }} >{{$kg_value->value}}</option>
+                         @endforeach
+                        @endforeach
+                        ... more options here ...
+                    </select>
+                </div>
+                @php
+                if($p_data->size_id !=null){
+                $size_data_value = explode('|', $p_data->size_id);
+                }
+                else{
+                $size_data_value = explode('|', $p_data->kg_liter);
+                }
+                    
+                @endphp
+                <div class="form-control" id="product-sizes-disable">
+                @foreach ($size_data_value as $item_size)
+                <span class="badge badge-light">{{$item_size}}</span>
+                @endforeach
+                </div>
                 @error('select_size')
-                    <p class="text-danger ">{{$message}}</p>
+                <p class="text-danger ">{{$message}}</p>
                 @enderror
+                
+                <!-- size  -->
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="p_price">Product Price</label>
                 <input type="floatval" name="p_price" id="" value="{{$p_data->p_price}}" class="form-control">
 
@@ -119,7 +150,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="discount_percentage">Discount Percentage</label>
                 <input type="floatval" name="discount_percentage" id="" value="{{$p_data->discount_percentage}}" class="form-control">
 
@@ -127,7 +158,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="p_qty">Product quantity</label>
                 <input type="floatval" name="p_qty" id="" value="{{$p_data->p_qty}}" class="form-control">
 
@@ -135,7 +166,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <div class="form-group ">
+            <div class="form-group col-md-12 col-xl-12 col-12">
                 <label for="p_desc">Description</label>
                </select>
                <textarea name="p_desc" class="summernote form-control">{!! $p_data->p_description !!}</textarea>
@@ -145,7 +176,7 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-12 col-xl-12 col-12">
                 <label for="p_image">Product Image</label>
                 <input type="file" name="p_image" class="form-control fileimage" id="" >
                 @error('p_image')
@@ -154,7 +185,7 @@
                 <img src="{{empty($p_data->p_image)? asset('uploads/product/empty.png') : asset('uploads/product/'.$p_data->p_image) }}" width="200" class="rounded changeImage pt-3" alt="" class="changeImage">
              
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-12 col-xl-12 col-12">
                 <label for="group_p_image">Product Image</label>
                 <input type="file" name="group_p_image[]" class="form-control mb-2 g_fileimage" id="" multiple>
                 @error('group_p_image')
@@ -164,7 +195,8 @@
                             <img src="{{empty($gimage)? asset('uploads/product/product_group/empty.png') : asset('uploads/product/product_group/'.$gimage) }}" alt="" width="100" height="100" class="g_changeImage">
                 @endforeach
             </div>
-            <button class="btn btn-lg btn-success">Submit</button>
+            <button class="btn btn-lg btn-success">Update</button>
+        </div>
         </form>
     </div>
 </div>

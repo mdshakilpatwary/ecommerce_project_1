@@ -174,7 +174,7 @@ function profile(){
                 
             }
             
-            $msg =$info->save();
+            $msg =$info->update();
             if($msg){
                 return back()->with('success','Site Info Updated successfully');
         

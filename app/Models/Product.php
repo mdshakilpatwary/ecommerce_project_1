@@ -17,6 +17,7 @@ class Product extends Model
         'brand_id',
         'unit_id',
         'size_id',
+        'kg_liter',
         'color_id',
         'p_code',
         'p_name',

@@ -19,13 +19,13 @@
             </li>
             
             <li class="dropdown ">
-              <a href="{{route('frontend_site')}}" target="blank" class="nav-link"><i data-feather="monitor"></i><span>View site</span></a>
+              <a href="{{route('frontend_site')}}" target="blank" class="nav-link"><i data-feather="server"></i><span>View site</span></a>
             </li>
           @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view'))
 
             <li class="menu-header">User Elements</li>
             <li class="dropdown {{ Route::is('user.create*') || Route::is('user.manage*') || Route::is('user.edit*') ? 'active' : '' }}">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>User</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-user"></i><span>User</span></a>
               <ul class="dropdown-menu">
                 @if(Auth::user()->can('admin.create'))
                 <li><a class="nav-link" href="{{route('user.create')}}">User Create</a></li>
@@ -37,10 +37,11 @@
               </ul>
             </li>
           @endif
+
           @if(Auth::user()->can('product.view') || Auth::user()->can('product.create'))
             <li class="menu-header">Product Elements</li>
             <li class="dropdown {{ Route::is('create.product*') || Route::is('show.product*') || Route::is('edit.product*') ? 'active' : '' }}">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Product</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-store"></i><span>Product</span></a>
               <ul class="dropdown-menu">
                 @if( Auth::user()->can('product.create'))
                 <li><a class="nav-link" href="{{route('create.product')}}">Add Product</a></li>
@@ -102,7 +103,7 @@
 
             <li class="menu-header">Role and Permission Elements</li>
             <li class="dropdown {{ Route::is('role.permission.create*') || Route::is('role.permission.manage*') || Route::is('role.permission.edit*') ? 'active' : '' }}">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-box"></i><span>Role and Permission</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Role and Permission</span></a>
               <ul class="dropdown-menu">
                 @if(Auth::user()->can('role.create'))
                 <li><a class="nav-link" href="{{route('role.permission.create')}}">Role Create</a></li>
@@ -113,6 +114,13 @@
               </ul>
             </li>
             @endif
+            @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view'))
+
+            <li class="menu-header">Additional Setting Elements</li>
+            <li class="dropdown {{ Route::is('include.another.create*')? 'active' : '' }}">
+              <a href="{{route('include.another.create')}}" class="nav-link"><i class="fas fa-puzzle-piece"></i><span>Additional Setting</span></a>
+            </li>
+          @endif
 
             
 

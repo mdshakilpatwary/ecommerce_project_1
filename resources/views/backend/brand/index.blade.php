@@ -30,7 +30,7 @@
 <div class="col-md-12">    
   <h2>Add your Brand here </h2>
 </div>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
+    <div class="col-md-6 offset-md-3 rounded py-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
         
         <form action="{{route('store.brand')}}" method="POST" >
             @csrf

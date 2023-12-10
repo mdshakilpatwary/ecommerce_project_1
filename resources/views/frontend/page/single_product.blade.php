@@ -92,17 +92,26 @@
 
 							<div class="product-options">
 								<label>
+									@if($product->size_id != null)
 									Size
+									@else
+									Kg/Liter
+									@endif
 									<select class="input-select" name="size">
+										@if($product->size_id != null)
 										@foreach(explode("|",$product->size_id) as $size)										
 										<option value="{{$size}}">{{$size}}</option>
-										
 										@endforeach
-										
+										@else
+										@foreach(explode("|",$product->kg_liter) as $kg)										
+										<option value="{{$kg}}">{{$kg}}</option>
+										@endforeach
+										@endif
 									</select>
 								</label>
 								<label>
 									Color
+
 									<select class="input-select" name="color">
 										@foreach(explode("|",$product->color_id) as $color)
 										<option value="{{$color}}">{{$color}}</option>

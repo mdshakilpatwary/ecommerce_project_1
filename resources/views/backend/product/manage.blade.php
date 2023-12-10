@@ -51,7 +51,7 @@
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">SubCat_Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">brand</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Color</th>
-                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Size</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Size/Liter/Kg</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Price</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Discount%</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Qty</th>
@@ -85,9 +85,15 @@
                               @endforeach
                             </td>
                             <td>
-                              @foreach(explode("|",$product->size_id) as $size)
-                              <span style="background: rgb(47, 47, 47); color: white; padding: 0 2px; display: inline; border-radius: 5px;">{{$size}}</span>
-                              @endforeach
+                              @if($product->size_id != null)
+                                @foreach(explode("|",$product->size_id) as $size)
+                                <span style="background: rgb(47, 47, 47); color: white; padding: 0 2px; display: inline; border-radius: 5px;">{{$size}}</span>
+                                @endforeach
+                              @else
+                                @foreach(explode("|",$product->kg_liter) as $kg_liter)
+                                <span style="background: rgb(47, 47, 47); color: white; padding: 0 2px; display: inline; border-radius: 5px;">{{$kg_liter}}</span>
+                                @endforeach
+                              @endif
                             </td>
                             <td>&#2547;{{$product->p_price}}</td>
                             <td>{{$product->discount_percentage}}%</td>

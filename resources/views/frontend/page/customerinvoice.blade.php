@@ -1,3 +1,8 @@
+<?php
+use App\Models\IncludeAnother;
+
+$shipping_charge =IncludeAnother::findOrFail(1);
+?>
 @extends('frontend.master')
 
 @section('mainbody')
@@ -104,7 +109,7 @@
                             <div class="col-lg-4 text-right">
                               <div class="invoice-detail-item">
                                 @php
-                                $delivery = 100;
+                                $delivery = $shipping_charge ->shipping_charge_insite;
                                 @endphp
                                 <div class="invoice-detail-name">Subtotal</div>
                                 <div class="invoice-detail-value">&#2547; {{$order->total -$delivery}}</div>

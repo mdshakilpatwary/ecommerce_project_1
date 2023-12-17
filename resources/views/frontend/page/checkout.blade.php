@@ -1,8 +1,8 @@
-@php
+<?php
 use App\Models\IncludeAnother;
 $cartArray =cartArray();
 $shipping_charge =IncludeAnother::findOrFail(1);
-@endphp	
+?>
 
 @extends('frontend.master')
 

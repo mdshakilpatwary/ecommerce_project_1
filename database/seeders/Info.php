@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\SiteInfo;
+use App\Models\IncludeAnother;
 use DB;
 
 class Info extends Seeder
@@ -14,8 +15,9 @@ class Info extends Seeder
      */
     public function run(): void
     {
+    //    site info  
         DB::table('site_infos')->insert([
-            // admin login data
+            // site info data
         [
             'name' => 'DreamIT',
             'email' => 'dreamit@gmail.com',
@@ -25,5 +27,15 @@ class Info extends Seeder
             
         ]
         ]);
+        
+    //    additional info  
+        DB::table('include_anothers')->insert([
+            
+        [
+            'tax_vat' => 0,                       
+        ]
+        ]);
+
+
     }
 }

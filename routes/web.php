@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordForgetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -33,7 +34,11 @@ use App\Http\Controllers\Frontend\SocialController;
 |
 */
 
-
+// Login route part 
+Route::middleware('guest')->group(function () {
+    Route::get('forget/password', [PasswordForgetController::class, 'forgetPassword'])->name('forget.password');
+    Route::post('reset/password', [PasswordForgetController::class, 'resetPassword'])->name('reset.password.email');
+});
 
 // user dashboard route
 Route::get('/dashboard', [HomeController::class, 'userDashborad'])->middleware(['auth','role:User', 'verified'])->name('dashboard');

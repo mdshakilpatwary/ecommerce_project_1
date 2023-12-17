@@ -1,7 +1,11 @@
 @php
 use Spatie\Permission\Models\Role;
+use App\Models\Category;
+$categories = Category::where('cat_status', 1)->get();
+
 $cartArray =cartArray();
 $wishlistArray = wishlistArray();
+
 @endphp	
 	<header>
 			<!-- TOP HEADER -->

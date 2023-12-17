@@ -118,7 +118,7 @@ class HomeController extends Controller
     // all product 
     function allProduct(){
         $products = Product::where('status', 1)->paginate(6);
-        $category =Category::where('status',1);
+        $categories =Category::where('status',1);
         $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::where('status',1)->get();
         $sizes =Size::where('status',1)->get();
@@ -139,7 +139,7 @@ class HomeController extends Controller
             $topProducts[] = $p;
         }
 
-        return view('frontend.page.all_product', compact('products','category','subcategories','brands','colors','sizes','topProducts')) ;
+        return view('frontend.page.all_product', compact('products','categories','subcategories','brands','colors','sizes','topProducts')) ;
 
     }
 

@@ -34,10 +34,15 @@ class SocialController extends Controller
             $user->name = $googleuser->name;
             $user->email = $googleuser->email;
             $user->social_id = $googleuser->id;
-            $user->pic =$googleuser->avatar;
-            $user->update();
-            $sid = $googleuser->id;
-            return view('frontend.page.setpassword', compact('sid'));
+            $user->image =$googleuser->avatar;
+            $user->password ='1234';
+            $user->save();
+            Auth::login($user);
+            return redirect('/dashboard');
+
+
+            // $sid = $googleuser->id;
+            // return view('frontend.page.setpassword', compact('sid'));
             // Auth::login($user);
  
             // return redirect('/dashboard');

@@ -36,7 +36,7 @@
 @endif
                     <div class="table-responsive p-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
                    
-                        <table class="table table-striped dataTable no-footer" id="table-1" role="grid" aria-describedby="table-1_info">
+                        <table class="table table-striped dataTable no-footer" id="tableExport" role="grid" aria-describedby="table-1_info">
                         <thead>
                           <tr role="row">
                             <th class="text-center sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 24.45px;" aria-label="

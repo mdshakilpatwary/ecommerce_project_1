@@ -99,3 +99,9 @@ $("#size_d_2_btn").on("click", function () {
 
 
 
+
+// pdf code 
+
+
+
+

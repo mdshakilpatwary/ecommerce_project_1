@@ -38,6 +38,11 @@ use App\Models\User;
   <script src="{{asset('backend')}}/assets/js/custom.js"></script>
   <script src="{{asset('backend')}}/assets/js/filter-multi-select-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="{{asset('backend')}}/assets/bundles/datatables/export-tables/jszip.min.js"></script>
+  <script src="{{asset('backend')}}/assets/bundles/datatables/export-tables/pdfmake.min.js"></script>
+  <script src="{{asset('backend')}}/assets/bundles/datatables/export-tables/vfs_fonts.js"></script>
+  <script src="{{asset('backend')}}/assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
   
   <script>
     const product_colors = $('#product-colors').filterMultiSelect();

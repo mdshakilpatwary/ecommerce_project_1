@@ -12,10 +12,10 @@
 					@foreach ($categories as $category)
 					@if ($loop->iteration <= 3)
 					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-							<div class="shop-img">
-								<img src="{{asset('uploads/category/'.$category->cat_image)}}"  height="200" alt="">
+					<div class="col-md-4 col-xl-4 col-lg-4">
+						<div class="shop w-100">
+							<div class="shop-img ">
+								<img class="w-100" src="{{asset('uploads/category/'.$category->cat_image)}}"  height="200" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>{{$category->cat_name}}<br>Collection</h3>

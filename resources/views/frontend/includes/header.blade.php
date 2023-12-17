@@ -7,6 +7,7 @@ $cartArray =cartArray();
 $wishlistArray = wishlistArray();
 
 @endphp	
+
 	<header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
@@ -62,7 +63,7 @@ $wishlistArray = wishlistArray();
 
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
-							<div class="header-search">
+							<div class="header-search ">
 								<form action="{{route('product.search')}}" method="GET">
 									@csrf
 									<select class="input-select" name="category">

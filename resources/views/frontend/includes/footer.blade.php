@@ -1,3 +1,7 @@
+<?php
+use App\Models\Category;
+$categories = Category::where('cat_status', 1)->get();
+?>
 <footer id="footer">
 			<!-- top footer -->
 			<div class="section">
@@ -25,11 +29,11 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="#">Hot deals</a></li>
-									<li><a href="#">Laptops</a></li>
-									<li><a href="#">Smartphones</a></li>
-									<li><a href="#">Cameras</a></li>
-									<li><a href="#">Accessories</a></li>
+									@foreach($categories as $category)
+									@if ($loop->iteration <= 5)
+									<li ><a href="{{route('show.category.product',$category->id)}}" >{{$category->cat_name}}</a></li>
+									@endif
+									@endforeach
 								</ul>
 							</div>
 						</div>

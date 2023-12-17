@@ -104,6 +104,7 @@
 						<!-- /aside Widget -->
 					</div>
 					<!-- /ASIDE -->
+@if (count($products) > 0)
 
 					<!-- STORE -->
 					<div id="store" class="col-md-9">
@@ -239,6 +240,9 @@
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
+@else
+<h4 class="text-center">Empty this sub-category product item </h4>
+@endif
 				</div>
 				<!-- /row -->
 			</div>

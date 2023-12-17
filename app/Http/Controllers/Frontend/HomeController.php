@@ -115,6 +115,35 @@ class HomeController extends Controller
         return view('frontend.page.category_product', compact('products','category','subcategories','brands','colors','sizes','topProducts')) ;
 
     }
+    // category product 
+    function brandProduct($id){
+        $products = Product::where('status', 1)->where('brand_id', $id)->paginate(6);
+        $categories =Category::where('cat_status',1)->get();
+        $subcategories =SubCategory::where('status',1)->get();
+        $brands =Brand::where('status',1)->get();
+        $sizes =Size::where('status',1)->get();
+        $brandproduct =Brand::findOrFail($id);
+
+        $colors =Color::all();
+
+            // top selling product part 
+            $top_sales = DB::table('products')
+            ->leftJoin('order_datails','products.id','=','order_datails.product_id')
+            ->selectRaw('products.id, SUM(order_datails.product_sale_qty) as total')
+            ->groupBy('products.id')
+            ->orderBy('total','desc')
+            ->take(8)
+            ->get();
+        $topProducts = [];
+        foreach ($top_sales as $s){
+            $p = Product::findOrFail($s->id);
+            $p->totalQty = $s->total;
+            $topProducts[] = $p;
+        }
+
+        return view('frontend.page.brandwise_product', compact('products','categories','subcategories','brands','colors','sizes','topProducts','brandproduct')) ;
+
+    }
     // all product 
     function allProduct(){
         $products = Product::where('status', 1)->paginate(6);

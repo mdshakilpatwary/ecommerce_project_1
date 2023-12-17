@@ -27,85 +27,10 @@
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
-				<div class="row">
-					<!-- ASIDE -->
-					<div id="aside" class="col-md-3">
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
-							<div class="checkbox-filter">
-								@foreach($categories as $category)
-								@php
-								$cat_count =App\Models\Product::catProductCount($category->id);	
-								@endphp
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-{{$category->id}}">
-									<label for="category-{{$category->id}}">
-										<span></span>
-										<ul>
-											<li><a href="{{route('show.category.product',$category->id)}}">{{$category->cat_name}}</a> <small>({{$cat_count}})</small></li>
-										</ul>
-										
-									</label>
-								</div>
-								@endforeach
-								
-							</div>
-						</div>
-						<!-- /aside Widget -->
 
-
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
-							<div class="checkbox-filter">
-								@foreach($brands as $brand)
-								@php
-								$brand_count =App\Models\Product::brandProductCount($brand->id);	
-								@endphp
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-{{$brand->id}}">
-									<label for="brand-{{$brand->id}}">
-										<span></span>
-										<ul>
-											<li><a href="">{{$brand->brand_name}}</a> <small>({{$brand_count}})</small></li>
-
-										</ul>
-									</label>
-								</div>
-								@endforeach
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							@foreach($topProducts as $product)
-							@if ($loop->iteration <= 3)
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">{{$product->category->cat_name}}</p>
-									<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-									<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-								</div>
-							</div>
-							@endif
-							@endforeach
-	
-
-						
-						</div>
-						<!-- /aside Widget -->
-					</div>
-					<!-- /ASIDE -->
 
 					<!-- STORE -->
-					<div id="store" class="col-md-9">
+					<div id="store" class="col-md-12">
 						<!-- store top filter -->
 						<!-- <div class="store-filter clearfix">
 							<div class="store-sort">

@@ -141,7 +141,7 @@ textarea.input {
 }
 
 .input-number input[type="number"] {
-  -moz-appearance: textfield;
+  /* -moz-appearance: textfield; */
   height: 40px;
   width: 100%;
   border: 1px solid #E4E7ED;
@@ -2211,6 +2211,7 @@ textarea.input {
     margin-top: 30px;
     margin-bottom: 30px;
   }
+  
 }
 
 @media only screen and (max-width: 767px) {
@@ -2271,5 +2272,8 @@ textarea.input {
 
 .pagination .disabled {
   color: #ccc;
+}
+#aside {
+	border-right: 1px solid #ddd;
 }
 

@@ -59,6 +59,7 @@ Route::get('/product/search', [HomeController::class, 'productSearch'])->name('p
 Route::get('/single/product/{id}', [HomeController::class, 'singleProduct'])->name('single.product');
 Route::get('/show/category/product/{id}', [HomeController::class, 'categoryProduct'])->name('show.category.product');
 Route::get('/show/subcategory/product/{id}', [HomeController::class, 'subcategoryProduct'])->name('show.subcategory.product');
+Route::get('/show/brand/product/{id}', [HomeController::class, 'brandProduct'])->name('show.brand.product');
 Route::get('/show/all/product', [HomeController::class, 'allProduct'])->name('show.all.product');
 
 // shoping cart part

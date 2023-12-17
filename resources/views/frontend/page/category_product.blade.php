@@ -83,11 +83,11 @@
 								$brand_count =App\Models\Product::brandProductCount($brand->id);	
 								@endphp
 								<div class="input-checkbox">
-									<input type="checkbox" id="brand-{{$brand->id}}">
+									<input type="checkbox" id="brand-{{$brand->id}}"  {{ request()->is('show/brand/product/' . $brand->id) ? 'checked' : '' }} > 
 									<label for="brand-{{$brand->id}}">
 										<span></span>
 										<ul>
-											<li><a href="">{{$brand->brand_name}}</a> <small>({{$brand_count}})</small></li>
+											<li><a href="{{route('show.brand.product',$brand->id)}}">{{$brand->brand_name}}</a> <small>({{$brand_count}})</small></li>
 
 										</ul>
 									</label>

@@ -1,3 +1,8 @@
+@php
+use App\Models\Category;
+$categories = Category::where('cat_status', 1)->get();
+
+@endphp	
 <nav id="navigation">
 			<!-- container -->
 			<div class="container">

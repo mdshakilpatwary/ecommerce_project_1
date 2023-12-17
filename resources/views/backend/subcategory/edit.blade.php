@@ -27,13 +27,13 @@
 </div>
 
 @endif
-    <h2>Add your category here </h2>
+    <h2>Edit and update subcategory </h2>
     <div class="col-md-6 offset-md-3 bg-info rounded py-3">
         
         <form action="{{route('update.subcatagory',$subcat_data->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group ">
-                <label for="cat_name">Category Name</label>
+                <label for="cat_name">SubCategory Name</label>
                 <input type="text" name="subcat_name" class="form-control" id="" value="{{$subcat_data->subcat_name}}">
                 @error('subcat_name')
                     <p class="text-danger ">{{$message}}</p>
@@ -57,7 +57,7 @@
 
                 <img src="{{empty($subcat_data->subcat_image)? asset('uploads/subcategory/empty.png') : asset('uploads/subcategory/'.$subcat_data->subcat_image) }}" width="200" class="rounded changeImage" alt="">
             </div>
-            <button class="btn btn-lg btn-success">Submit</button>
+            <button class="btn btn-lg btn-success">Update</button>
         </form>
     </div>
 </div>

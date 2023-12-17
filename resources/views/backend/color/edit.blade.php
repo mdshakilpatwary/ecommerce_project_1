@@ -27,8 +27,11 @@
 </div>
 
 @endif
-    <h2>Edit your color here </h2>
-<div class="row">
+<div class="col-md-12">
+  <h2>Edit your color here </h2>
+
+</div>
+
   <div class="col-md-6 offset-md-3 rounded py-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
         
     <form action="{{route('update.color',$color_data->id)}}" method="POST" >
@@ -40,9 +43,9 @@
                 <p class="text-danger ">{{$message}}</p>
             @enderror
         </div>
-        <button class="btn btn-lg btn-success">Submit</button>
+        <button class="btn btn-lg btn-success">Update</button>
     </form>
 </div>
-</div>
+
 </div>
 @endsection

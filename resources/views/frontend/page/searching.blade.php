@@ -74,13 +74,15 @@
 											@if($product->discount_percentage > 0)
 											<span class="sale">{{$product->discount_percentage}}%</span>
 											@endif
-											<!-- <span class="new">NEW</span> -->
+											@if (now()->diffInDays($product->created_at) < 3)
+											<span class="new">NEW</span>
+											@endif											
 										</div>
 									</div>
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
-										<h3 class="product-name" style="height: 30px;"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h3 class="product-name" ><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
+										<h4 class="product-price" style="padding: 5px 0;">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>

@@ -27,20 +27,24 @@
 </div>
 
 @endif
+<div class="col-md-12">
     <h2>Edit your Size here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
+</div>
+
+  <div class="col-md-6 offset-md-3 rounded py-3" style="background: #fff; box-shadow: 0 0 8px #ddd">
         
-        <form action="{{route('update.size',$size_data->id)}}" method="POST" >
-            @csrf
-            <div class="form-group ">
-                <label for="unit_name">Size</label>
-                <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="{{$size_data->size}}">
-                @error('size')
-                    <p class="text-danger ">{{$message}}</p>
-                @enderror
-            </div>
-            <button class="btn btn-lg btn-success">Submit</button>
-        </form>
-    </div>
+    <form action="{{route('update.size',$size_data->id)}}" method="POST" >
+        @csrf
+        <div class="form-group ">
+            <label for="unit_name">Size</label>
+            <input name="size" class="form-control" id="tagsinput" placeholder="write some tags" value="{{$size_data->size}}">
+            @error('size')
+                <p class="text-danger ">{{$message}}</p>
+            @enderror
+        </div>
+        <button class="btn btn-lg btn-success">Update</button>
+    </form>
+</div>
+
 </div>
 @endsection

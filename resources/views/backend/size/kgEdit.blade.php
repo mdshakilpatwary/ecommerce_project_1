@@ -28,7 +28,7 @@
 
 @endif
     <h2>Edit your Kg/Liter here </h2>
-    <div class="col-md-6 offset-md-3 bg-info rounded py-3">
+    <div class="col-md-6 offset-md-3  rounded py-3" style="background: #fff; box-shadow: 0 0 10px #ddd">
         
         <form action="{{route('update.size.kg',$kg_data->id)}}" method="POST" >
             @csrf
@@ -39,7 +39,7 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
-            <button class="btn btn-lg btn-success">Submit</button>
+            <button class="btn btn-lg btn-success">Update</button>
         </form>
     </div>
 </div>

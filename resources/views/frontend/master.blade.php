@@ -21,6 +21,7 @@ $id = 1;
 @yield('mainbody')
 
 </main>
+
 		<!-- NEWSLETTER -->
 @include('frontend.includes.nawsletter')
 

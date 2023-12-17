@@ -446,7 +446,7 @@
 							</div>
 							<div class="product-body">
 								<p class="product-category">{{$r_product->category->cat_name}}</p>
-								<h3 class="product-name  " ><a href="{{route('single.product',$r_product->id)}}">{{$r_product->p_name}}</a></h3>
+								<h3 class="product-name  " ><a href="{{route('single.product',$r_product->id)}}">{{ Illuminate\Support\Str::limit($r_product->p_name,50,'....')}}</a></h3>
 								<h4 class="product-price" style="padding: 5px 0;">&#2547;{{$r_product->p_price -($r_product->p_price*($r_product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$r_product->p_price}}</del></h4>
 								<div class="product-rating">
 								</div>

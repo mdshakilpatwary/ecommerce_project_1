@@ -147,7 +147,7 @@ class HomeController extends Controller
     // all product 
     function allProduct(){
         $products = Product::where('status', 1)->paginate(6);
-        $categories =Category::where('status',1);
+        $categories =Category::where('cat_status',1)->get();
         $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::where('status',1)->get();
         $sizes =Size::where('status',1)->get();

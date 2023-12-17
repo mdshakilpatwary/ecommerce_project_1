@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('p_name');
             $table->text('p_description');
             $table->float('p_price');
-            $table->decimal('discount_percentage')->nullable();            
-            $table->float('p_qty');
+            $table->integer('discount_percentage')->nullable();            
+            $table->integer('p_qty');
             $table->string('p_image');
             $table->string('group_p_image');
             $table->string('p_slug');

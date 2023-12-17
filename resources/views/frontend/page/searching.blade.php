@@ -133,7 +133,11 @@
 						<!-- /store top filter -->
 
 						<!-- store products -->
+						
+							
+@if (count($products) > 0)
 						<div class="row">
+
 							<!-- product -->
 							@foreach($products as $product)
 							<div class="col-md-4 col-xs-6">
@@ -197,6 +201,8 @@
 							</div>
 							<!-- /product -->
 							@endforeach
+	
+
 
 						</div>
 
@@ -237,6 +243,9 @@
 							</div>
 						</div>
 						<!-- /store bottom filter -->
+@else
+<h4 class="text-center">Product not found</h4>
+@endif
 					</div>
 					<!-- /STORE -->
 				</div>

@@ -75,7 +75,7 @@
                             </td>
                             <td>{{$product->p_name}}</td>
                             <td>{{$product->p_code}}</td>
-                            <td>{!! Str::words($product->p_description, 10) !!}</td>
+                            <td>{{strip_tags(Str::words($product->p_description,30))  }}</td>
                             <td>{{$product->category->cat_name}}</td>
                             <td>{{$product->subcategory->subcat_name}}</td>
                             <td>{{$product->brand->brand_name}}</td>

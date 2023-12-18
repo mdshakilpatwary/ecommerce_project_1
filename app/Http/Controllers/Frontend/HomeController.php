@@ -67,7 +67,6 @@ class HomeController extends Controller
                     $topProducts[] = $p;
                 }
                 
-                
 
         return view('frontend.welcome', compact('products','categories','subcategories','brands','colors','sizes','topProducts'));
     

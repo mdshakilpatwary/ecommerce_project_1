@@ -443,7 +443,7 @@
 
 							<div>
 								<!-- product widget -->
-								@foreach($topProducts as $product)
+								@foreach($products as $product)
 								@if ($loop->iteration <= 3)
 								<div class="product-widget">
 									<div class="product-img">

@@ -10,18 +10,18 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 
-
-class ForgetPasswordMail extends Mailable
+class OrderInvoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
-
+    public $orderId;
+    public $user_id;
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct($orderId,$user_id)
     {
-        $this->user = $user;
+        $this->orderId = $orderId;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -30,7 +30,7 @@ class ForgetPasswordMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Forget Password',
+            subject: 'Product Order Invoice',
         );
     }
 
@@ -40,9 +40,10 @@ class ForgetPasswordMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mails.forget_mail_msg',
+            markdown: 'mails.order_invoice_mail_msg',
             with:[
-                'user' => $this->user,
+                'orderId' => $this->orderId,
+                'user_id' => $this->user_id,
             ],
         );
     }

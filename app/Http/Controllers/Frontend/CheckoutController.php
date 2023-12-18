@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ShippingDetails;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\IncludeAnother;
@@ -13,9 +14,11 @@ use App\Models\User;
 use App\Models\OrderDatails;
 use App\Notifications\OrderComplete;
 use Illuminate\Support\Facades\Notification;
+use App\Mail\OrderInvoiceMail;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 use Session;
 use Cart;
-use Auth;
 
 class CheckoutController extends Controller
 {
@@ -69,6 +72,7 @@ class CheckoutController extends Controller
     // place order and payment system 
     function placeOrder(Request $request){
         $user =User::where('role', 'Admin')->get();
+        $user_id =User::findOrFail(Auth::user()->id);
         $request->validate([
             'payment' => 'required',
             'tarms_checbox' => 'required',
@@ -89,6 +93,7 @@ class CheckoutController extends Controller
             'customer_id' => Auth::user()->id,
             'shipping_id' =>Session::get('sid'),
             'payment_id' =>$paymentId,
+            'created_at' =>Carbon::now(),
             'total'   =>Cart::subtotal()+ $shipping_charge->shipping_charge_insite,
             'status'  => 'pending',
         ]);
@@ -116,6 +121,8 @@ class CheckoutController extends Controller
         if($paymentMethod =='cash'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
+            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='bkash'){

@@ -34,10 +34,12 @@ use App\Http\Controllers\Frontend\SocialController;
 |
 */
 
-// Login route part 
+// Login forgot password route part 
 Route::middleware('guest')->group(function () {
     Route::get('forget/password', [PasswordForgetController::class, 'forgetPassword'])->name('forget.password');
     Route::post('reset/password', [PasswordForgetController::class, 'resetPassword'])->name('reset.password.email');
+    Route::get('reset_password/{token}', [PasswordForgetController::class, 'setPassword'])->name('reset.password.token');
+    Route::post('password/update/{token}', [PasswordForgetController::class, 'updatePassword'])->name('update.password.token');
 });
 
 // user dashboard route

@@ -28,7 +28,21 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h4>Login</h4>
+
               </div>
+              <!-- success or error msg part html start -->
+              @if(session('success'))
+              <div class="alert alert-success alertsuccess mx-3">
+                  {{ session('success') }}
+              </div>
+              @endif
+
+              @if(session('error'))
+                  <div class="alert alert-danger alerterror mx-3">
+                      {{ session('error') }}
+                  </div>
+              @endif
+            <!-- success or error msg part html end-->
               <div class="card-body">
                 <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
                   @csrf

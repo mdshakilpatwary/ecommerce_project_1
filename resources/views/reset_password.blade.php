@@ -28,7 +28,7 @@
 
             <div class="card card-primary mt-5">
               <div class="card-header">
-                <h4>Reset email</h4>
+                <h4>Set new Password</h4>
               </div>
               <!-- success or error msg part html start -->
                 @if(session('success'))
@@ -44,21 +44,31 @@
                 @endif
               <!-- success or error msg part html end-->
               <div class="card-body">
-                <form method="POST" action="{{ route('reset.password.email') }}" class="needs-validation" novalidate="">
+                <form method="POST" action="{{ route('update.password.token',$user->remember_token) }}" class="needs-validation" novalidate="">
                   @csrf
                     <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <label for="password">New Password</label>
+                    <input id="password" type="password" class="form-control" name="password" tabindex="1" required autofocus>
                     <div class="invalid-feedback">
-                        Please fill in your email
+                        Please fill in your password
                         </div>
-                        @error('email')
+                        @error('password')
+                        <p class="text-danger ">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input id="confirm_password" type="password" class="form-control" name="confirm_password" tabindex="2" required autofocus>
+                    <div class="invalid-feedback">
+                        Please fill in your Confirm Password
+                        </div>
+                        @error('confirm_password')
                         <p class="text-danger ">{{$message}}</p>
                         @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg btn-block w-25" tabindex="4">
-                      Forget
+                      Change
                     </button>
                   </div>
                 </form>

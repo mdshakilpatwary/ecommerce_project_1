@@ -120,14 +120,17 @@ class CheckoutController extends Controller
         }
         elseif($paymentMethod =='bkash'){
             Cart::destroy();
+            Notification::send($user, new OrderComplete($orderId));
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='nagod'){
             Cart::destroy();
+            Notification::send($user, new OrderComplete($orderId));
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='roket'){
             Cart::destroy();
+            Notification::send($user, new OrderComplete($orderId));
             return view('frontend.page.orderMsg');
         }
 

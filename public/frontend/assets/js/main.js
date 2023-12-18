@@ -168,3 +168,17 @@
 })(jQuery);
 
 
+
+// alert message show hide part js 
+
+setTimeout(function() {
+    $('.alertsuccess').slideUp(1000);
+ },5000);
+
+
+setTimeout(function() {
+    $('.alerterror').slideUp(1000);
+ },5000);
+
+
+

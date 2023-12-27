@@ -29,94 +29,7 @@
 				<!-- row -->
 				<div class="row">
 					<!-- ASIDE -->
-					<div id="aside" class="col-md-3">
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Sub Categories</h3>
-							<div class="checkbox-filter">
-								@foreach($subcategories as $subcategory)
-								@php
-								$sub_cat_count =App\Models\Product::subcatProductCount($subcategory->id);	
-								@endphp
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-{{$subcategory->id}}">
-									<label for="category-{{$subcategory->id}}">
-										<span></span>
-										<ul>
-											<li><a href="{{route('show.subcategory.product',$subcategory->id)}}">{{$subcategory->subcat_name}}</a> <small>({{$sub_cat_count}})</small></li>
-										</ul>
-										
-									</label>
-								</div>
-								@endforeach
-								
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget price range -->
-						<!-- <div class="aside">
-							<h3 class="aside-title">Price</h3>
-							<div class="price-filter">
-								<div id="price-slider"></div>
-								<div class="input-number price-min">
-									<input id="price-min" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-								<span>-</span>
-								<div class="input-number price-max">
-									<input id="price-max" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-							</div>
-						</div> -->
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
-							<div class="checkbox-filter">
-								@foreach($brands as $brand)
-								@php
-								$brand_count =App\Models\Product::brandProductCount($brand->id);	
-								@endphp
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-{{$brand->id}}"  {{ request()->is('show/brand/product/' . $brand->id) ? 'checked' : '' }} > 
-									<label for="brand-{{$brand->id}}">
-										<span></span>
-										<ul>
-											<li><a href="{{route('show.brand.product',$brand->id)}}">{{$brand->brand_name}}</a> <small>({{$brand_count}})</small></li>
-
-										</ul>
-									</label>
-								</div>
-								@endforeach
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							@foreach($topProducts as $product)
-							@if ($loop->iteration <= 3)
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">{{$product->category->cat_name}}</p>
-									<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-									<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-								</div>
-							</div>
-							@endif
-							@endforeach
-						</div>
-						<!-- /aside Widget -->
-					</div>
+					@include('frontend.includes.pruduct_sidebar_widget')
 					<!-- /ASIDE -->
 @if (count($products) > 0)
 
@@ -194,9 +107,10 @@
 													@else
 													<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 													@endif											
-												</form>											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
+												</form>											
+												<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+												<button class="quick-view" value="{{$product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+											</div>
 									</div>
 									</a>
 									<form action="{{route('product.add_to_cart')}}" method="POST">

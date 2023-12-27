@@ -26,7 +26,12 @@ $id = 1;
 @include('frontend.includes.nawsletter')
 
 		<!-- /NEWSLETTER -->
+		<!-- modal -->
+@include('frontend.includes.quick_view_modal')
+
+
 		<!-- FOOTER -->
+
 @include('frontend.includes.footer')
 		<!-- /FOOTER -->
 

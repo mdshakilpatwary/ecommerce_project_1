@@ -99,6 +99,11 @@
 	if (zoomMainProduct) {
 		$('#product-main-img .product-preview').zoom();
 	}
+	// Product img zoom
+	var zoomMainProduct = document.getElementById('product-main-img-product');
+	if (zoomMainProduct) {
+		$('#product-main-img-product .product-preview').zoom();
+	}
 
 	/////////////////////////////////////////
 
@@ -179,6 +184,10 @@ setTimeout(function() {
 setTimeout(function() {
     $('.alerterror').slideUp(1000);
  },5000);
+
+
+
+  
 
 
 

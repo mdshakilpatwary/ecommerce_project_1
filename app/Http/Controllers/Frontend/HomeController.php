@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use App\Models\CartWishlist;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Brand;
@@ -89,7 +90,7 @@ class HomeController extends Controller
     }
     // category product 
     function categoryProduct($id){
-        $products = Product::where('status', 1)->where('cat_id', $id)->paginate(6);
+        $products = Product::where('status', 1)->where('cat_id', $id)->orderBy('id', 'DESC')->paginate(6);
         $category =Category::findOrFail($id);
         $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::where('status',1)->get();
@@ -116,7 +117,7 @@ class HomeController extends Controller
     }
     // category product 
     function brandProduct($id){
-        $products = Product::where('status', 1)->where('brand_id', $id)->paginate(6);
+        $products = Product::where('status', 1)->where('brand_id', $id)->orderBy('id', 'DESC')->paginate(6);
         $categories =Category::where('cat_status',1)->get();
         $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::where('status',1)->get();
@@ -145,7 +146,7 @@ class HomeController extends Controller
     }
     // all product 
     function allProduct(){
-        $products = Product::where('status', 1)->paginate(6);
+        $products = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(6);
         $categories =Category::where('cat_status',1)->get();
         $subcategories =SubCategory::where('status',1)->get();
         $brands =Brand::where('status',1)->get();
@@ -173,7 +174,7 @@ class HomeController extends Controller
 
     // subcategory 
     function subcategoryProduct($id){
-        $products = Product::where('status', 1)->where('subcat_id', $id)->paginate(6);
+        $products = Product::where('status', 1)->where('subcat_id', $id)->orderBy('id', 'DESC')->paginate(6);
         $categories =Category::where('cat_status',1)->get();
         $subcategory =SubCategory::findOrFail($id);
         $brands =Brand::where('status',1)->get();
@@ -201,7 +202,7 @@ class HomeController extends Controller
 // producr search controller 
     function productSearch(Request $request){
         $queary = $request->quearyProduct;
-        $product =Product::orderBy('id', 'desc')->where('p_name','LIKE',"%$queary%");
+        $product =Product::orderBy('id', 'desc')->where('p_name','LIKE',"%$queary%")->orWhere('p_description', 'LIKE', "%$queary%");
         if($request->category != "All") $product->where('cat_id',$request->category);
         $products = $product->paginate(6);
         $categories =Category::where('cat_status',1)->get();
@@ -228,6 +229,30 @@ class HomeController extends Controller
 
 
     } 
+
+    // quick view modal 
+    function quickviewModal($id){
+        $product_quick = Product::find($id);
+        $sizes = ($product_quick->size_id != null) ? explode("|", $product_quick->size_id) : explode("|", $product_quick->kg_liter);
+        $color_quick = explode("|",$product_quick->color_id);
+        $category = $product_quick->category->cat_name;
+
+        $imageUrls = [];
+
+        foreach (explode('|', $product_quick->group_p_image) as $groupImage) {
+            $imageUrls[] = asset('uploads/product/product_group/' . $groupImage);
+        }
+        // wishlist code 
+        $wishlistModal=CartWishlist::where('p_id',$product_quick->id)->where('user_id', Auth::user()->id)->first();
+        return response()->json([
+            'product_quick' => $product_quick,
+            'size_quick' => $sizes,
+            'color_quick' => $color_quick,
+            'category' => $category,
+            'imageUrls' => $imageUrls,
+            'wishlistModal' => $wishlistModal,
+        ]);
+    }
     
     
 

@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
 // frontend controller start 
 Route::get('/', [HomeController::class, 'index'])->name('frontend_site');
+Route::get('quick/view/modal{id}', [HomeController::class, 'quickviewModal'])->name('quick.view.modal');
 // search route start 
 Route::get('/product/search', [HomeController::class, 'productSearch'])->name('product.search');
 // search route end 

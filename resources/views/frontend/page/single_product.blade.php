@@ -124,7 +124,7 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number" name="quantity" value="1">
+										<input type="number" name="quantity" value="1" >
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
@@ -142,7 +142,7 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number" name="quantity">
+										<input type="number" name="quantity" class="quantity">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>

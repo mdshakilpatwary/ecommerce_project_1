@@ -109,8 +109,8 @@
 													@endif											
 												</form>											
 												<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
+												<button class="quick-view" value="{{$product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+											</div>
 									</div>
 									</a>
 									<form action="{{route('product.add_to_cart')}}" method="POST">

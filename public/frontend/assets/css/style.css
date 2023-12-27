@@ -136,17 +136,20 @@ textarea.input {
 }
 
 .input-number input[type="number"]::-webkit-inner-spin-button, .input-number input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
+
 .input-number input[type="number"] {
-  /* -moz-appearance: textfield; */
+  appearance: textfield;
   height: 40px;
   width: 100%;
   border: 1px solid #E4E7ED;
   background-color: #FFF;
   padding: 0px 35px 0px 15px;
+  
+
 }
 
 .input-number .qty-up, .input-number .qty-down {
@@ -1269,7 +1272,10 @@ textarea.input {
 .checkbox-filter>div+div {
   margin-top: 10px;
 }
-
+.checkbox-filter {
+	height: 120px;
+	overflow: scroll;
+}
 .checkbox-filter .input-radio label, .checkbox-filter .input-checkbox label {
   font-size: 12px;
 }
@@ -2278,3 +2284,21 @@ textarea.input {
 	border-right: 1px solid #ddd;
 }
 
+
+
+#product-main-img-quick-btn .slick-next{
+  transform: scale(0);}
+#product-main-img-quick-btn .slick-prev{
+  transform: scale(0);}
+
+
+  @media (min-width: 1000px) {
+    #product-main-img-quick-product .slick-next{
+      left: 60%;
+      bottom: 50% !important;
+      top: 153%;}
+    #product-main-img-quick-product .slick-prev{
+      left: 40%;
+      bottom: 50% !important;
+      top: 153%;}
+   }

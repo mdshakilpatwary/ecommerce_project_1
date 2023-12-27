@@ -15,15 +15,15 @@
 		<link type="text/css" rel="stylesheet" href="{{asset('frontend/assets')}}/css/bootstrap.min.css"/>
 
 		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/assets')}}/css/slick.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />		
 		<link type="text/css" rel="stylesheet" href="{{asset('frontend/assets')}}/css/slick-theme.css"/>
+		
 
 		<!-- nouislider -->
 		<link type="text/css" rel="stylesheet" href="{{asset('frontend/assets')}}/css/nouislider.min.css"/>
 
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="{{asset('frontend/assets')}}/css/font-awesome.min.css">
-
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="{{asset('frontend/assets')}}/css/style.css"/>
 

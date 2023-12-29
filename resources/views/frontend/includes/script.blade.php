@@ -9,7 +9,9 @@
 		<script src="{{asset('frontend/assets')}}/js/jquery.zoom.min.js"></script>
 		<script src="{{asset('frontend/assets')}}/js/main.js"></script>
 
-
+		
+@yield('customeJavascripti')
+		
 
 </body>
 </html>

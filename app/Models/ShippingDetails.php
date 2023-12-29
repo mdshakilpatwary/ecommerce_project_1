@@ -16,6 +16,7 @@ class ShippingDetails extends Model
         'city',
         'country',
         'zip_code',
+        'shipping_charge_type',
         'phone',
         'description',
         

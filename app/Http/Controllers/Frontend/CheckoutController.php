@@ -19,11 +19,27 @@ use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Session;
 use Cart;
+use Str;
 
 class CheckoutController extends Controller
 {
     public function index(){
         return view('frontend.page.checkout');
+    }
+    // select shipping charge 
+    function selectshippingcharge(){
+        $shipping_charge =IncludeAnother::findOrFail(1);
+        $inside_dhaka =$shipping_charge->shipping_charge_insite;
+        $outside_dhaka =$shipping_charge->shipping_charge_outsite;
+        $cart_total = ceil(Cart::subtotal());
+
+
+        return response()->json([
+            'outside_dhaka' => $outside_dhaka,
+            'inside_dhaka' => $inside_dhaka,
+            'cart_total' => $cart_total,
+        ]);
+
     }
     function shippingDetails(Request $request){
         $request->validate([
@@ -33,6 +49,7 @@ class CheckoutController extends Controller
             'address' => 'required',
             'city' => 'required',
             'country' => 'required',
+            'shipping_charge_type' => 'required',
             
         ],
         [
@@ -42,6 +59,7 @@ class CheckoutController extends Controller
             'address.required' => 'Address is required',
             'city.required' => 'City is required',
             'country.required' => 'Country is required',
+            'shipping_charge_type.required' => 'Please select your shipping charge option',
             
         ]);
     
@@ -54,10 +72,11 @@ class CheckoutController extends Controller
             'country' => $request->country,
             'zip_code' => $request->country,
             'description' => $request->description,
+            'shipping_charge_type' => $request->shipping_charge_type,
         ]);
         Session::put('sid',$sId);
         // pageaccess condition 
-        $access_page = 'okay';
+        $access_page = 'access'.Auth::user()->id;
         Session::put('access_page',$access_page);
         // condition 
         return redirect('/product/payment');
@@ -88,13 +107,15 @@ class CheckoutController extends Controller
             'paymentMethod' => $paymentMethod,
             'status'    => 'pending',
         ]);
-        $shipping_charge =IncludeAnother::findOrFail(1);
+        $delivery_charge =$request->delivery_charge;
         $orderId = Order::insertGetId([
+            'order_invoice_id' => 'Order_'.$paymentId.'-'.Str::random(7).mt_rand(1000, 9999),
             'customer_id' => Auth::user()->id,
             'shipping_id' =>Session::get('sid'),
             'payment_id' =>$paymentId,
             'created_at' =>Carbon::now(),
-            'total'   =>Cart::subtotal()+ $shipping_charge->shipping_charge_insite,
+            'total'   =>ceil(Cart::subtotal()+ $delivery_charge),
+            'delivery_charge'   =>$delivery_charge,
             'status'  => 'pending',
         ]);
 
@@ -115,31 +136,39 @@ class CheckoutController extends Controller
 
 
         }
+        
+    Session::flash('access_page');
 
-        Session::flash('access_page');
-
+// payment mathod condition 
         if($paymentMethod =='cash'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
             Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
-
+            Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='bkash'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
+            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='nagod'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
+            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='roket'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
+            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
+
 
 
     }

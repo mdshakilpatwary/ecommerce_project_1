@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('country')->nullable();
             $table->string('zip_code')->nullable();
+            $table->string('shipping_charge_type');
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -1,12 +1,18 @@
 <?php
 use App\Models\IncludeAnother;
-
-$shipping_charge =IncludeAnother::findOrFail(1);
+use App\Models\ShippingDetails;
 ?>
 @extends('frontend.master')
 
 @section('mainbody')
-@if(Session::get('access_page')=='okay')
+@if(Session::get('access_page')=='access'.Auth::user()->id)
+@php
+
+
+$shipping_charge =IncludeAnother::findOrFail(1);
+$shipping_chargeType =ShippingDetails::findOrFail(Session::get('sid'));
+
+@endphp
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
     <!-- container -->
@@ -53,21 +59,46 @@ $shipping_charge =IncludeAnother::findOrFail(1);
                     </div>
                     <div class="order-col">
                         <div>Shiping</div>
+                        <!-- shipping charge  -->
                         @php 
-							$shippingcost = $shipping_charge ->shipping_charge_insite;
+                            if($shipping_chargeType->shipping_charge_type == 'inside-dhaka'){
+                                $shippingcost = $shipping_charge ->shipping_charge_insite;}
+                            else if($shipping_chargeType->shipping_charge_type == 'outside-dhaka'){
+                                $shippingcost = $shipping_charge ->shipping_charge_outsite;
+                            }
+
 						@endphp
+                        @if($shippingcost == null || $shippingcost == 0)
+                        <div><strong>Free</strong></div>
+
+                        @else
                         <div><strong>{{$shippingcost}}</strong></div>
+                        @endif
                     </div>
                     <div class="order-col">
                         <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total">&#2547;{{cart::subtotal()+$shippingcost}}</strong></div>
+                        @if($shippingcost == null || $shippingcost == 0)
+                        <div><strong class="order-total">&#2547;{{ceil(cart::subtotal())}}</strong></div>
+                        @else
+                        <div><strong class="order-total">&#2547;{{ceil(cart::subtotal()+$shippingcost)}}</strong></div>
+                        @endif
                     </div>
                 </div>
                 <div class="selection_title ">
                     <h4 class="text-center title" style="color: #d10024; padding: 10px 0; ">Please select your payment method</h4>
                 </div>
+                @php
+                    if($shippingcost == null || $shippingcost == 0){
+                        $delivery_charge = 0;
+                    }
+                    else {
+                        $delivery_charge = $shippingcost;
+                    }
+
+                @endphp
             <form action="{{route('product.placeOrder')}}" method="POST">
                     @csrf
+                    <input type="hidden" name="delivery_charge" value="{{$delivery_charge}}">
                 <div class="payment-method">
                     <div class="input-radio">
                         <input type="radio" name="payment" id="payment-1" value="cash">
@@ -132,6 +163,14 @@ $shipping_charge =IncludeAnother::findOrFail(1);
         </div>
     </div>
 </div>
+@else
+<script type="text/javascript">
+    // Hide the template after a few seconds
+    setTimeout(function () {
+
+        window.location.href = '/'; 
+    }, 200); 
+</script>
 @endif
 
 @endsection

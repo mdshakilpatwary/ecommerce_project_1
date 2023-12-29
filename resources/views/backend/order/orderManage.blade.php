@@ -46,6 +46,7 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Customer Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Order Total</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">invoice Id</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Payment Method</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Date and Time</th>
                            
@@ -60,6 +61,7 @@
                                     <td>{{$sl++}}</td>
                                     <td>{{$data->customer->name}}</td>
                                     <td>&#2547;{{$data->total}}</td>
+                                    <td>{{$data->order_invoice_id}}</td>
                                     <td>{{$data->payment->paymentMethod}}</td>
                                     <td>{{$data->created_at->format('M d,y-  h:iA')}}</td>
                                     <td>
@@ -72,7 +74,7 @@
                                     <td>
                                       @if(Auth::user()->can('order.view') || Auth::user()->can('order.delete'))
                                           @if(Auth::user()->can('order.view'))
-                                          <a href="{{route('order.product.details',$data->id)}}" class="btn btn-sm btn-info">Details</a>
+                                          <a href="{{route('order.product.details',$data->id)}}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                           @endif
                                           @if(Auth::user()->can('order.delete'))
                                           <a href="{{route('order.product.details.delete',$data->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>

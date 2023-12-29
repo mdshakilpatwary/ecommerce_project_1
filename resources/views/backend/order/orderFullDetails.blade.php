@@ -1,8 +1,3 @@
-<?php
-use App\Models\IncludeAnother;
-
-$shipping_charge =IncludeAnother::findOrFail(1);
-?>
 @extends('backend.master')
 
 @section('maincontent')
@@ -103,7 +98,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
             <table class="table table-success table-striped" >
                 <thead >
                 <tr>
-                    <th>Order ID</th>
+                    <th>SL</th>
                     <th>Product Name</th>
                     <th>Product Code</th>
                     <th>Color</th>
@@ -114,9 +109,12 @@ $shipping_charge =IncludeAnother::findOrFail(1);
                 </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $sl =1;
+                    @endphp
                    @foreach($orderId as $orderdata)
                     <tr class="table-primary">
-                        <td>{{$orderdata->order_id}}</td>
+                        <td>{{$sl++}}</td>
                         <td class="center">{{$orderdata->product_name}}</td>
                         <td class="center">{{$orderdata->product->p_code}}</td>
                         <td class="center">{{($orderdata->product_color != null) ?$orderdata->product_color : 'None'}}</td>
@@ -132,7 +130,11 @@ $shipping_charge =IncludeAnother::findOrFail(1);
                 <tfoot>
                 <tr class="table-dark">
                     <td colspan="7" style="font-size: 20px;font-weight: 521;text-align: right; color: rgb(53, 52, 52)">Shipping charge</td>
-                    <td><strong style="font-size: 20px; color: #007cff;">&#2547;{{$shipping_charge->shipping_charge_insite}} </strong></td>
+                    @if($order->delivery_charge == 0)
+                    <div class="invoice-detail-value">Free</div>
+                    @else
+                    <td><strong style="font-size: 20px; color: #007cff;">&#2547;{{$order->delivery_charge}} </strong></td>
+                    @endif
                 </tr>
                 <tr class="table-dark">
                     <td colspan="7" style="font-size: 18px;font-weight: 521;text-align: right; color: red"> Total Amount to pay</td>

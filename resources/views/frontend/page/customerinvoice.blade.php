@@ -1,8 +1,5 @@
-<?php
-use App\Models\IncludeAnother;
 
-$shipping_charge =IncludeAnother::findOrFail(1);
-?>
+
 @extends('frontend.master')
 
 @section('mainbody')
@@ -20,7 +17,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
                         <div class="col-lg-12">
                           <div class="invoice-title">
                             <h2>Invoice</h2>
-                            <div class="invoice-number">Order Id-{{$order->id}} </div>
+                            <div class="invoice-number">Order Id-{{$order->order_invoice_id}} </div>
                           </div>
                           <hr>
                           <div class="row">
@@ -108,16 +105,16 @@ $shipping_charge =IncludeAnother::findOrFail(1);
                             </div>
                             <div class="col-lg-4 text-right">
                               <div class="invoice-detail-item">
-                                @php
-                                $delivery = $shipping_charge ->shipping_charge_insite;
-                                @endphp
                                 <div class="invoice-detail-name">Subtotal</div>
-                                <div class="invoice-detail-value">&#2547; {{$order->total -$delivery}}</div>
+                                <div class="invoice-detail-value">&#2547; {{$order->total - $order->delivery_charge}}</div>
                               </div>
                               <div class="invoice-detail-item">
                                 <div class="invoice-detail-name">Shipping</div>
-                                <div class="invoice-detail-value">&#2547; {{$delivery}}</div>
-                              </div>
+                                @if($order->delivery_charge == 0)
+                                <div class="invoice-detail-value">Free</div>
+                                @else
+                                <div class="invoice-detail-value">&#2547; {{$order->delivery_charge}}</div>
+                                @endif                              </div>
                               <hr class="mt-2 mb-2">
                               <div class="invoice-detail-item">
                                 <div class="invoice-detail-name">Total</div>

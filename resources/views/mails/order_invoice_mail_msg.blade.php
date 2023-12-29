@@ -4,13 +4,12 @@ use App\Models\IncludeAnother;
 use App\Models\Order;
 use App\Models\OrderDatails;
 
-    $shipping_charge =IncludeAnother::findOrFail(1);
     $order= Order::findOrFail($orderId);
     $orderIds= OrderDatails::where('order_id',$orderId)->get();
 
 
 ?>
-<h4 class="display-3">Order Id-{{$order->id}} </h4>
+<h4 class="display-3">Order Id- {{$order->order_invoice_id}} </h4>
 <p>Hello {{$user_id->name}} </p>
 <hr>
 <hr>
@@ -75,17 +74,20 @@ use App\Models\OrderDatails;
 
   <hr>
   <p class="invoice-detail-item " style="float: right">
-    @php
-    $delivery = $shipping_charge ->shipping_charge_insite;
-    @endphp
+
     <span class="invoice-detail-name">Subtotal</span>
-    <span class="invoice-detail-value">&#2547; {{$order->total -$delivery}}</span>
+    <span class="invoice-detail-value">&#2547; {{$order->total -$order->delivery_charge}}</span>
   </p>
   <hr class="clearfix">
   <p class="invoice-detail-item " style="float: right">
     <span class="invoice-detail-name ">Shipping</span>
-    <span class="invoice-detail-value">&#2547; {{$delivery}}</span>
+    @if($order->delivery_charge == 0)
+    <div class="invoice-detail-value">Free</div>
+    @else
+    <div class="invoice-detail-value">&#2547; {{$order->delivery_charge}}</div>
+    @endif
   </p>
+  
   <hr class="mt-2 mb-2 clearfix">
   <p class="invoice-detail-item " style="float: right">
     <span class="invoice-detail-name">Total</span>

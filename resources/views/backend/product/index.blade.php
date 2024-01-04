@@ -87,11 +87,18 @@
             <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="select_color">Select Color</label>
                 <select  name="select_color[]" id="product-colors" multiple>
-                    @foreach($colors as $color)
-                     @foreach(json_decode($color->color) as $color_value)
-                        <option value="{{$color_value->value}}">{{$color_value->value}}</option>
+                    {{-- dublicate value no entry code  --}}
+                    @php
+                    $allColors = $colors->flatMap(function ($color) {
+                        return json_decode($color->color, true);
+                    });      
+                    $uniqueColors = $allColors->unique('value')->pluck('value');  
+                    @endphp
+                    
+                     @foreach($uniqueColors as $color_value)
+
+                        <option value="{{$color_value}}">{{$color_value}}</option>
                      @endforeach
-                    @endforeach
                     ... more options here ...
                 </select>
                 @error('select_color')
@@ -102,25 +109,37 @@
                 <div class="d-flex justify-content-between"> <label for="select_size">Select Size/kg</label>  <span class="badge badge-light mb-2"><input id="size_d_1_btn" type="checkbox"><label class="mb-0" for="size_d_1_btn">Add size</label></span> <span class="badge badge-light mb-2"><input id="size_d_2_btn" type="checkbox"><label class="mb-0" for="size_d_2_btn">Add kg</label></span> </div>
                 <div id="size_d_1">
                     <select  name="select_size[]" id="product-sizes-1" multiple >
-                
-                        @foreach($sizes as $size)
-                           @foreach(json_decode($size->size) as $size_value)
-                              <option   value="{{$size_value->value}}">{{$size_value->value}}</option>
+                        {{-- dublicate value no entry code  --}}
+                    @php
+                    $allsizes = $sizes->flatMap(function ($size) {
+                        return json_decode($size->size, true);
+                    });      
+                    $uniqueSizes = $allsizes->unique('value')->pluck('value');  
+                    @endphp
+                           @foreach( $uniqueSizes as $size_value)
+                              <option   value="{{$size_value}}">{{$size_value}}</option>
                            @endforeach
-                        @endforeach
+                        
                        ... more options here ...
                     </select>
+                    
                 </div>
                 <div id="size_d_2">
                     <select  name="select_size_kg[]" id="product-sizes-2" multiple >
-                
-                        @foreach($kg_data as $kg)
-                           @foreach(json_decode($kg->kg_litter) as $kg_value)
-                              <option   value="{{$kg_value->value}}">{{$kg_value->value}}</option>
+                    {{-- dublicate value no entry code  --}}
+                    @php
+                    $allsizeKg = $kg_data->flatMap(function ($kg) {
+                        return json_decode($kg->kg_litter, true);
+                    });      
+                    $uniqueSizekg = $allsizeKg->unique('value')->pluck('value');  
+                    @endphp
+                        
+                           @foreach($uniqueSizekg as $kg_value)
+                              <option   value="{{$kg_value}}">{{$kg_value}}</option>
                            @endforeach
-                        @endforeach
+                        
                        ... more options here ...
-                       </select>
+                    </select>
                 </div>
                 <select  id="product-sizes-disable" class="form-control select-form" >
                     <option value="">Select Size/kg</option>                
@@ -158,7 +177,6 @@
             </div>
             <div class="form-group ">
                 <label for="p_desc">Description</label>
-               </select>
                <textarea name="p_desc" class="summernote form-control">{{old('p_desc')}}</textarea>
 
                 @error('p_desc')
@@ -175,7 +193,7 @@
              
             </div>
             <div class="form-group col-md-6 col-xl-6 col-12">
-                <label for="group_p_image">Product Image</label>
+                <label for="group_p_image">Product Group Image</label>
                 <input type="file" name="group_p_image[]" class="form-control" id="" multiple>
                 @error('group_p_image')
                     <p class="text-danger ">{{$message}}</p>

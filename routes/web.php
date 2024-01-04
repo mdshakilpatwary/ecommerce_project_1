@@ -78,11 +78,10 @@ Route::get('/product/add-to-cart-delete/{id}', [ShoppingCart::class, 'addToCartD
 Route::get('/socialite/create', [SocialController::class, 'create'])->name('socialite.create');
 Route::get('/sociallogin/store', [SocialController::class, 'login'])->name('socialite.login');
 Route::post('/sociallogin/setpass/{sid}', [SocialController::class, 'setpass'])->name('socialite.setpass');
-// product checkout part
-
+// product checkout part 
 Route::middleware('auth')->group(function () {
 Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
-Route::get('/select/shipping/charge', [CheckoutController::class, 'selectshippingcharge']);
+Route::get('/select/shipping/side', [CheckoutController::class, 'selectshippingside']);
 Route::post('/product/shipping/details', [CheckoutController::class, 'shippingDetails'])->name('product.shipping.details');
 Route::get('/product/payment', [CheckoutController::class, 'payment'])->name('product.payment');
 Route::post('/product/place_order', [CheckoutController::class, 'placeOrder'])->name('product.placeOrder');

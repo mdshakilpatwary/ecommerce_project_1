@@ -22,10 +22,13 @@ return new class extends Migration
             $table->string('color_id')->nullable();
             $table->string('p_code')->uniqid();
             $table->string('p_name');
+            $table->string('short_description');
             $table->text('p_description');
+            $table->text('p_details')->nullable();
             $table->float('p_price');
             $table->integer('discount_percentage')->nullable();            
             $table->integer('p_qty');
+            $table->integer('p_qty_total')->nullable();
             $table->string('p_image');
             $table->string('group_p_image');
             $table->string('p_slug');

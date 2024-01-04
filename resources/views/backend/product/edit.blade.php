@@ -86,11 +86,17 @@
             <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="select_color">Select Color</label>
                 <select  name="select_color[]" id="product-colors" multiple >
-                    @foreach($colors as $color)
-                     @foreach(json_decode($color->color) as $color_value)
-                        <option  value="{{$color_value->value}}" {{ in_array($color_value->value, explode('|', $p_data->color_id)) ? 'selected' : '' }} >{{$color_value->value}}</option>
+                      {{-- dublicate value no entry code  --}}
+                      @php
+                      $allColors = $colors->flatMap(function ($color) {
+                          return json_decode($color->color, true);
+                      });      
+                      $uniqueColors = $allColors->unique('value')->pluck('value');  
+                      @endphp
+                      
+                       @foreach($uniqueColors as $color_value)
+                        <option  value="{{$color_value}}" {{ in_array($color_value, explode('|', $p_data->color_id)) ? 'selected' : '' }} >{{$color_value}}</option>
                      @endforeach
-                    @endforeach
                     ... more options here ...
                 </select>
 
@@ -104,21 +110,32 @@
 
                 <div id="size_d_1">
                     <select  name="select_size[]" id="product-sizes-1" multiple >
-                        @foreach($sizes as $size)
-                         @foreach(json_decode($size->size) as $size_value)
-                            <option  value="{{$size_value->value}}" {{ in_array($size_value->value, explode('|', $p_data->size_id)) ? 'selected' : '' }} >{{$size_value->value}}</option>
-                         @endforeach
+                      {{-- dublicate value no entry code  --}}
+
+                    @php
+                    $allsizes = $sizes->flatMap(function ($size) {
+                        return json_decode($size->size, true);
+                    });      
+                    $uniqueSizes = $allsizes->unique('value')->pluck('value');  
+                    @endphp
+                        @foreach( $uniqueSizes as $size_value)
+                            <option  value="{{$size_value}}" {{ in_array($size_value, explode('|', $p_data->size_id)) ? 'selected' : '' }} >{{$size_value}}</option>
                         @endforeach
                         ... more options here ...
                     </select>
                 </div>
                 <div id="size_d_2">
                     <select  name="select_size_kg[]" id="product-sizes-2" multiple >
-                        @foreach($kg_size as $kg)
-                         @foreach(json_decode($kg->kg_litter) as $kg_value)
-                            <option  value="{{$kg_value->value}}" {{ in_array($kg_value->value, explode('|', $p_data->kg_liter)) ? 'selected' : '' }} >{{$kg_value->value}}</option>
+                    {{-- dublicate value no entry code  --}}
+                    @php
+                    $allsizeKg = $kg_size->flatMap(function ($kg) {
+                        return json_decode($kg->kg_litter, true);
+                    });      
+                    $uniqueSizekg = $allsizeKg->unique('value')->pluck('value');  
+                    @endphp
+                        @foreach($uniqueSizekg as $kg_value)
+                            <option  value="{{$kg_value}}" {{ in_array($kg_value, explode('|', $p_data->kg_liter)) ? 'selected' : '' }} >{{$kg_value}}</option>
                          @endforeach
-                        @endforeach
                         ... more options here ...
                     </select>
                 </div>

@@ -5,20 +5,28 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Color;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Collection;
+
 
 
 class ColorController extends Controller
 {
     
     function index(){
+        $colorArray =Color::all();
         return view('backend.color.index');
     }
 
     // Color store controller
     function store(Request $request){
 
+        // Rule::unique('colors')->where(function ($query) use ( $request) {
+        //     return $query->where('color_value', $request->color);
+        // }),
         $request->validate([
-            'color' => 'required',
+            'color' => ['required'],
             
         ]);
 

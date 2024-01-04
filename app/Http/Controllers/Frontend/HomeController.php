@@ -243,7 +243,13 @@ class HomeController extends Controller
             $imageUrls[] = asset('uploads/product/product_group/' . $groupImage);
         }
         // wishlist code 
-        $wishlistModal=CartWishlist::where('p_id',$product_quick->id)->where('user_id', Auth::user()->id)->first();
+        if(Auth::user()){
+            $wishlistModal=CartWishlist::where('p_id',$product_quick->id)->where('user_id', Auth::user()->id)->first();
+
+        }
+        else{
+            $wishlistModal= '';
+        }
         return response()->json([
             'product_quick' => $product_quick,
             'size_quick' => $sizes,

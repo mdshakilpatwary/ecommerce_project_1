@@ -21,6 +21,8 @@ class Product extends Model
         'color_id',
         'p_code',
         'p_name',
+        'p_details',
+        'short_description',
         'p_description',
         'p_image',
         'p_price',

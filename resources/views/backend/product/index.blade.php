@@ -175,13 +175,24 @@
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
+            <div class="form-group col-md-12 col-xl-12 col-12">
+                <label for="short_description">Short Description</label>
+                <textarea class="form-control" name="short_description" id="short_description" cols="5" rows="5" placeholder="Enter Your Product Short Description"></textarea>
+                @error('short_description')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
             <div class="form-group ">
-                <label for="p_desc">Description</label>
+                <label for="p_desc">Log Description</label>
                <textarea name="p_desc" class="summernote form-control">{{old('p_desc')}}</textarea>
 
                 @error('p_desc')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
+            </div>
+            <div class="form-group col-md-12 col-xl-12 col-12">
+                <label for="p_details">Product Details(Optional)</label>
+                <textarea class="form-control" name="p_details" id="p_details" cols="5" rows="5" placeholder="Enter Product Details"></textarea>
             </div>
 
             <div class="form-group col-md-6 col-xl-6 col-12">

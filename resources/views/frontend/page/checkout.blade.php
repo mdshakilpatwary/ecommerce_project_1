@@ -205,6 +205,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 			$.ajax({
 				url: "{{url('/select/shipping/charge')}}",
                 type: 'get',
+				dataType: "json",
                 success: function(response_s) {
 					if(response_s.inside_dhaka ==null || response_s.inside_dhaka == 0){
 					$('#shipping_charge').html('<strong>Free</strong>');
@@ -221,6 +222,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 			$.ajax({
 				url: "{{url('/select/shipping/charge')}}",
                 type: 'get',
+				dataType: "json",
                 success: function(response_s) {
 					if(response_s.outside_dhaka == null || response_s.outside_dhaka == 0){
 					$('#shipping_charge').html('<strong>Free</strong>');

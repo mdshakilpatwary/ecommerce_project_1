@@ -8,12 +8,12 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCatController;
 use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\OfferContentController;
 use App\Http\Controllers\Backend\RolePermissionController;
 use App\Http\Controllers\Backend\IncludeAnotherController;
 use App\Http\Controllers\Frontend\ShoppingCart;
@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\ShoppingWishlist;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerDashboardController;
 use App\Http\Controllers\Frontend\SocialController;
+use App\Http\Controllers\Frontend\ReviewController;
 
 
 /*
@@ -79,43 +80,53 @@ Route::get('/socialite/create', [SocialController::class, 'create'])->name('soci
 Route::get('/sociallogin/store', [SocialController::class, 'login'])->name('socialite.login');
 Route::post('/sociallogin/setpass/{sid}', [SocialController::class, 'setpass'])->name('socialite.setpass');
 // product checkout part 
+
 Route::middleware('auth')->group(function () {
-Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
-Route::get('/select/shipping/side', [CheckoutController::class, 'selectshippingside']);
-Route::post('/product/shipping/details', [CheckoutController::class, 'shippingDetails'])->name('product.shipping.details');
-Route::get('/product/payment', [CheckoutController::class, 'payment'])->name('product.payment');
-Route::post('/product/place_order', [CheckoutController::class, 'placeOrder'])->name('product.placeOrder');
-Route::get('/user/logout', [CustomerDashboardController::class, 'logout'])->name('user.logout');
 
-// cart wishlist route
-Route::post('/product/add-to-wishlist', [ShoppingWishlist::class, 'addToWishlist'])->name('product.add_to_wishlist');
-Route::get('/product/add-to-wishlist-delete/{id}', [ShoppingWishlist::class, 'addToWishlistDelete'])->name('product.add_to_wishlist-delete');
+    Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+    Route::get('/select/shipping/charge', [CheckoutController::class, 'selectshippingcharge']);
+    Route::post('/product/shipping/details', [CheckoutController::class, 'shippingDetails'])->name('product.shipping.details');
+    Route::get('/product/payment', [CheckoutController::class, 'payment'])->name('product.payment');
+    Route::post('/product/place_order', [CheckoutController::class, 'placeOrder'])->name('product.placeOrder');
+    Route::get('/user/logout', [CustomerDashboardController::class, 'logout'])->name('user.logout');
 
+    // cart wishlist route
+    Route::post('/product/add-to-wishlist', [ShoppingWishlist::class, 'addToWishlist'])->name('product.add_to_wishlist');
+    Route::get('/product/add-to-wishlist-delete/{id}', [ShoppingWishlist::class, 'addToWishlistDelete'])->name('product.add_to_wishlist-delete');
+    
+    // Product Review and rating route
+    Route::post('product/review', [ReviewController::class, 'storeReview'])->name('product.review.store');
+    Route::get('/product/review-delete/{id}', [ReviewController::class, 'deleteReview'])->name('product.review.delete');
+    
 });
+// review show 
+Route::get('product/review/show{id}', [ReviewController::class, 'showReview'])->name('product.review.show');
 
 
 // user profile setting 
 Route::middleware('auth')->group(function () {
-Route::post('/admin/profile/update/{id}', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
-Route::post('/admin/siteInfo/update/{id}', [DashboardController::class, 'siteInfoUpdate'])->name('admin.siteInfo.update');
-Route::get('/admin/password/change', [DashboardController::class, 'changePassword'])->name('admin.password.change');
-Route::post('/admin/password/update/{id}', [DashboardController::class, 'updatePassword'])->name('admin.password.update');
+    Route::post('/admin/profile/update/{id}', [DashboardController::class, 'profileUpdate'])->name('admin.profile.update');
+    Route::post('/admin/siteInfo/update/{id}', [DashboardController::class, 'siteInfoUpdate'])->name('admin.siteInfo.update');
+    Route::get('/admin/password/change', [DashboardController::class, 'changePassword'])->name('admin.password.change');
+    Route::post('/admin/password/update/{id}', [DashboardController::class, 'updatePassword'])->name('admin.password.update');
 });
 
 
 // ***************end frontend route **************
+
 // Route::post('/admin/profile/update/{id}', 'profileUpdate')->name('admin.profile.update');
 
-// backend controller start 
+//************/ backend Route start ***************
 Route::middleware('auth','role:Admin')->group(function () {
-
+ 
+    // dashboard route part controller group------- 01
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/admin/dashboard', 'index')->name('admin.dashboard');
         Route::get('/admin/logout', 'logout')->name('admin.logout');
         Route::get('/admin/profile', 'profile')->name('admin.profile');
     });
 
-    // category route part -------------
+    // category route part controller group----- 02
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/create/catagory', 'index')->name('create.catagory');
         Route::post('/store/catagory', 'store')->name('store.catagory');
@@ -126,7 +137,7 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/status/catagory/{id}', 'changestatus')->name('status.catagory');
     });
 
-    // sub category route part-------------------- 
+    // sub category route part controller group----- 03 
     Route::controller(SubCatController::class)->group(function () {
         Route::get('/create/subcatagory', 'index')->name('create.subcatagory');
         Route::post('/store/subcatagory', 'store')->name('store.subcatagory');
@@ -137,7 +148,7 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/status/subcatagory/{id}', 'changestatus')->name('status.subcatagory');
     });
 
-    // Brand route part -------------
+    // Brand route part controller group----- 04
     Route::controller(BrandController::class)->group(function () {
         Route::get('/create/brand', 'index')->name('create.brand');
         Route::post('/store/brand', 'store')->name('store.brand');
@@ -147,17 +158,8 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::post('/update/brand/{id}', 'update')->name('update.brand');
         Route::get('/status/brand/{id}', 'changestatus')->name('status.brand');
     });
-    // Unit route part -------------
-    Route::controller(UnitController::class)->group(function () {
-        Route::get('/create/unit', 'index')->name('create.unit');
-        Route::post('/store/unit', 'store')->name('store.unit');
-        Route::get('/show/unit', 'show')->name('show.unit');
-        Route::get('/destroy/unit/{id}', 'destroy')->name('destroy.unit');
-        Route::get('/edit/unit/{id}', 'edit')->name('edit.unit');
-        Route::post('/update/unit/{id}', 'update')->name('update.unit');
-        Route::get('/status/unit/{id}', 'changestatus')->name('status.unit');
-    });
-    // Size route part -------------
+
+    // Size route part controller group----- 05
     Route::controller(SizeController::class)->group(function () {
         Route::get('/create/size', 'index')->name('create.size');
         Route::post('/store/size', 'store')->name('store.size');
@@ -167,14 +169,15 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::post('/update/size/{id}', 'update')->name('update.size');
         Route::get('/status/size/{id}', 'changestatus')->name('status.size');
     
-    // kg  route part -------------
+    // kg  route part 
         Route::post('/store/size/kg', 'kgstore')->name('store.size.kg');
         Route::get('/destroy/size/kg/{id}', 'kgdestroy')->name('destroy.size.kg');
         Route::get('/edit/size/kg/{id}', 'kgedit')->name('edit.size.kg');
         Route::post('/update/size/kg/{id}', 'kgupdate')->name('update.size.kg');
         Route::get('/status/size/kg/{id}', 'kgchangestatus')->name('status.size.kg');
     });
-    // Color route part -------------
+
+    // Color route part controller group----- 06
     Route::controller(ColorController::class)->group(function () {
         Route::get('/create/color', 'index')->name('create.color');
         Route::post('/store/color', 'store')->name('store.color');
@@ -186,7 +189,7 @@ Route::middleware('auth','role:Admin')->group(function () {
     });
 
 
-    // Product route part -------------
+    // Product route part controller group----- 07
     Route::controller(ProductController::class)->group(function () {
         Route::get('/create/product', 'index')->name('create.product');
         Route::post('/store/product', 'store')->name('store.product');
@@ -196,7 +199,8 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::post('/update/product/{id}', 'update')->name('update.product');
         Route::get('/status/product/{id}', 'changestatus')->name('status.product');
     });
-    // Product order route part -------------
+
+    // Product order route part controller group----- 08
     Route::controller(OrderController::class)->group(function () {
         Route::get('/order/product', 'index')->name('order.product');
         Route::get('/order/product/details/{id}', 'orderFullDetails')->name('order.product.details');
@@ -205,7 +209,7 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::post('/order/order/status/update/{id}', 'orderStatusUpdate')->name('order.status.update');
     });
 
-    // Role and Permission route part -------------
+    // Role and Permission route part controller group----- 09
     Route::controller(RolePermissionController::class)->group(function () {
         Route::get('/role/permission/create', 'index')->name('role.permission.create');
         Route::post('/role/permission/store', 'store')->name('role.permission.store');
@@ -216,7 +220,7 @@ Route::middleware('auth','role:Admin')->group(function () {
 
     });
 
-    // user route part -------------
+    // user route part controller group----- 10
     Route::controller(UserController::class)->group(function () {
         Route::get('/user/create', 'index')->name('user.create');
         Route::post('/user/store', 'store')->name('user.store');
@@ -226,15 +230,27 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('/user/delete/{id}', 'userDelete')->name('user.delete');
 
     });
-    // AnotherInclude route part -------------
+
+    // AnotherInclude route part controller group----- 11
     Route::controller(IncludeAnotherController::class)->group(function () {
         Route::get('/include/another/create', 'index')->name('include.another.create');
         Route::post('/include/another/{id}', 'update')->name('include.another.update');
 
     });
 
+    // Offer content route part controller group----- 12
+    Route::controller(OfferContentController::class)->group(function () {
+        Route::get('/offer/content/create', 'index')->name('offer.content');
+        Route::post('/offer/content/store', 'store')->name('offer.content.store');
+        Route::post('/offer/content/update/{id}', 'update')->name('offer.content.update');
+
+    });
+
 
 });
+//************ backend Route end ***************
+
+
 
 
 require __DIR__.'/auth.php';

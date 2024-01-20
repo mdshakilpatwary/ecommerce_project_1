@@ -184,6 +184,16 @@ setTimeout(function() {
 setTimeout(function() {
     $('.alerterror').slideUp(1000);
  },5000);
+// review message show hide part js 
+
+setTimeout(function() {
+    $('.insert_success').slideUp(1000);
+ },2000);
+
+
+setTimeout(function() {
+    $('.insert_error').slideUp(1000);
+ },3000);
 
 
 

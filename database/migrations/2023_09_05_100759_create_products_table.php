@@ -28,7 +28,7 @@ return new class extends Migration
             $table->float('p_price');
             $table->integer('discount_percentage')->nullable();            
             $table->integer('p_qty');
-            $table->integer('p_qty_total')->nullable();
+            $table->integer('p_qty_total')->default(0);
             $table->string('p_image');
             $table->string('group_p_image');
             $table->string('p_slug');

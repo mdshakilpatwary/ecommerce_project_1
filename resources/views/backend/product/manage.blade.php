@@ -46,7 +46,6 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Product Code</th>
-                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Description</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Cat_Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">SubCat_Name</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">brand</th>
@@ -55,6 +54,7 @@
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Price</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Discount%</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Qty</th>
+                            <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Sold Out</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Image</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Group Image</th>
                            
@@ -75,7 +75,6 @@
                             </td>
                             <td>{{$product->p_name}}</td>
                             <td>{{$product->p_code}}</td>
-                            <td>{{strip_tags(Str::words($product->p_description,30))  }}</td>
                             <td>{{$product->category->cat_name}}</td>
                             <td>{{$product->subcategory->subcat_name}}</td>
                             <td>{{$product->brand->brand_name}}</td>
@@ -98,6 +97,7 @@
                             <td>&#2547;{{$product->p_price}}</td>
                             <td>{{$product->discount_percentage}}%</td>
                             <td>{{$product->p_qty}}</td>
+                            <td>{{max($product->p_qty_total - $product->p_qty, 0)}}</td>
                             <td>
                               <img src="{{empty($product->p_image)? asset('uploads/product/empty.png') : asset('uploads/product/'.$product->p_image) }}" alt="" width="50" height="50" >
                             </td>

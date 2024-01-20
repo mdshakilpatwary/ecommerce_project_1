@@ -137,6 +137,7 @@ $(document).ready(function(){
 		$.ajax({
                 url: "{{url('quick/view/modal')}}"+ id,
                 type: 'get',
+				dataType: "json",
                 success: function(response) {
 
 					$('#product-name-modal').text(response.product_quick.p_name);

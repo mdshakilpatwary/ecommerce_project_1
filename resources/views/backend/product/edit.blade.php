@@ -177,9 +177,18 @@
             </div>
             <div class="form-group col-md-6 col-xl-6 col-12">
                 <label for="p_qty">Product quantity</label>
+                <input type="hidden" name="p_qty_check" id="" value="{{$p_data->p_qty}}" >
+                <input type="hidden" name="p_qty_total_check" id="" value="{{$p_data->p_qty_total}}" >
                 <input type="floatval" name="p_qty" id="" value="{{$p_data->p_qty}}" class="form-control">
 
                 @error('p_qty')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group col-md-12 col-xl-12 col-12">
+                <label for="short_description">Short Description</label>
+                <textarea name="short_description" id="" class="form-control" cols="5" rows="5">{{$p_data->short_description}}</textarea>
+                @error('short_description')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
@@ -189,6 +198,13 @@
                <textarea name="p_desc" class="summernote form-control">{!! $p_data->p_description !!}</textarea>
 
                 @error('p_desc')
+                    <p class="text-danger ">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="form-group col-md-12 col-xl-12 col-12">
+                <label for="p_details">Product Details(Optional)</label>
+                <textarea name="p_details" id="p_details" class="form-control" cols="5" rows="5">{{$p_data->p_details}}</textarea>
+                @error('p_details')
                     <p class="text-danger ">{{$message}}</p>
                 @enderror
             </div>
@@ -203,7 +219,7 @@
              
             </div>
             <div class="form-group col-md-12 col-xl-12 col-12">
-                <label for="group_p_image">Product Image</label>
+                <label for="group_p_image">Product Group Image</label>
                 <input type="file" name="group_p_image[]" class="form-control mb-2 g_fileimage" id="" multiple>
                 @error('group_p_image')
                     <p class="text-danger ">{{$message}}</p>

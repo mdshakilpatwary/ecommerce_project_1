@@ -139,32 +139,35 @@ class CheckoutController extends Controller
         
     Session::flash('access_page');
 
+    $shipping_email_notification =Order::where('shipping_id',Session::get('sid'))->first();
+
+
 // payment mathod condition 
         if($paymentMethod =='cash'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
-            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Mail::to($shipping_email_notification->shipping->email)->send(new OrderInvoiceMail($orderId,$user_id));
             Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='bkash'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
-            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Mail::to($shipping_email_notification->shipping->email)->send(new OrderInvoiceMail($orderId,$user_id));
             Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='nagod'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
-            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Mail::to($shipping_email_notification->shipping->email)->send(new OrderInvoiceMail($orderId,$user_id));
             Session::flash('sid');
             return view('frontend.page.orderMsg');
         }
         elseif($paymentMethod =='roket'){
             Cart::destroy();
             Notification::send($user, new OrderComplete($orderId));
-            Mail::to($user_id->email)->send(new OrderInvoiceMail($orderId,$user_id));
+            Mail::to($shipping_email_notification->shipping->email)->send(new OrderInvoiceMail($orderId,$user_id));
             Session::flash('sid');
             return view('frontend.page.orderMsg');
         }

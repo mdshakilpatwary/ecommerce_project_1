@@ -65,6 +65,10 @@ function store(Request $request){
             'max:100',
             'min:0',
         ],
+        'short_description' => [
+            'required',
+            'max:250',
+        ],
         'p_qty' => 'required',
         'group_p_image' => 'required',
         'select_size' => 'required_without:select_size_kg',
@@ -95,10 +99,13 @@ function store(Request $request){
     $product->cat_id = $request->select_cat;
     $product->subcat_id = $request->select_subcat;
     $product->brand_id = $request->select_brand;
+    $product->short_description = $request->short_description;
+    $product->p_details = $request->p_details;
     $product->p_description = $request->p_desc;
     $product->p_price = $request->p_price;
     $product->discount_percentage = $request->discount_percentage;
     $product->p_qty = $request->p_qty;
+    $product->p_qty_total = $request->p_qty;
 
 // color and size 
 $colors = array();
@@ -244,11 +251,28 @@ function show(){
         $product->cat_id = $request->select_cat;
         $product->subcat_id = $request->select_subcat;
         $product->brand_id = $request->select_brand;
+        $product->short_description = $request->short_description;
+        $product->p_details = $request->p_details;
         $product->p_description = $request->p_desc;
         $product->p_price = $request->p_price;
         $product->discount_percentage = $request->discount_percentage;
         $product->p_qty = $request->p_qty;
-
+        
+        if($request->p_qty_check > $request->p_qty){
+            $qty =$request->p_qty_check - $request->p_qty;
+            $product->p_qty_total =$request->p_qty_total_check - $qty;
+            
+        }
+        else if($request->p_qty_check < $request->p_qty){
+            
+            $qty =$request->p_qty - $request->p_qty_check;
+            $product->p_qty_total = $request->p_qty_total_check + $qty;
+            
+            
+        }
+        else if($request->p_qty_check = $request->p_qty){
+            $product->p_qty_total = $request->p_qty_total_check;
+        }
 
 
 // size without kg

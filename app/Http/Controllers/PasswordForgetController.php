@@ -58,7 +58,7 @@ class PasswordForgetController extends Controller
             'password.require' => 'Your new password is required',
             'confirm_password.require' => 'Your confirm password is required',
         ]);
-        $user->password = bcrypt($request->Password);
+        $user->password = Hash::make($request->password);
         $user->remember_token = Str::random(20);
         $msg =$user->update();
         if($msg){

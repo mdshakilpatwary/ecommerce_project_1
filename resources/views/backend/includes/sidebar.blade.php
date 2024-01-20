@@ -114,6 +114,13 @@
               </ul>
             </li>
             @endif
+            {{-- @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view')) --}}
+
+            <li class="menu-header">Offer Elements</li>
+            <li class="dropdown {{ Route::is('offer.content*')? 'active' : '' }}">
+              <a href="{{route('offer.content')}}" class="nav-link"><i class="fas fa-puzzle-piece"></i><span>Offer Content</span></a>
+            </li>
+          {{-- @endif --}}
             @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view'))
 
             <li class="menu-header">Additional Setting Elements</li>

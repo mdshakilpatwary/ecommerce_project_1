@@ -3,6 +3,7 @@
 @section('mainbody')
 	<!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
+	<input type="hidden" id="single_product_id" value="{{$product->id}}">
     <!-- container -->
     <div class="container">
         <!-- row -->
@@ -69,16 +70,20 @@
 								@if($product->discount_percentage > 0)
 									<span class="bg-success">Discount {{$product->discount_percentage}}%</span>
 								@else
-								<span class="bg-warning">No Discount</span>
+								<span class="bg-warning ">No Discount</span>
 								@endif
-								<!-- <span class="new">NEW</span> -->
-								{{-- <div class="product-rating">
+								<br class="mb-3">
+								@if (now()->diffInDays($product->created_at) < 3)
+								<span class="new">NEW</span>
+								@endif	
+								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
-								</div> --}}
+									<span id="review_count_top" style="font-weight: 600; color:gray"></span>
+								</div>
 							</div>
 							<div>
 								<h3 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h3>
@@ -86,7 +91,7 @@
 								<span class="product-available">In Stock</span>
 								@endif
 							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p>{{$product->short_description}}</p>
 							<form action="{{route('product.add_to_cart')}}" method="POST">
 								@csrf
 
@@ -142,7 +147,7 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number" name="quantity" class="quantity">
+										<input type="number" name="quantity" class="quantity" value="1">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
@@ -203,7 +208,7 @@
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
 								<li><a data-toggle="tab" href="#tab2">Details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+								<li><a data-toggle="tab" href="#tab3">Reviews <span id="review_count"></span></a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -223,7 +228,11 @@
 								<div id="tab2" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											@if($product->p_details == '')
+											<p class="text-center">No details here</p>
+											@else
+											<p>{{$product->p_details}}</p>
+											@endif
 										</div>
 									</div>
 								</div>
@@ -319,63 +328,17 @@
 										<!-- Reviews -->
 										<div class="col-md-6">
 											<div id="reviews">
-												<ul class="reviews">
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
+												<ul class="reviews" id="public_review_part">
 												</ul>
-												<ul class="reviews-pagination">
-													<li class="active">1</li>
+							
+												<ul class="reviews-pagination review_pagination">
+													{{-- <li class="active">1</li>
 													<li><a href="#">2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
-													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+													<li><a href="#"><i class="fa fa-angle-right"></i></a></li> --}}
 												</ul>
+									
 											</div>
 										</div>
 										<!-- /Reviews -->
@@ -383,22 +346,64 @@
 										<!-- Review Form -->
 										<div class="col-md-3">
 											<div id="review-form">
-												<form class="review-form">
-													<input class="input" type="text" placeholder="Your Name">
-													<input class="input" type="email" placeholder="Your Email">
-													<textarea class="input" placeholder="Your Review"></textarea>
+												<p class="insert_success bg-success " style="margin-bottom: 8px;"></p>
+												<div class="insert_error bg-danger " style="margin-bottom: 8px;"></div>
+												<div class="review-form" id="reviewInsertForm" >
+													
+												@if(Auth::user())
+													@if(App\Models\ProductReview::where('user_id',Auth::user()->id)->where('product_id',$product->id)->first() != true)
+													
+													<input type="hidden" id="review_product_id" value="{{$product->id}}">
+													<input class="input" type="text" id="review_name" placeholder="Your Name">
+													@error('review_name')
+														<p class="text-danger ">{{$message}}</p>
+													@enderror
+													<input class="input" type="email" id="review_email" placeholder="Your Email">
+													@error('review_email')
+														<p class="text-danger ">{{$message}}</p>
+													@enderror
+													<textarea class="input" id="review" placeholder="Your Review"></textarea>
+													@error('review')
+														<p class="text-danger ">{{$message}}</p>
+													@enderror
 													<div class="input-rating">
 														<span>Your Rating: </span>
 														<div class="stars">
-															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-															<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-															<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+															<input id="star5" name="review_rating" value="5" type="radio"><label for="star5"></label>
+															<input id="star4" name="review_rating" value="4" type="radio"><label for="star4"></label>
+															<input id="star3" name="review_rating" value="3" type="radio"><label for="star3"></label>
+															<input id="star2" name="review_rating" value="2" type="radio"><label for="star2"></label>
+															<input id="star1" name="review_rating" value="1" type="radio"><label for="star1"></label>
+															@error('rating')
+																<p class="text-danger ">{{$message}}</p>
+															@enderror
 														</div>
+														
 													</div>
-													<button class="primary-btn">Submit</button>
-												</form>
+													<button class="primary-btn" onclick="reviewInsert()">Submit</button>
+													@else
+													<p>Already your review done</p>
+													@endif
+
+												@else
+													<input class="input" type="text" id="review_name" placeholder="Your Name">
+				
+													<input class="input" type="email" id="review_email" placeholder="Your Email">
+													<textarea class="input" id="review" placeholder="Your Review"></textarea>
+													<div class="input-rating">
+														<span>Your Rating: </span>
+														<div class="stars">
+															<input id="star5" name="review_rating" value="5" type="radio"><label for="star5"></label>
+															<input id="star4" name="review_rating" value="4" type="radio"><label for="star4"></label>
+															<input id="star3" name="review_rating" value="3" type="radio"><label for="star3"></label>
+															<input id="star2" name="review_rating" value="2" type="radio"><label for="star2"></label>
+															<input id="star1" name="review_rating" value="1" type="radio"><label for="star1"></label>
+														</div>
+														
+													</div>
+													<a href="{{route('login')}}" class="primary-btn" >Submit</a>
+												@endif
+												</div>
 											</div>
 										</div>
 										<!-- /Review Form -->
@@ -451,10 +456,26 @@
 								<div class="product-rating">
 								</div>
 								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
+									<form style="display: inline"  action="{{route('product.add_to_wishlist')}}" method="POST">
+										@csrf
+											<input type="hidden" name="product_id" value="{{$r_product->id}}">
+											@if(Auth::user())
+
+												{{-- wishlist   --}}
+
+												@if(App\Models\CartWishlist::where('p_id',$r_product->id)->where('user_id', Auth::user()->id)->first())
+												<button disabled  class="add-to-wishlist" style="background: none; border:none;"><i style="color:red;" class="fa fa-heart"></i><span class="tooltipp">add to wishlist</span></button>
+
+												@else
+												<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+												@endif
+											@else
+											<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											@endif												
+										</form>											
+										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+										<button class="quick-view" value="{{$r_product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+									</div>
 							</div>
 						</a>
 							<div class="add-to-cart">
@@ -473,4 +494,9 @@
 			<!-- /container -->
 		</div>
 		<!-- /Section -->
+
+
 @endsection
+
+
+

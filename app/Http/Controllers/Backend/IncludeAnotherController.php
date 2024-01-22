@@ -17,6 +17,8 @@ class IncludeAnotherController extends Controller
         $id = 1 ;
         $data = IncludeAnother::find($id);
         return view('backend.include_another.index',compact('data'));
+        
+
     }
     // store part controller 
     function update(Request $request, $id){

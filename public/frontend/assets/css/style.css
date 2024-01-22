@@ -793,13 +793,34 @@ textarea.input {
   padding: 60px 0px;
   margin: 30px 0px;
   background-color: #E4E7ED;
-  background-image: url('../img/hotdeal.png');
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background-image: url('../img/product01.png');
+  background-position:  center;
+  background-repeat: no-repeat; */
+  overflow: hidden;
+}
+.offer_deal_image{
+  position: relative;
+}
+.offer_deal_image1 img {
+	width: 110%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -93px;
+	right: 0;
+}
+.offer_deal_image2 img {
+	width: 110%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 3px;
+	right: 0;
 }
 
 .hot-deal {
   text-align: center;
+  z-index: 1;
 }
 
 .hot-deal .hot-deal-countdown {
@@ -2192,7 +2213,88 @@ textarea.input {
 	13 -> RESPONSIVE
 ===========================================================*/
 
-@media only screen and (max-width: 1201px) {}
+@media  (min-width: 1200px) and (max-width: 1400px) {
+  #hot-deal.section{
+    position: relative;
+    z-index: 1;
+  }
+  .offer_deal_image1 img {
+    width: 110%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60px;
+    right: 0;
+    z-index: -1;
+  }
+  .offer_deal_image2 img {
+    width: 110%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 24px;
+    right: 0;
+  }
+}
+@media  (min-width: 1091px) and (max-width: 1199px) {
+  #hot-deal.section{
+    position: relative;
+  }
+  .offer_deal_image1 img {
+    width: 152%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -70px;
+    right: 0;
+  }
+  .offer_deal_image2 img {
+    width: 152%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    right: 0;
+  }
+}
+@media  (min-width: 992px) and (max-width: 1090px) {
+  #hot-deal.section{
+    position: relative;
+    z-index: 1;
+  }
+  .offer_deal_image1 img {
+    width: 132%;
+    position: absolute;
+    top: 16px;
+    bottom: 0;
+    left: -15px;
+    right: 0;
+    z-index: -1;
+  }
+  .offer_deal_image2 img {
+    width: 131%;
+    position: absolute;
+    top: 19px;
+    bottom: 0;
+    left: -36px;
+    right: 0;
+  }
+}
+@media  (min-width: 0px) and (max-width: 991px) {
+  #hot-deal.section{
+    position: initial;
+  }
+  .offer_deal_image1 img {
+    position: initial;
+    display: none;
+
+  }
+  .offer_deal_image2 img {
+    position: initial;
+    display: none;
+
+  }
+}
 
 @media only screen and (max-width: 991px) {
   #top-header .header-links.pull-left {

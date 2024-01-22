@@ -159,6 +159,7 @@ $wishlistArray = wishlistArray();
 								<!-- /Cart -->
 
 								<!-- Menu Toogle -->
+								
 								<div class="menu-toggle">
 									<a href="#">
 										<i class="fa fa-bars"></i>

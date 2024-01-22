@@ -13,8 +13,10 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\SiteInfo;
+use App\Models\OfferDealContent;
 use App\Models\Order;
 use App\Models\OrderDatails;
+use Carbon\Carbon;
 use File;
 use Image;
 use DB;
@@ -41,7 +43,7 @@ class HomeController extends Controller
         return view('frontend.page.customerinvoice', compact('order','orderId'));
     }
 
-
+// frontend welcome page 
     function index(){
         $products = Product::where('status',1)->latest()->limit(12)->get();
         $categories =Category::where('cat_status',1)->get();
@@ -67,9 +69,8 @@ class HomeController extends Controller
                     $p->totalQty = $s->total;
                     $topProducts[] = $p;
                 }
-                
-
-        return view('frontend.welcome', compact('products','categories','subcategories','brands','colors','sizes','topProducts'));
+        $offerData =OfferDealContent::all();
+        return view('frontend.welcome', compact('products','categories','subcategories','brands','colors','sizes','topProducts','offerData'));
     
 
     }

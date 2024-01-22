@@ -380,7 +380,7 @@
 														</div>
 														
 													</div>
-													<button class="primary-btn" onclick="reviewInsert()">Submit</button>
+													<button class="primary-btn" id="review_submit_btn" onclick="reviewInsert()">Submit</button>
 													@else
 													<p>Already your review done</p>
 													@endif

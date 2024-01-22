@@ -1,4 +1,6 @@
-
+<?php
+use Carbon\Carbon;
+?>
 @extends('frontend.master')
 
 @section('mainbody')
@@ -147,44 +149,131 @@
 		<!-- /SECTION -->
 
 		<!-- HOT DEAL SECTION -->
-		<div id="hot-deal" class="section">
+		<div id="hot-deal" class="section " >
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<div class="col-md-12">
-						<div class="hot-deal">
-							<ul class="hot-deal-countdown">
-								<li>
-									<div>
-										<h3>02</h3>
-										<span>Days</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>10</h3>
-										<span>Hours</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>34</h3>
-										<span>Mins</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>60</h3>
-										<span>Secs</span>
-									</div>
-								</li>
-							</ul>
-							<h2 class="text-uppercase">hot deal this week</h2>
-							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
+			<!-- Offer content  condition -->
+					@if(count($offerData) > 0)
+
+						@php
+							$offerDealData =App\Models\OfferDealContent::findOrFail(1);
+							$currentDateTime = Carbon::now();
+							$startDate = $offerDealData->offer_duration_start;
+							$endDate =$offerDealData->offer_duration_end;
+						@endphp
+						<div class="col-md-2 col-lg-3 col-xl-3 d-sm-none offer_deal_image1">
+							<img src="{{asset('uploads/offer_banner/'.$offerDealData->image1)}}" alt="">
 						</div>
-					</div>
+						<div class="col-md-8 col-lg-6 col-xl-6 col-12 col-sm-12">
+							<div class="hot-deal">
+					<!-- Offer time counter code condition -->
+
+								@if ($currentDateTime->between($startDate, $endDate)) 
+									<ul class="hot-deal-countdown">
+										<li>
+											<div>
+												<h3 id="offer_deal_day"></h3>
+												<span>Days</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 id="offer_deal_hour"></h3>
+												<span>Hours</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 id="offer_deal_minute"></h3>
+												<span>Mins</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 id="offer_deal_second"></h3>
+												<span>Secs</span>
+											</div>
+										</li>
+									</ul>
+								@else
+									<ul class="hot-deal-countdown">
+										<li>
+											<div>
+												<h3 >0</h3>
+												<span>Days</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 >0</h3>
+												<span>Hours</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 >0</h3>
+												<span>Mins</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<h3 >0</h3>
+												<span>Secs</span>
+											</div>
+										</li>
+									</ul>
+								@endif
+								<h2 class="text-uppercase">{{$offerDealData->offer_heading}}</h2>
+								<p>{{$offerDealData->offer_content}}</p>
+								<a class="primary-btn cta-btn" href="{{route('show.all.product')}}">Shop now</a>
+							</div>
+						</div>
+						<div class="col-md-2 col-lg-3 col-xl-3 d-sm-none offer_deal_image2">
+							<img src="{{asset('uploads/offer_banner/'.$offerDealData->image2)}}" alt="">
+						</div>
+					@else
+						<div class="col-md-2 col-lg-3 col-xl-3 d-sm-none offer_deal_image1">
+							<img src="{{asset('frontend/assets')}}/img/product01.png" alt="">
+						</div>
+						<div class="col-md-8 col-lg-6 col-xl-6 col-12 col-sm-12">
+							<div class="hot-deal">
+								<ul class="hot-deal-countdown">
+									<li>
+										<div>
+											<h3 >0</h3>
+											<span>Days</span>
+										</div>
+									</li>
+									<li>
+										<div>
+											<h3 >0</h3>
+											<span>Hours</span>
+										</div>
+									</li>
+									<li>
+										<div>
+											<h3 >0</h3>
+											<span>Mins</span>
+										</div>
+									</li>
+									<li>
+										<div>
+											<h3 >0</h3>
+											<span>Secs</span>
+										</div>
+									</li>
+								</ul>
+								<h2 class="text-uppercase">hot deal this week</h2>
+								<p>New Collection Up to 50% OFF;</p>
+								<a class="primary-btn cta-btn" href="{{route('show.all.product')}}">Shop now</a>
+							</div>
+						</div>
+						<div class="col-md-2 col-lg-3 col-xl-3 d-sm-none offer_deal_image2">
+							<img src="{{asset('frontend/assets')}}/img/product02.png" alt="">
+						</div>
+					@endif
 				</div>
 				<!-- /row -->
 			</div>

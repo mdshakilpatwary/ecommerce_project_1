@@ -240,9 +240,10 @@ Route::middleware('auth','role:Admin')->group(function () {
 
     // Offer content route part controller group----- 12
     Route::controller(OfferContentController::class)->group(function () {
-        Route::get('/offer/content/create', 'index')->name('offer.content');
-        Route::post('/offer/content/store', 'store')->name('offer.content.store');
-        Route::post('/offer/content/update/{id}', 'update')->name('offer.content.update');
+        Route::get('offer/content/create', 'index')->name('offer.content');
+        Route::get('offer/content/duration', 'durationset')->name('offer.content.duration');
+        Route::post('offer/content/store', 'store')->name('offer.content.store');
+        Route::post('offer/content/update', 'update')->name('offer.content.update');
 
     });
 

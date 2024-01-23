@@ -16,12 +16,12 @@ class OfferContentController extends Controller
         $offerData =OfferDealContent::all();
         if(count($offerData) > 0){
             $offerDealData = OfferDealContent::findOrFail(1);
-            return view('backend.offerContent.index',compact('offerDealData'));
+            return view('backend.offerContent.offer_content',compact('offerDealData'));
 
         }
         else{
 
-            return view('backend.offerContent.index');
+            return view('backend.offerContent.offer_content');
         }
     }
 

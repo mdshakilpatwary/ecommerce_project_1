@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\OfferContentController;
+use App\Http\Controllers\Backend\ReviewManageController;
 use App\Http\Controllers\Backend\RolePermissionController;
 use App\Http\Controllers\Backend\IncludeAnotherController;
 use App\Http\Controllers\Frontend\ShoppingCart;
@@ -244,6 +245,13 @@ Route::middleware('auth','role:Admin')->group(function () {
         Route::get('offer/content/duration', 'durationset')->name('offer.content.duration');
         Route::post('offer/content/store', 'store')->name('offer.content.store');
         Route::post('offer/content/update', 'update')->name('offer.content.update');
+
+    });
+    // product review manage route part controller group----- 13
+    Route::controller(ReviewManageController::class)->group(function () {
+        Route::get('product/review/show/all', 'index')->name('review.show.all');
+        Route::get('product/review/delete/{id}', 'destroy')->name('review.destroy');
+        Route::get('view/single/product/review/{id}', 'viewsingleproduct')->name('review.single.product');
 
     });
 

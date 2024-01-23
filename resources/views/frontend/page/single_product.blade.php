@@ -1,3 +1,6 @@
+<?php
+use App\Models\ProductReview;
+?>
 @extends('frontend.master')
 
 @section('mainbody')
@@ -243,85 +246,213 @@
 									<div class="row">
 										<!-- Rating -->
 										<div class="col-md-3">
-											<div id="rating">
-												<div class="rating-avg">
-													<span>4.5</span>
-													<div class="rating-stars">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
+											@if(count($review_product_data) > 0)
+											@php
+											$review_star_count_1 = ProductReview::where('product_id',$product->id)->where('rating', 1)->get();
+											$review_star_count_2 = ProductReview::where('product_id',$product->id)->where('rating', 2)->get();
+											$review_star_count_3 = ProductReview::where('product_id',$product->id)->where('rating', 3)->get();
+											$review_star_count_4 = ProductReview::where('product_id',$product->id)->where('rating', 4)->get();
+											$review_star_count_5 = ProductReview::where('product_id',$product->id)->where('rating', 5)->get();
+											@endphp
+												<div id="rating">
+													<div class="rating-avg">														
+														<span>{{$rating_round}}</span>
+														@if($rating_round == 5)
+															<div class="rating-stars">
+
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+															</div>
+														@elseif($rating_round == 4 or $rating_round == 4.5)
+															<div class="rating-stars">
+
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+														@elseif($rating_round == 3 or $rating_round == 3.5)
+															<div class="rating-stars">
+
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+														@elseif($rating_round == 2 or $rating_round == 2.5)
+															<div class="rating-stars">
+
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+														@elseif($rating_round == 1 or $rating_round == 1.5)
+															<div class="rating-stars">
+
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+														@endif
 													</div>
+													<ul class="rating">
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: {{count($review_star_count_5) > 0? '100%': '0%'}};"></div>
+															</div>
+															<span class="sum">{{count($review_star_count_5)}}</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: {{count($review_star_count_4) > 0? '80%': '0%'}};"></div>
+															</div>
+															<span class="sum">{{count($review_star_count_4)}}</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: {{count($review_star_count_3) > 0? '60%': '0%'}};"></div>
+															</div>
+															<span class="sum">{{count($review_star_count_3)}}</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: {{count($review_star_count_2) > 0? '40%': '0%'}};"></div>
+															</div>
+															<span class="sum">{{count($review_star_count_2)}}</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: {{count($review_star_count_1) > 0? '20%': '0%'}};"></div>
+															</div>
+															<span class="sum">{{count($review_star_count_1)}}</span>
+														</li>
+													</ul>
 												</div>
-												<ul class="rating">
-													<li>
+											@else
+												<div id="rating">
+													<div class="rating-avg">
+														<span>0</span>
 														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
-														<div class="rating-progress">
-															<div style="width: 80%;"></div>
-														</div>
-														<span class="sum">3</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
 															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div style="width: 60%;"></div>
-														</div>
-														<span class="sum">2</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
 															<i class="fa fa-star-o"></i>
 															<i class="fa fa-star-o"></i>
 															<i class="fa fa-star-o"></i>
 															<i class="fa fa-star-o"></i>
 														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-												</ul>
-											</div>
+													</div>
+													<ul class="rating">
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width:0%;"></div>
+															</div>
+															<span class="sum">0</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div style="width: 0%;"></div>
+															</div>
+															<span class="sum">0</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div></div>
+															</div>
+															<span class="sum">0</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div></div>
+															</div>
+															<span class="sum">0</span>
+														</li>
+														<li>
+															<div class="rating-stars">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
+															</div>
+															<div class="rating-progress">
+																<div></div>
+															</div>
+															<span class="sum">0</span>
+														</li>
+													</ul>
+												</div>
+											@endif
 										</div>
 										<!-- /Rating -->
 

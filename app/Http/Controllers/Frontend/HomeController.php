@@ -13,6 +13,7 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\SiteInfo;
+use App\Models\ProductReview;
 use App\Models\OfferDealContent;
 use App\Models\Order;
 use App\Models\OrderDatails;
@@ -84,10 +85,37 @@ class HomeController extends Controller
         $colors =Color::all();
         $cat_id = $product->cat_id;
         $related_product = Product::where('cat_id', $cat_id)->limit(4)->get();
+        $review_product_data = ProductReview::where('product_id',$id)->get();
+
+        // condition pass 
+        if(count($review_product_data) > 0){
+            $rating_count =0;
+            foreach($review_product_data as $review_p_data ){
+            $rating_count += intval($review_p_data->rating);
+            }
+            $decimalRating = round($rating_count / count($review_product_data ),1);
+            function customRoundToHalf($review_number){
+                $integerPart = floor($review_number);
+                $decimalPart = $review_number - $integerPart;
+    
+                if ($decimalPart < 0.5) {
+                    return $integerPart;
+                } else {
+                    return floor($review_number) + 0.5;
+                }
+            }	
+                $rating_round =customRoundToHalf($decimalRating);
+
+        }
+        else{
+            $rating_round =0;
+
+        }
 
 
 
-        return view('frontend.page.single_product', compact('product','categories','subcategories','brands','colors','sizes','related_product')) ;
+
+        return view('frontend.page.single_product', compact('product','categories','subcategories','brands','colors','sizes','related_product','review_product_data','rating_round')) ;
     }
     // category product 
     function categoryProduct($id){

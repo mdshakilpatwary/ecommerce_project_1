@@ -49,8 +49,10 @@
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Email</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Review</th>
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Rating</th>
+                            @if(Auth::user()->can('review.delete'))
+
                             <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" style="width: 149.1px;" aria-label="Task Name: activate to sort column ascending">Action</th>
-                           
+                            @endif
                           </tr>
                         </thead>
                         <tbody>
@@ -83,7 +85,12 @@
                               @endif
                             </td> --}}
                             <td>
+                              @if(Auth::user()->can('review.delete'))
+
                                 <a href="{{route('review.destroy', $review_item->id)}}" class="btn btn-sm btn-danger text-white "><i class="fa fa-trash"></i></a>
+                              @endif
+
+                              
                             </td>
                             </tr>
                             
@@ -91,7 +98,7 @@
                             
                             @else
                             <tr>
-                                <td colspan="5"><p class="bg-danger text-center"> No Data </p></td>
+                                <td colspan="7"><p class="bg-danger text-center"> No Data </p></td>
                             </tr>
                             @endif
                          

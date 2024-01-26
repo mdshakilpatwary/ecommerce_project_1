@@ -167,13 +167,14 @@
 </script>
 
 <script>
-	//this coding route and controller location in backend part 
+	//this coding route and controller location in frontend part 
 	$(document).ready(function(){
 		  $.ajax({
 			url: "{{url('/offer/content/duration')}}",
 			type: 'get',
 			dataType: "json",
 			success: function(response) {  
+
 			  
 				function makeTimer() {
 			

@@ -4,15 +4,31 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Models\OfferDealContent;
 use File;
 use Image;
+use Auth;
 use Carbon\Carbon;
 
 class OfferContentController extends Controller
 {
+    public $p_user;
+
+    // for offer permission auth
+         public function __construct() {
+            $this->middleware(function($request, $next){
+                $this->p_user =Auth::user();
+                return $next($request);
+    
+            }) ;
+        }
     // view index file 
     public function index(){
+        if (is_null($this->p_user) || !$this->p_user->can('offer.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view offer content!');
+        }
         $offerData =OfferDealContent::all();
         if(count($offerData) > 0){
             $offerDealData = OfferDealContent::findOrFail(1);
@@ -27,6 +43,9 @@ class OfferContentController extends Controller
 
     // offer content store file 
     public function store(Request $request){
+        if (is_null($this->p_user) || !$this->p_user->can('offer.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to store offer content!');
+        }
         $request->validate([
             'offer_heading' => [
                 'required',
@@ -107,6 +126,9 @@ class OfferContentController extends Controller
 
     // offer content update file 
     public function update(Request $request){
+        if (is_null($this->p_user) || !$this->p_user->can('offer.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit and update offer content!');
+        }
         $offersave =OfferDealContent::findOrFail(1);
         $request->validate([
             'offer_heading' => [
@@ -194,39 +216,7 @@ class OfferContentController extends Controller
 
     }
 
-    public function durationset(){
 
-        $offerData =OfferDealContent::all();
-        if(count($offerData) > 0){
-            $offerDealData =OfferDealContent::findOrFail(1);
-
-            // Set the offer start and end dates
-            $offerStartDate = Carbon::now(); // Current date and time
-            $offerEndDate = Carbon::parse($offerDealData->offer_duration_end);
-
-            // Calculate the difference
-            $diff = $offerStartDate->diff($offerEndDate);
-
-            // Get the difference components
-            $days = $diff->days;
-            $hours = $diff->h;
-            $minutes = $diff->i;
-            $seconds = $diff->s;
-
-            return response()->json([
-                'offerenddate' => $offerEndDate,
-                'offerDay' => $days,
-                'offerHours' => $hours,
-                'offerMinutes' => $minutes,
-                'offerSeconds' => $seconds,
-               
-            ]);
-        }
-        else{
-            // 
-        }
-
-    }
 
 
 

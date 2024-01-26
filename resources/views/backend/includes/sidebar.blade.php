@@ -114,18 +114,22 @@
               </ul>
             </li>
             @endif
-            {{-- @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view')) --}}
+           @if(Auth::user()->can('offer.view') || Auth::user()->can('offer.edit')|| Auth::user()->can('review.view') ||Auth::user()->can('review.delete'))
 
             <li class="menu-header">Offer and Review Elements</li>
-            <li class="dropdown {{ Route::is('offer.content*')? 'active' : '' }}">
-              <a href="{{route('offer.content')}}" class="nav-link"><i class="fas fa-puzzle-piece"></i><span>Offer Content</span></a>
-            </li>
-
-            <li class="dropdown {{ Route::is('review.show.all*') || Route::is('review.single.product*')? 'active' : '' }}">
-              <a href="{{route('review.show.all')}}" class="nav-link"><i class="fas fa-puzzle-piece"></i><span>Product Reviews</span></a>
-            </li>
-          {{-- @endif --}}
-            @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view'))
+              @if(Auth::user()->can('offer.view') || Auth::user()->can('offer.edit'))
+                <li class="dropdown {{ Route::is('offer.content*')? 'active' : '' }}">
+                  <a href="{{route('offer.content')}}" class="nav-link"><i class="fas fa-box-open"></i><span>Offer Content</span></a>
+                </li>
+              @endif 
+               
+              @if(Auth::user()->can('review.view') || Auth::user()->can('review.delete'))
+                <li class="dropdown {{ Route::is('review.show.all*') || Route::is('review.single.product*')? 'active' : '' }}">
+                  <a href="{{route('review.show.all')}}" class="nav-link"><i class="fas fa-star-half-alt"></i><span>Product Reviews</span></a>
+                </li>
+              @endif
+          @endif
+          @if(Auth::user()->can('admin.create') || Auth::user()->can('admin.view'))
 
             <li class="menu-header">Additional Setting Elements</li>
             <li class="dropdown {{ Route::is('include.another.create*')? 'active' : '' }}">

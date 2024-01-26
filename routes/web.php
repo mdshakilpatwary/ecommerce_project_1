@@ -45,22 +45,23 @@ Route::middleware('guest')->group(function () {
 });
 
 // user dashboard route
-Route::get('/dashboard', [HomeController::class, 'userDashborad'])->middleware(['auth','role:User', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'userDashborad'])->middleware(['auth','verified','role:User'])->name('dashboard');
 Route::get('/customer/order/invoice/{id}', [HomeController::class, 'orderinvoice'])->middleware('auth')->name('order.invoice');
 
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
 
 
 // frontend controller start 
+
 Route::get('/', [HomeController::class, 'index'])->name('frontend_site');
 Route::get('quick/view/modal{id}', [HomeController::class, 'quickviewModal'])->name('quick.view.modal');
 // search route start 
@@ -71,6 +72,10 @@ Route::get('/show/category/product/{id}', [HomeController::class, 'categoryProdu
 Route::get('/show/subcategory/product/{id}', [HomeController::class, 'subcategoryProduct'])->name('show.subcategory.product');
 Route::get('/show/brand/product/{id}', [HomeController::class, 'brandProduct'])->name('show.brand.product');
 Route::get('/show/all/product', [HomeController::class, 'allProduct'])->name('show.all.product');
+// offer duration set
+Route::get('/offer/content/duration', [HomeController::class, 'durationset'])->name('offer.content.duration');
+
+
 
 // shoping cart part
 Route::post('/product/add-to-cart', [ShoppingCart::class, 'addToCart'])->name('product.add_to_cart');
@@ -242,7 +247,6 @@ Route::middleware('auth','role:Admin')->group(function () {
     // Offer content route part controller group----- 12
     Route::controller(OfferContentController::class)->group(function () {
         Route::get('offer/content/create', 'index')->name('offer.content');
-        Route::get('offer/content/duration', 'durationset')->name('offer.content.duration');
         Route::post('offer/content/store', 'store')->name('offer.content.store');
         Route::post('offer/content/update', 'update')->name('offer.content.update');
 

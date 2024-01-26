@@ -83,6 +83,23 @@ class RolePermissionSeeder extends Seeder
                     'profile.edit',
                 ]
             ],
+            [
+                'group_name' => 'offer content',
+                'permissions' => [
+                    // offer Permissions
+                    'offer.view',
+                    'offer.create',
+                    'offer.edit',
+                ]
+            ],
+            [
+                'group_name' => 'reviews',
+                'permissions' => [
+                    // review Permissions
+                    'review.view',
+                    'review.delete',
+                ]
+            ],
         ];
 
         //assign permission

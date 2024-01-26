@@ -446,7 +446,7 @@ use Carbon\Carbon;
 
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title"> selling</h4>
+							<h4 class="title">Selling</h4>
 							<div class="section-nav">
 								<div id="slick-nav-4" class="products-slick-nav"></div>
 							</div>
@@ -502,7 +502,7 @@ use Carbon\Carbon;
 
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title">Top selling</h4>
+							<h4 class="title">New Product</h4>
 							<div class="section-nav">
 								<div id="slick-nav-5" class="products-slick-nav"></div>
 							</div>
@@ -511,7 +511,7 @@ use Carbon\Carbon;
 						<div class="products-widget-slick" data-nav="#slick-nav-5">
 							<div>
 								<!-- product widget -->
-								@foreach($topProducts as $product)
+								@foreach($products as $product)
 								@if ($loop->iteration <= 3)
 								<div class="product-widget">
 									<div class="product-img">

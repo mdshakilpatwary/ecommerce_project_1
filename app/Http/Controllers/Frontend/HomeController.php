@@ -288,6 +288,42 @@ class HomeController extends Controller
             'wishlistModal' => $wishlistModal,
         ]);
     }
+
+    // offer duration set 
+
+    public function durationset(){
+
+        $offerData =OfferDealContent::all();
+        if(count($offerData) > 0){
+            $offerDealData =OfferDealContent::findOrFail(1);
+
+            // Set the offer start and end dates
+            $offerStartDate = Carbon::now(); // Current date and time
+            $offerEndDate = Carbon::parse($offerDealData->offer_duration_end);
+
+            // Calculate the difference
+            $diff = $offerStartDate->diff($offerEndDate);
+
+            // Get the difference components
+            $days = $diff->days;
+            $hours = $diff->h;
+            $minutes = $diff->i;
+            $seconds = $diff->s;
+
+            return response()->json([
+                'offerenddate' => $offerEndDate,
+                'offerDay' => $days,
+                'offerHours' => $hours,
+                'offerMinutes' => $minutes,
+                'offerSeconds' => $seconds,
+               
+            ]);
+        }
+        else{
+            // 
+        }
+
+    }
     
     
 

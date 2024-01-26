@@ -89,7 +89,10 @@ $offervalue=App\Models\OfferDealContent::all();
       </div>
       
       <div class="col-md-12 col-xl-12 col-12">
+        @if(Auth::user()->can('offer.edit'))
+
         <button class="btn btn-lg btn-success">Update</button>
+        @endif
       </div>
   </div>
 </form>
@@ -143,7 +146,10 @@ $offervalue=App\Models\OfferDealContent::all();
       
       
       <div class="col-md-12 col-xl-12 col-12">
+        @if(Auth::user()->can('offer.create'))
+
         <button class="btn btn-lg btn-success">Submit</button>
+        @endif
       </div>  </div>
 </form>
 

@@ -12,6 +12,8 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\KgLitter;
 use App\Models\Color;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Contracts\Validation\Rule;
 use Auth;
 use File;

@@ -183,7 +183,7 @@ use App\Models\ProductReview;
 
 									@endif
 									</form>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+								{{-- <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li> --}}
 							</ul>
 
 							<ul class="product-links">
@@ -192,13 +192,13 @@ use App\Models\ProductReview;
 								<li><a href="#">{{$product->subcategory->subcat_name}}</a></li>
 							</ul>
 
-							<ul class="product-links">
+							{{-- <ul class="product-links">
 								<li>Share:</li>
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
+							</ul> --}}
 
 						</div>
 					</div>
@@ -604,7 +604,7 @@ use App\Models\ProductReview;
 											<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 											@endif												
 										</form>											
-										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+										{{-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> --}}
 										<button class="quick-view" value="{{$r_product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 									</div>
 							</div>

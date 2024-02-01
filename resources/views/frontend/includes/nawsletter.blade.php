@@ -4,7 +4,7 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="newsletter">
+						{{-- <div class="newsletter">
 							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
 							<form>
 								<input class="input" type="email" placeholder="Enter Your Email">
@@ -24,7 +24,7 @@
 									<a href="#"><i class="fa fa-pinterest"></i></a>
 								</li>
 							</ul>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 				<!-- /row -->

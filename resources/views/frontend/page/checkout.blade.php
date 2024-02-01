@@ -33,6 +33,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 			<div class="container">
 				<!-- row -->
 				<div class="row">
+				
 				<form action="{{route('product.shipping.details')}}" method="POST">
 					@csrf
 					<div class="col-md-7">
@@ -93,9 +94,16 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 								<label for="">Description</label>
 								<textarea class="input" name="description" placeholder="Order Notes">{{old('description')}}</textarea>
 							</div>
-							<div class=" form-group text-right">
-								<button class="btn btn-info btn-lg ">Next and make payment</button>
+							
+							<div class="checkout-page-btn" >
+								<div class=" form-group text-left ">
+									<a class="btn btn-info " href="{{route('product.cart.view')}}">View Cart List</a>
+								</div>
+								<div class=" form-group text-right">
+									<button class="btn btn-success btn-lg ">Next and make payment</button>
+								</div>
 							</div>
+
 						
 						</div>
 						<!-- /shipping Details -->
@@ -177,6 +185,7 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 						</div>
 
 					</div>
+					
 				</form>
 
 					<!-- /Order Details -->

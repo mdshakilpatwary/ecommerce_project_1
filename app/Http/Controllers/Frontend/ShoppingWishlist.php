@@ -27,7 +27,9 @@ class ShoppingWishlist extends Controller
         return redirect()->back();
         
     }
-
+    public function viewWishlist(){
+        return view('frontend.page.wishlist_view');
+    }
     public function addToWishlistDelete($id){
         $wishlistD =CartWishlist::findOrFail($id); 
         $wishlistD->delete(); 

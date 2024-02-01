@@ -4,30 +4,42 @@ use Carbon\Carbon;
 @extends('frontend.master')
 
 @section('mainbody')
+<section>
+	<div class="container">
+		<div class="home-page-banner">
+			<img  src="https://thumbs.dreamstime.com/b/technology-banner-background-old-new-using-computer-circuits-old-machine-cogs-37036025.jpg" alt="">
+			<img  src="https://t4.ftcdn.net/jpg/03/54/08/23/360_F_354082362_Hvq6Yb6sspzDxLq4kqUaqLtiifw6exbm.jpg" alt="">
+			<img  src="https://thumbs.dreamstime.com/b/technology-banner-background-old-new-using-computer-circuits-old-machine-cogs-37036025.jpg" alt="">
+		</div>
+	</div>
+</section>
+
+
 			<!-- SECTION -->
-			<div class="section">
+			<div class="section home-page-category" >
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
 					
-					@foreach ($categories as $category)
-					@if ($loop->iteration <= 3)
+					
 					<!-- shop -->
-					<div class="col-md-4 col-xl-4 col-lg-4">
-						<div class="shop w-100">
+					<div class="col-md-12 col-xl-12 col-lg-12">
+						<div class="welcome-page-category products-slick-category">
+						@foreach ($categories as $category)
+						<div class="shop" >
 							<div class="shop-img ">
 								<img class="w-100" src="{{asset('uploads/category/'.$category->cat_image)}}"  height="200" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>{{$category->cat_name}}<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="{{route('show.category.product',$category->id)}}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
+						</div>
+						@endforeach
 						</div>
 					</div>
 					<!-- /shop -->
-					@endif
-					@endforeach
 
 
 					
@@ -112,7 +124,7 @@ use Carbon\Carbon;
 														<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 														@endif													
 													</form>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+													{{-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> --}}
 													<button class="quick-view" value="{{$product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 												</div>
 												
@@ -350,7 +362,9 @@ use Carbon\Carbon;
 																@endif
 															@else
 															<button  class="add-to-wishlist" style="background: none; border:none;"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-															@endif												</form>													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+															@endif												
+														</form>													
+															{{-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> --}}
 															<button class="quick-view" value="{{$product->id}}" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 														</div>
 											</div>

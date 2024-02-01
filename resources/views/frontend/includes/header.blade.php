@@ -83,8 +83,8 @@ $wishlistArray = wishlistArray();
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 								<!-- Wishlist -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+								<div class="product-wishlist-icon">
+									<a class="product-wishlist-btn">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
 										@if(Auth::user())
@@ -93,7 +93,7 @@ $wishlistArray = wishlistArray();
 										<div class="qty">0</div>
 										@endif
 									</a>
-									<div class="cart-dropdown">
+									<div class="product-cart-dropdown product-wishlist-dropdown">
 										<div class="cart-list">
 										@if(Auth::user())
 										@foreach($wishlistArray as $cartdata)
@@ -114,21 +114,21 @@ $wishlistArray = wishlistArray();
 	
 										</div>
 										<div class="cart-btns">
-											<h4 class="text-center">All Wishlist here</h4>
+											<h4 class="text-center " style="background:#434343; margin: 0; padding: 10px 0"><a href="{{route('product.wishlist.view')}}" style="color: white">View Wishlist</a></h4>
 										</div>
 									</div>
 								</div>
 								<!-- /Wishlist -->
 
 								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+								<div class="product-cart-icon">
+									<a class="product-cart-btn " >
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
 										
 										<div class="qty">{{ count($cartArray)}}</div>
 									</a>
-									<div class="cart-dropdown">
+									<div class="product-cart-dropdown product-dropdown-cart">
 										<div class="cart-list">
 											@foreach($cartArray as $cartdata)
 											<div class="product-widget">
@@ -138,25 +138,26 @@ $wishlistArray = wishlistArray();
 													@endif
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="#">{{$cartdata['name']}}</a></h3>
+													<h3 class="product-name"><a href="{{route('single.product',$cartdata['id'])}}">{{$cartdata['name']}}</a></h3>
 													<h4 class="product-price"><span class="qty">{{$cartdata['qty']}}x</span>&#2547;{{$cartdata['price']}}</h4>
 												</div>
 												<a href="{{route('product.add_to_cart-delete',$cartdata['rowId'])}}" class="delete"><i class="fa fa-close"></i></a>
 											</div>
 											@endforeach
-	
+
 										</div>
 										<div class="cart-summary">
 											<small>{{count($cartArray)}} Item(s) selected</small>
 											<h5>SUBTOTAL: &#2547;{{Cart::subtotal()}}</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="#">View Cart</a>
+											<a href="{{route('product.cart.view')}}">View Cart</a>
 											<a href="{{route('product.checkout')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
 								<!-- /Cart -->
+
 
 								<!-- Menu Toogle -->
 								

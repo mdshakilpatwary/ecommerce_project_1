@@ -140,7 +140,7 @@ class HomeController extends Controller
             $p->totalQty = $s->total;
             $topProducts[] = $p;
         }
-
+        
         return view('frontend.page.category_product', compact('products','category','subcategories','brands','colors','sizes','topProducts')) ;
 
     }

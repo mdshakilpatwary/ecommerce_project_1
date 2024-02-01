@@ -7,12 +7,96 @@
 		$('#responsive-nav').toggleClass('active');
 	})
 
+
 	// Fix cart dropdown from closing
-	$('.cart-dropdown').on('click', function (e) {
-		e.stopPropagation();
-	});
+    $('.product-cart-btn').click(function(cart){
+        cart.stopPropagation();
+        $('.product-dropdown-cart').toggle();
+		$('.product-wishlist-dropdown').hide();
+
+
+    });
+    $(document).click(function(event){
+		if (!$(event.target).closest('.product-cart-btn').length && !$(event.target).closest('.product-dropdown-cart').length) {
+            // If the click was not inside product-cart-btn or product-cart-dropdown, hide the dropdown
+            $('.product-dropdown-cart').hide();
+        }
+    });
+// wishlist code 
+	$('.product-wishlist-btn').click(function(wishlist){
+        wishlist.stopPropagation();
+        $('.product-wishlist-dropdown').toggle();
+		$('.product-dropdown-cart').hide();
+
+    });
+	
+	$(document).click(function(){
+        $('product-wishlist-dropdown').hide();
+    });
+
+	$(document).click(function(event){
+		if (!$(event.target).closest('.product-wishlist-btn').length && !$(event.target).closest('.product-wishlist-dropdown').length) {
+            // If the click was not inside product-cart-btn or product-cart-dropdown, hide the dropdown
+            $('.product-wishlist-dropdown').hide();
+        }
+    });
+	// $('.product-wishlist-btn').click(function(){
+	// 	$('.product-wishlist-dropdown').toggle();
+
+	// });
 
 	/////////////////////////////////////////
+
+	// Products category Slick
+	$('.products-slick-category').slick({
+		
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		responsive: [
+		  {
+			breakpoint: 1024,
+			settings: {
+			  slidesToShow: 3,
+			  slidesToScroll: 1,
+			  infinite: true,
+			  
+			}
+		  },
+		  {
+			breakpoint: 776,
+			settings: {
+			  slidesToShow: 2,
+			  slidesToScroll: 1,
+			  infinite: true,
+			  
+			}
+		  },
+		  {
+			breakpoint: 600,
+			settings: {
+			  slidesToShow: 2,
+			  slidesToScroll: 1,
+			  infinite: true,
+
+			}
+		  },
+		  {
+			breakpoint: 480,
+			settings: {
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			  infinite: true,
+
+			}
+		  }
+		  // You can unslick at a given breakpoint now by adding:
+		  // settings: "unslick"
+		  // instead of a settings object
+		]
+	  });
 
 	// Products Slick
 	$('.products-slick').each(function() {
@@ -53,6 +137,7 @@
 
 		$this.slick({
 			infinite: true,
+			vertical: true,
 			autoplay: true,
 			speed: 300,
 			dots: false,
@@ -60,6 +145,20 @@
 			appendArrows: $nav ? $nav : false,
 		});
 	});
+
+	// home page banner slider
+	
+		$('.home-page-banner').slick({
+			dots: true,
+			infinite: true,
+			speed: 300,
+			slidesToShow: 1,
+			autoplay: true,
+			adaptiveHeight: true,
+			appendArrows: false,
+
+		});
+
 
 	/////////////////////////////////////////
 
@@ -155,12 +254,12 @@
 	var priceSlider = document.getElementById('price-slider');
 	if (priceSlider) {
 		noUiSlider.create(priceSlider, {
-			start: [1, 999],
+			start: [1, 100000],
 			connect: true,
 			step: 1,
 			range: {
 				'min': 1,
-				'max': 999
+				'max': 100000
 			}
 		});
 
@@ -194,6 +293,11 @@ setTimeout(function() {
 setTimeout(function() {
     $('.insert_error').slideUp(1000);
  },3000);
+
+
+
+
+
 
 
 

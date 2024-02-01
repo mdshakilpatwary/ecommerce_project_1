@@ -41,7 +41,9 @@ class ShoppingCart extends Controller
         cartArray();
         return redirect()->back();
     }
-
+    public function cartViewList(){
+        return view('frontend.page.cart_view');
+    }
     public function addToCartDelete($id){
         
         Cart::remove($id);

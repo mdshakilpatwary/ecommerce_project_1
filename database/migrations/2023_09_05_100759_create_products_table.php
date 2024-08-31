@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('p_description');
             $table->text('p_details')->nullable();
             $table->float('p_price');
+            $table->float('p_sale_price');
             $table->integer('discount_percentage')->nullable();            
             $table->integer('p_qty');
             $table->integer('p_qty_total')->default(0);

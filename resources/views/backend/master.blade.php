@@ -1,4 +1,3 @@
-@include('backend.includes.head')
 <?php
 $id = 1;
  $siteInfo= App\Models\SiteInfo::find($id);

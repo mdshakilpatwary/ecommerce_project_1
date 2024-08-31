@@ -89,7 +89,7 @@ use App\Models\ProductReview;
 								</div>
 							</div>
 							<div>
-								<h3 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h3>
+								<h3 class="product-price">&#2547;{{$product->p_sale_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h3>
 								@if($product->p_qty != 0)
 								<span class="product-available">In Stock</span>
 								@endif

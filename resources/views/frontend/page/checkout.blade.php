@@ -203,52 +203,6 @@ $shipping_charge =IncludeAnother::findOrFail(1);
 
 @section('customeJavascripti')
 
-<script>
-	$(document).ready(function(){
-		$("#inside-dhaka").prop( "checked", false ) ;
-		$("#outside-dhaka").prop( "checked", false ) ;
-
-
-	$('#inside-dhaka, #outside-dhaka').click(function(){
-		if ($('#inside-dhaka').prop('checked') == true) {
-			$.ajax({
-				url: "{{url('/select/shipping/charge')}}",
-                type: 'get',
-				dataType: "json",
-                success: function(response_s) {
-					if(response_s.inside_dhaka ==null || response_s.inside_dhaka == 0){
-					$('#shipping_charge').html('<strong>Free</strong>');
-					}else{
-						$('#shipping_charge').html('<strong>&#2547;'+response_s.inside_dhaka +'</strong>');
-					}
-					$('#checkout-page-order-total').text(response_s.cart_total + response_s.inside_dhaka);
-
-					
-				}
-			});
-		} 
-		else if ($('#outside-dhaka').prop('checked') == true) {
-			$.ajax({
-				url: "{{url('/select/shipping/charge')}}",
-                type: 'get',
-				dataType: "json",
-                success: function(response_s) {
-					if(response_s.outside_dhaka == null || response_s.outside_dhaka == 0){
-					$('#shipping_charge').html('<strong>Free</strong>');
-					}else{
-						$('#shipping_charge').html('<strong>&#2547;'+response_s.outside_dhaka +'</strong>');
-
-					}
-					$('#checkout-page-order-total').text(response_s.cart_total + response_s.outside_dhaka);
-
-					
-				}
-			});
-		}
-	});
-
-});
-</script>
 @endsection
 
 

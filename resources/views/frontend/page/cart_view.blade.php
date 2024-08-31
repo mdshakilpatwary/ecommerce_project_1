@@ -74,9 +74,9 @@ $cartArray =cartArray();
                                 <td style="vertical-align: middle; width:90px;">
                                     
                                     <div class="input-number">
-										<input type="number" name="quantity" class="quantity" value="{{$cartdata['qty']}}">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
+										<input type="number" name="quantity" class="quantity cart_qty_update" value="{{$cartdata['qty']}}" data-id="{{$cartdata['rowId']}}">
+										<span  class="qty-up cart_qty_update" >+</span>
+										<span class="qty-down cart_qty_update">-</span>
 									</div>
                                 </td>
                                 <td style="vertical-align: middle;">&#2547;{{$cartdata['price']}}</td>
@@ -92,7 +92,7 @@ $cartArray =cartArray();
                             <th colspan="5" class="text-right"><small>{{count($cartArray)}} Item(s) selected</small>
                             </th>
                             <th><b>Total :</b></th>
-                            <th>&#2547;{{Cart::subtotal()}}</th>
+                            <th>&#2547;<span id="cart_total_update">{{Cart::subtotal()}}</span></th>
                             <th></th>
                         </tr>
                     </tfoot>

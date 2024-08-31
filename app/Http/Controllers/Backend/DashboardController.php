@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\SiteInfo;
 use File;
 use Image;
+use DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
 
@@ -27,19 +31,56 @@ class DashboardController extends Controller
     
             }) ;
         }
+
+    // Dashboard manage method 
     function index(){
+        $customer = User::Where('role', 'User')->get();
+        $products = Product::Where('Status',1)->get();
+        $order = Order::all();
+        $total_income = Order::sum('total');
+        // weekly income 
+        $startOfWeek = now()->startOfWeek()->format('Y-m-d H:i:s');
+        $endOfWeek = now()->endOfWeek()->format('Y-m-d H:i:s');
+        $totalIncomeWeek  = Order::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total');
+        // monthly income 
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+        $totalIncomeCurrentMonth = Order::whereBetween('created_at', [$startDate, $endDate])->sum('total');
+        // yearly income 
+        $startYear = Carbon::now()->startOfYear();
+        $endYear = Carbon::now()->endOfYear();
+        $totalIncomeCurrentYear = Order::whereBetween('created_at', [$startYear, $endYear])->sum('total');
+        $highestOrder = Order::min('total');
+        // monthwise heigh order 
+        $highestIncomes = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('MIN(total) as total')
+        )->whereYear('created_at', now()->year)->groupBy(DB::raw('MONTH(created_at)'))->get();
+        // monthwise total order 
+        $totalIncomesmonthwise = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('SUM(total) as total')
+        )->whereYear('created_at', now()->year)->groupBy(DB::raw('MONTH(created_at)'))->get();
 
-        return view('backend.dashboard');
+        // monthwise Lowest order 
+        $lowestIncomes = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('MAX(total) as total')
+        )
+        ->whereYear('created_at', now()->year)
+        ->groupBy(DB::raw('MONTH(created_at)'))->get();
+
+        return view('backend.dashboard',compact('customer','products','order','total_income','totalIncomeWeek','totalIncomeCurrentMonth','totalIncomeCurrentYear','highestIncomes','lowestIncomes','highestOrder','totalIncomesmonthwise'));
 
     }
-function profile(){
-    if (is_null($this->p_user) || !$this->p_user->can('profile.view')) {
-        abort(403, 'Sorry !! You are Unauthorized to create any role !');
+    function profile(){
+        if (is_null($this->p_user) || !$this->p_user->can('profile.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any role !');
+        }
+        $id = 1;
+        $siteInfo = SiteInfo::find($id);
+        return view('backend.info.profile', compact('siteInfo'));
     }
-    $id = 1;
-    $siteInfo = SiteInfo::find($id);
-    return view('backend.info.profile', compact('siteInfo'));
-}
     public function logout(Request $request){
         Auth::guard('web')->logout();
 

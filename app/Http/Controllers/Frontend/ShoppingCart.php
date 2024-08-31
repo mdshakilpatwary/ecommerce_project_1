@@ -27,7 +27,7 @@ class ShoppingCart extends Controller
         $data = [
             'id' => $product->id,
             'name' => $product->p_name,
-            'price' => $product->p_price-($product->p_price*($product->discount_percentage/100)),
+            'price' => $product->p_sale_price,
             'qty' => $quantity,
             'options' => [
                 'p_image' => $product->p_image,
@@ -49,5 +49,26 @@ class ShoppingCart extends Controller
         Cart::remove($id);
         return redirect()->back();
   
-}
+    }
+    public function addToCartUpdate(Request $request,$id){
+        $cart_qty_val = $request->cart_qty_val;
+       
+        
+        $data = [
+            'qty' => $cart_qty_val,
+            
+        ];
+        Cart::update($id, $data);
+
+        $cart_total_update =Cart::subtotal();
+        
+        return response()->json([
+            'cart_total_update' => $cart_total_update,
+            
+           
+        ]);
+  
+    }
+
+
 }

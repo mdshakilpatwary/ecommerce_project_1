@@ -26,6 +26,7 @@ class Product extends Model
         'p_description',
         'p_image',
         'p_price',
+        'p_sale_price',
         'group_p_image',
         'p_slug',
         'status',

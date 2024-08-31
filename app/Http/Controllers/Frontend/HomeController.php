@@ -33,7 +33,6 @@ class HomeController extends Controller
 
         return view('frontend.dashboard', compact('orderData'));
 
-
     }
     // invoice 
 
@@ -112,6 +111,8 @@ class HomeController extends Controller
 
         }
 
+
+  
 
 
 

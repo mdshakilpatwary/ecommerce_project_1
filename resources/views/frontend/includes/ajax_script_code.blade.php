@@ -262,4 +262,84 @@ $('.sort_by_price_low').on('click', function() {
 
 // ajax end 
 
+
+// Cart list update part start
+$(document).ready(function(){
+        $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+
+
+		     $('.cart_qty_update').on('change',function(){
+				 let cart_data_id = $(this).data('id');
+				 let cart_qty_val = $(this).val();
+				 
+				 
+                //  let right_value = $('#price-max').val();
+               $.ajax({
+                   url:"{{ url('/product/add-to-cart-update') }}"+ cart_data_id,
+                   method:"POST",
+                   data:{cart_qty_val:cart_qty_val},
+                   success:function(res){
+					$('#cart_total_update').text(res.cart_total_update);
+                   }
+               });
+           });
+
+
+
+	  
+});
+
+
+// Cart list update part end
+//  shipping charge add start
+$(document).ready(function(){
+		$("#inside-dhaka").prop( "checked", false ) ;
+		$("#outside-dhaka").prop( "checked", false ) ;
+
+
+	$('#inside-dhaka, #outside-dhaka').click(function(){
+		if ($('#inside-dhaka').prop('checked') == true) {
+			$.ajax({
+				url: "{{ url('/select/shipping/charge') }}",
+                type: 'get',
+				dataType: "json",
+                success: function(response_s) {
+					if(response_s.inside_dhaka ==null || response_s.inside_dhaka == 0){
+					$('#shipping_charge').html('<strong>Free</strong>');
+					}else{
+						$('#shipping_charge').html('<strong>&#2547;'+response_s.inside_dhaka +'</strong>');
+					}
+					$('#checkout-page-order-total').text(response_s.cart_total + response_s.inside_dhaka);
+
+					
+				}
+			});
+		} 
+		else if ($('#outside-dhaka').prop('checked') == true) {
+			$.ajax({
+				url: "{{ url('/select/shipping/charge') }}",
+                type: 'get',
+				dataType: "json",
+                success: function(response_s) {
+					if(response_s.outside_dhaka == null || response_s.outside_dhaka == 0){
+					$('#shipping_charge').html('<strong>Free</strong>');
+					}else{
+						$('#shipping_charge').html('<strong>&#2547;'+response_s.outside_dhaka +'</strong>');
+
+					}
+					$('#checkout-page-order-total').text(response_s.cart_total + response_s.outside_dhaka);
+
+					
+				}
+			});
+		}
+	});
+
+});
+//  shipping charge add end
+
 </script>

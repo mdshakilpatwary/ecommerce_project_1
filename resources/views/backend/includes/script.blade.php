@@ -19,8 +19,6 @@ use App\Models\User;
   <script src="{{asset('backend')}}/assets/js/page/datatables.js"></script>
   <!-- JS Libraies -->
   <script src="{{asset('backend')}}/assets/bundles/apexcharts/apexcharts.min.js"></script>
-  <!-- Page Specific JS File -->
-  <script src="{{asset('backend')}}/assets/js/page/index.js"></script>
   <!-- Template JS File -->
   <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
   <!-- jquery plugin JS File -->
@@ -53,73 +51,15 @@ use App\Models\User;
   <script>
     const product_sizes_2 = $('#product-sizes-2').filterMultiSelect();
   </script>
-  <script>
-    const role_permission = $('#permission').filterMultiSelect();
-  </script>
 
-    {{-- role and permission  --}}
+@yield('dashboard_cart_js')
+@yield('role_and_parmission_js')
 
-
-<script>
-  /**
-       * Check all the permissions
-       */
-       $("#checkPermissionAll").click(function(){
-           if($(this).is(':checked')){
-               // check all the checkbox
-               $('input[type=checkbox]').prop('checked', true);
-           }else{
-               // un check all the checkbox
-               $('input[type=checkbox]').prop('checked', false);
-           }
-       });
-
-       function checkPermissionByGroup(className, checkThis){
-          const groupIdName = $("#"+checkThis.id);
-          const classCheckBox = $('.'+className+' input');
-
-          if(groupIdName.is(':checked')){
-               classCheckBox.prop('checked', true);
-           }else{
-               classCheckBox.prop('checked', false);
-           }
-          implementAllChecked();
-       }
-
-       function checkSinglePermission(groupClassName, groupID, countTotalPermission) {
-          const classCheckbox = $('.'+groupClassName+ ' input');
-          const groupIDCheckBox = $("#"+groupID);
-
-          // if there is any occurance where something is not selected then make selected = false
-          if($('.'+groupClassName+ ' input:checked').length == countTotalPermission){
-              groupIDCheckBox.prop('checked', true);
-          }else{
-              groupIDCheckBox.prop('checked', false);
-          }
-          implementAllChecked();
-       }
-
-       function implementAllChecked() {
-           const countPermissions = {{ count($all_permissions) }};
-           const countPermissionGroups = {{ count($permission_groups) }};
-
-          //  console.log((countPermissions + countPermissionGroups));
-          //  console.log($('input[type="checkbox"]:checked').length);
-
-           if($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroups)){
-              $("#checkPermissionAll").prop('checked', true);
-          }else{
-              $("#checkPermissionAll").prop('checked', false);
-          }
-       }
-
-
-</script>
 
 
 
 </body>
 
 
-<!-- index.html  21 Nov 2019 03:47:04 GMT -->
+<!-- Alright reserve by developer Sakil Patwary-2023 -->
 </html>

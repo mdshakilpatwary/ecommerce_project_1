@@ -51,6 +51,8 @@ Route::get('/offer/content/duration', [HomeController::class, 'durationset'])->n
 Route::post('/product/add-to-cart', [ShoppingCart::class, 'addToCart'])->name('product.add_to_cart');
 Route::get('/product/cart-view-list', [ShoppingCart::class, 'cartViewList'])->name('product.cart.view');
 Route::get('/product/add-to-cart-delete/{id}', [ShoppingCart::class, 'addToCartDelete'])->name('product.add_to_cart-delete');
+Route::POST('/product/add-to-cart-update{id}', [ShoppingCart::class, 'addToCartUpdate'])->name('product.add_to_cart-Update');
+
 // social login route 
 
 Route::get('/socialite/create', [SocialController::class, 'create'])->name('socialite.create');

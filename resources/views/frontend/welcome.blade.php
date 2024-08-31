@@ -98,7 +98,7 @@ use Carbon\Carbon;
 												
 												<p class="product-category">{{$product->category->cat_name}}</p>
 												<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{ Illuminate\Support\Str::limit($product->p_name,50,'....')}}</a></h3>
-												<h4 class="product-price" style="padding: 3px 0;">	&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))  }}<del class="product-old-price">	&#2547;{{$product->p_price}}</del></h4>
+												<h4 class="product-price" style="padding: 3px 0;">	&#2547;{{$product->p_sale_price}}<del class="product-old-price">	&#2547;{{$product->p_price}}</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -340,7 +340,7 @@ use Carbon\Carbon;
 											<div class="product-body">
 												<p class="product-category">{{$product->category->cat_name}}</p>
 												<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{ Illuminate\Support\Str::limit($product->p_name,50,'....')}}</a></h3>
-												<h4 class="product-price" style="padding: 5px 0;">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+												<h4 class="product-price" style="padding: 5px 0;">&#2547;{{$product->p_sale_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -413,10 +413,10 @@ use Carbon\Carbon;
 						</div>
 
 						<div class="products-widget-slick" data-nav="#slick-nav-3">
+							@foreach($topProducts as $product)
 							<div>
 								<!-- product widget -->
-								@foreach($topProducts as $product)
-								@if ($loop->iteration <= 3)
+		
 								<div class="product-widget">
 									<div class="product-img">
 										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
@@ -424,53 +424,30 @@ use Carbon\Carbon;
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_sale_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
-								@endif
-								@endforeach
 								<!-- /product widget -->
-
-
+								
+								
 							</div>
+							@endforeach
 
-							<div>
-								<!-- product widget -->
-								@foreach($topProducts as $product)
-								@if ($loop->iteration <= 3)
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">{{$product->category->cat_name}}</p>
-										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-									</div>
-								</div>
-								@endif
-								@endforeach
-								<!-- /product widget -->
-
-	
-	
-							</div>
 						</div>
 					</div>
 
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title">Selling</h4>
+							<h4 class="title">Latest Product</h4>
 							<div class="section-nav">
 								<div id="slick-nav-4" class="products-slick-nav"></div>
 							</div>
 						</div>
 
 						<div class="products-widget-slick" data-nav="#slick-nav-4">
-							<div>
-								<!-- product widget -->
-								@foreach($topProducts as $product)
-								@if ($loop->iteration <= 3)
+							<!-- product widget -->
+							@foreach($products as $product)
+							<div >
 								<div class="product-widget">
 									<div class="product-img">
 										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
@@ -478,37 +455,13 @@ use Carbon\Carbon;
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_sale_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
-								@endif
+							</div>
 								@endforeach
 								<!-- /product widget -->
 
-
-							</div>
-
-							<div>
-								<!-- product widget -->
-								@foreach($topProducts as $product)
-								@if ($loop->iteration <= 3)
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">{{$product->category->cat_name}}</p>
-										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-									</div>
-								</div>
-								@endif
-								@endforeach
-								<!-- /product widget -->
-
-	
-	
-							</div>
 						</div>
 					</div>
 
@@ -523,10 +476,9 @@ use Carbon\Carbon;
 						</div>
 
 						<div class="products-widget-slick" data-nav="#slick-nav-5">
+							<!-- product widget -->
+							@foreach($topProducts as $product)
 							<div>
-								<!-- product widget -->
-								@foreach($products as $product)
-								@if ($loop->iteration <= 3)
 								<div class="product-widget">
 									<div class="product-img">
 										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
@@ -534,37 +486,13 @@ use Carbon\Carbon;
 									<div class="product-body">
 										<p class="product-category">{{$product->category->cat_name}}</p>
 										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
+										<h4 class="product-price">&#2547;{{$product->p_sale_price}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
 									</div>
 								</div>
-								@endif
+							</div>
 								@endforeach
 								<!-- /product widget -->
 
-
-							</div>
-
-							<div>
-								<!-- product widget -->
-								@foreach($products as $product)
-								@if ($loop->iteration <= 3)
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="{{asset('uploads/product/'.$product->p_image)}}" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">{{$product->category->cat_name}}</p>
-										<h3 class="product-name"><a href="{{route('single.product',$product->id)}}">{{$product->p_name}}</a></h3>
-										<h4 class="product-price">&#2547;{{$product->p_price -($product->p_price*($product->discount_percentage/100))}} <del class="product-old-price">&#2547;{{$product->p_price}}</del></h4>
-									</div>
-								</div>
-								@endif
-								@endforeach
-								<!-- /product widget -->
-
-	
-	
-							</div>
 						</div>
 					</div>
 

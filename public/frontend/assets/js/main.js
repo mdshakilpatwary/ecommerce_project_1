@@ -139,6 +139,8 @@
 			infinite: true,
 			vertical: true,
 			autoplay: true,
+			slidesToShow: 2,
+			slidesToScroll: 1,			
 			speed: 300,
 			dots: false,
 			arrows: true,

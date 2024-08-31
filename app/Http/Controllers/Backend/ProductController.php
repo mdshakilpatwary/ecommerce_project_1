@@ -106,6 +106,7 @@ function store(Request $request){
     $product->p_description = $request->p_desc;
     $product->p_price = $request->p_price;
     $product->discount_percentage = $request->discount_percentage;
+    $product->p_sale_price = $request->p_price -($request->p_price*($request->discount_percentage/100));
     $product->p_qty = $request->p_qty;
     $product->p_qty_total = $request->p_qty;
 
@@ -258,6 +259,7 @@ function show(){
         $product->p_description = $request->p_desc;
         $product->p_price = $request->p_price;
         $product->discount_percentage = $request->discount_percentage;
+        $product->p_sale_price = $request->p_price -($request->p_price*($request->discount_percentage/100));
         $product->p_qty = $request->p_qty;
         
         if($request->p_qty_check > $request->p_qty){
